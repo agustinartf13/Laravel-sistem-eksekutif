@@ -1,0 +1,66 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+# route admin group
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::get("/api/user", "UserController@apiuser")->name("api.user");
+    Route::resource('user', 'UserController');
+
+    Route::get("/api/motor", "MotorController@apimotor")->name("api.motor");
+    Route::get("/motor/{id}/edit", "MotorController@edit")->name("motor.edit");
+    Route::post("/motor/update", "MotorController@update")->name("motor.update");
+    Route::resource('motor', 'MotorController');
+
+    Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
+    Route::resource('mekanik', 'MekanikController');
+
+    Route::get("/api/categories", "CategoryController@apicategories")->name("api.categories");
+    Route::get("/categories/{id}/edit", "CategoryController@edit")->name("categories.edit");
+    Route::resource('categories', 'CategoryController');
+
+    Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
+    Route::resource('barang', 'BarangController');
+
+    Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
+    Route::resource('supplier', 'SupplierController');
+
+    Route::get("/pembelian/{id}/invoice", "PembelianController@invoice")->name("pembelian.invoice");
+    Route::get("/pembelian/{id}/invoice-print", "PembelianController@invoicePrint")->name("pembelian.invoiceprint");
+    Route::get("/api/pembelian", "PembelianController@apipembelian")->name("api.pembelian");
+    Route::resource('pembelian', 'PembelianController');
+
+    Route::get("/api/penjualan", "PenjualanController@apipenjualan")->name("api.penjualan");
+    Route::resource('penjualan', 'PenjualanController');
+
+    Route::resource('d_service', 'ServiceController');
+});
+
+# route toplevel group
+Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Toplevel', 'middleware' => ['auth', 'toplevel']], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+# route operator group
+Route::group(['as' => 'operator.', 'prefix' => 'operator', 'namespace' => 'Operator', 'middleware' => ['auth', 'operator']], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
