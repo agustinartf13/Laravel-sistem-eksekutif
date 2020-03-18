@@ -21,7 +21,7 @@ class CreatePembeliansTable extends Migration
             $table->integer('total_harga');
             $table->enum('status', ['PROCESS', 'FINISH', 'CANCEL']);
             $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('updated_by')->unsigned();
 
             $table->timestamps();
 

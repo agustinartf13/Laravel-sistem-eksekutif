@@ -15,7 +15,19 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('mekanik_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('invocie_number');
+            $table->date('tanggal_servis');
+            $table->string('customer_servis');
+            $table->enum('status', ["CHECKING", "SERVICE", "FINISH"]);
+
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
+
+            $table->foreign('mekanik_id')->references('id')->on('mekaniks');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
