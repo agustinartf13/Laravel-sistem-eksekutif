@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('invocie_number');
             $table->date('tanggal_servis');
+            $table->string('no_polis');
             $table->string('customer_servis');
             $table->enum('status', ["CHECKING", "SERVICE", "FINISH"]);
 

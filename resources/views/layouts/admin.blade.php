@@ -147,7 +147,7 @@
             </a>
         </li>
         <li>
-            <a href="{{route('admin.d_service.index')}}" class="waves-effect">
+            <a href="{{route('admin.servis.index')}}" class="waves-effect">
                 <i class="mdi mdi-file-document-box"></i><span> Service Motor </span>
             </a>
         </li>

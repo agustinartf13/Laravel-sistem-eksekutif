@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Barang;
 use App\Http\Controllers\Controller;
+use App\Mekanik;
+use App\Motor;
+use App\User;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -14,7 +18,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.admin.servis.index');
     }
 
     /**
@@ -24,7 +28,14 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $users = User::all();
+        $mekaniks = Mekanik::all();
+        $motors = Motor::all();
+        return view('pages.admin.servis.create', [
+            'barangs' => $barangs, 'users' => $users,
+            'mekaniks' => $mekaniks, 'motors' => $motors
+        ]);
     }
 
     /**

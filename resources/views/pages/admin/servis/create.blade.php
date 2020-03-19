@@ -1,0 +1,265 @@
+@extends('layouts.admin')
+@section('title')
+
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Add Data Users</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
+                <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                <li class="breadcrumb-item active">Data Table</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<div class="page-content-wrapper">
+    <div class="row">
+        <div class="col-lg">
+            <div class="card m-b-20">
+                <div class="card-body">
+                    <h4 class="mt-0"><i class="mdi mdi-settings"></i> Add Service</h4>
+
+                    <br>
+                    <form action="{{route('admin.servis.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mt-4">
+                            <div class="col-4">
+                                <label for="Username">Mekanik</label>
+                                <select name="name_mekanik" id="mekanik" class="form-control select2">
+                                    <option value="">Select Mekanik</option>
+                                    @foreach ($mekaniks as $mekanik)
+                                        <option value="{{$mekanik->id}}">{{$mekanik->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{$errors->first('mekanik')}}
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="Name">Operator</label>
+                               <select name="name_operator" id="operator" class="form-control select2">
+                                   <option value="">Select Operator</option>
+                                   @foreach ($users as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                   @endforeach
+                               </select>
+                                <div class="invalid-feedback">
+                                    {{$errors->first('name')}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row mt-5">
+                            <div class="col">
+                                <label for="">Date:</label>
+                                <input type="text" id="datepicker" name="tanggl_transaksi"
+                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
+                                    placeholder="Tanggal Transaksi" value="{{old('tanggal_transaksi')}}">
+                                <div class="invalid-feedback">
+                                    {{$errors->first('tanggal_transaksi')}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="Email">Customer Name</label>
+                                <input type="text" name="name_customer"
+                                    class="form-control {{$errors->first('customer_name') ? "is-invalid" : ""}}"
+                                    placeholder="Customer Name" value="">
+                                <div class="invalid-feedback">
+                                    {{$errors->first('customer_name')}}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="NoTelphone">No Polis</label>
+                                <input type="text" name="no_polis"
+                                    class="form-control {{$errors->first('no_polis') ? "is-invalid" : ""}}"
+                                    placeholder="No Polis" value="">
+                                <div class="invalid-feedback">
+                                    {{$errors->first('no_polis')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="">Motor</label>
+                                <select name="motor_id" id="motor" class="form-control select2">
+                                    <option value="">Select Motor</option>
+                                    @foreach ($motors as $motor)
+                                        <option value="{{$motor->id}}">{{$motor->name}} || {{$motor->tipe_motor}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="keluhan">Keluhan</label>
+                                <textarea name="keluhan" id="" cols="10" rows="5" class="form-control"></textarea>
+                                <div class="invalid-feedback">
+                                    {{$errors->first('Password')}}
+                                </div>
+                            </div>
+                            <div class="flex col">
+                                <div class="col">
+                                    <label for="">KM/ Datang</label>
+                                    <input type="text" name="km_datang"
+                                        class="form-control {{$errors->first('km_datang') ? "is-invalid" : ""}}"
+                                        placeholder="Km Datang" value="">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('km_datang')}}
+                                    </div>
+                                </div>
+                                <div class="col mt-3">
+                                    <label class="">Tipe Service</label>
+                                    <select class="form-control select2 {{$errors->first('tipe_service') ? "is-invalid" : ""}}" name="role"
+                                        value="">
+                                        <option value="">Select Servise</option>
+                                        <option value="">BERAT</option>
+                                        <option value="">RINGAN</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('tipe_service')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label>Time service</label>
+                                <input type="time" class="form-control" name="time" value="">
+                            </div>
+                            <div class="col">
+                                <label for="">Harga Jasa</label>
+                                <input type="text" class="form-control" name="harga_jasa" value=""
+                                placeholder="Harga Jasa">
+                            </div>
+                            <div class="col">
+                                <label class="control-label">Status</label>
+                                <select class="form-control select2 {{$errors->first('status') ? "is-invalid" : ""}}"
+                                    name="status">
+                                    <option value="" selected>CHECKING</option>
+                                    <option value="">SERVICE</option>
+                                    <option value="">FINISH</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{$errors->first('status')}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div id="appendBarang">
+                            <div class="row" id="barang">
+                                <div class="col mt-2">
+                                    <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
+                                    class="fa fa-plus mr-2"></i> Add Barang</a>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+
+                                <div class="col-8">
+                                    <select
+                                        class="form-control select2 {{$errors->first("name_barang[]") ? "is-invalid" : ""}}"
+                                        name="barang[]" id="barang[]">
+                                        <option value="">Select Barang</option>
+                                        @foreach ($barangs as $barang)
+                                        <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {{$errors->first("name_barang")}}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="text" name="qty[]" id="qty_b"
+                                        class="form-control {{$errors->first("qty") ? "is-invalid" : ""}}"
+                                        placeholder="Jumlah">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first("qty")}}
+                                    </div>
+                                </div>
+                                <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mt-3">
+                            <div>
+                                <button type="submit" class="btn btn-success waves-effect waves-light btn-flat">
+                                    Submit
+                                </button>
+                                <a href="{{route('admin.servis.index')}}" class="btn btn-secondary waves-effect btn-flat">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+        @endsection
+
+        @section('js')
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                // form add barang
+                $('#add_form').click(function (event) {
+                    event.preventDefault();
+                    var appendBarang = $('#appendBarang')
+                    var appendBarangDetail = `
+                    <div class="row mt-4" id="barang">
+                    <div class="col-8">
+                    <select class="form-control select2 {{$errors->first("barang_id") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
+                        <option value="">Select Barang</option>
+
+                    </select>
+                        <div class="invalid-feedback">
+                            {{$errors->first("categories_id")}}
+                        </div>
+                    </div>
+                <div class="col">
+                    <input type="text" name="qty[]" id="qty_b" class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}" placeholder="Jumlah" value="{{old("qty")}}">
+                    <div class="invalid-feedback">
+                    {{$errors->first("qty")}}
+                    </div>
+                </div>
+                <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                </div>
+                </div>`
+                    $('#appendBarang').append(appendBarangDetail)
+                    $('.select2').select2();
+
+                    btn_remove = $('#btn_remove')
+                    appendBarang.on('click', '#btn_remove', function (event) {
+                        event.preventDefault()
+                        if (event.type == 'click') {
+                            $(this).parents("#barang").remove();
+                        }
+                    })
+                });
+
+                //addClass UI
+                $('.select2').select2();
+                $('#datepicker').datepicker({
+                    autoclose: true,
+                    setDate: new Date()
+                })
+                $("#datepicker").datepicker().datepicker("setDate", new Date());
+
+            });
+        </script>
+        @endsection

@@ -52,7 +52,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/penjualan", "PenjualanController@apipenjualan")->name("api.penjualan");
     Route::resource('penjualan', 'PenjualanController');
 
-    Route::resource('d_service', 'ServiceController');
+    Route::resource('servis', 'ServiceController');
 });
 
 # route toplevel group
