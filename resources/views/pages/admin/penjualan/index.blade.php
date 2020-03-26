@@ -111,6 +111,54 @@
                     }
                 ]
             });
+
+             // load id motor for delete
+             $(document).on('click', '#delete', function (event) {
+                var penjualanId = $(this).data('id');
+                SwalDelete(penjualanId);
+                event.preventDefault();
+            });
+
         });
+
+         // delete action
+         function SwalDelete(penjualanId) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: 'it will be deleted permanently!',
+                type: 'warning',
+                showCancelButton: true,
+                confrimButtonColor: '#3058d0',
+                cancelButtonColor: '#d33',
+                confrimButtonText: 'Yes, delete it!',
+                showLoaderOnConfrim: true,
+
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.ajax({
+                                url: "{{ url('admin/penjualan') }}" + '/' + penjualanId,
+                                type: "DELETE",
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': csrf_token
+                                },
+                            })
+                            .done(function (response) {
+                                swal('Deleted!', response.message, response.status);
+                                readMotor();
+                            })
+                            .fail(function () {
+                                swal('Oops...', 'Something want worng with ajax!', 'error');
+                            });
+                    });
+                },
+                allowOutsideClick: false
+            });
+
+            function readMotor() {
+                $('#datatable').DataTable().ajax.reload();
+            }
+        }
     </script>
     @endsection

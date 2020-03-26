@@ -64,7 +64,6 @@
                                 </div>
                             </div>
                             <div class="row mt-4">
-
                                 <div class="col">
                                     <select
                                         class="form-control select2 {{$errors->first("name_barang[]") ? "is-invalid" : ""}}"

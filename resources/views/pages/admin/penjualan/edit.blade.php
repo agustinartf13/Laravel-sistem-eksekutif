@@ -21,13 +21,6 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <h4 class="mt-0"><i class="fa fa-cart-plus"></i> Edit Penjualan</h4>
                     <hr>
                     @if (session("status"))
@@ -37,15 +30,20 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <form id="add_barang" action="{{route('admin.penjualan.store')}}" method="POST"
+                    <form id="add_barang" action="{{route('admin.penjualan.update', $penjualan->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
+                        <input type="hidden" value="PUT" name="_method">
                         <div class="row mt-4">
                             <div class="col">
+                                @php
+                                $tanggal_transaksi = date('m/d/Y', strtotime($penjualan->tanggal_transaksi));
+                                @endphp
                                 <label for="">Date:</label>
                                 <input type="text" id="datepicker" name="tanggl_transaksi"
                                     class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
-                                    placeholder="Tanggal Transaksi" value="{{old('tanggal_transaksi')}}">
+                                    placeholder="Tanggal Transaksi" value="{{$penjualan->tanggal_transaksi}}">
                                 <div class="invalid-feedback">
                                     {{$errors->first('tanggal_transaksi')}}
                                 </div>
@@ -54,54 +52,56 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Customer</label>
-                                <input type="text" class="form-control {{$errors->first('name_pembeli') ? "is-invalid" : ""}}" placeholder="Name Pembeli"
-                                name="name_pembeli">
+                                <input type="text"
+                                    class="form-control {{$errors->first('name_pembeli') ? "is-invalid" : ""}}"
+                                    placeholder="Name Pembeli" name="name_pembeli" value="{{$penjualan->name_pembeli}}">
                                 <div class="invalid-feedback">
                                     {{$errors->first("name_pembeli")}}
                                 </div>
                             </div>
                         </div>
 
-                        <div id="appendBarang">
-                            <div class="row" id="barang">
-                                <div class="col mt-4">
-                                    <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                    class="fa fa-plus mr-2"></i> Add Barang</a>
-                                </div>
+                        <div class="row" id="barang">
+                            <div class="col mt-4">
+                                <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
+                                class="fa fa-plus mr-2"></i> Add Barang</a>
                             </div>
-                            <div class="row mt-4">
+                        </div>
 
+                        <div id="appendBarang">
+                            @foreach ($penjualan->dtlpenjualans as $value)
+                            <div class="row mt-4">
                                 <div class="col">
+                                    <label for="">Name Barang</label>
                                     <select
                                         class="form-control select2 {{$errors->first("barang") ? "is-invalid" : ""}}"
                                         name="barang[]" id="barang[]" value="{{old("barang")}}">
-                                        <option value="">Select Barang</option>
-                                        @foreach ($barangs as $barang)
-                                            <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
-                                        @endforeach
+                                            @foreach ($barangs as $barang)
+                                            <option value="{{$barang->id}}" {{$barang->id == $value->barang_id ? "selected" : ""}}>{{$barang->name_barang}}</option>
+                                            @endforeach
                                     </select>
                                     <div class="invalid-feedback">
                                         {{$errors->first("barang")}}
                                     </div>
                                 </div>
                                 <div class="col">
+                                    <label for="">Jumlah</label>
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}"
-                                        placeholder="Jumlah" value="{{old("qty")}}">
+                                        class="form-control flex {{$errors->first("qty") ? "is-invalid" : ""}}"
+                                        placeholder="Jumlah" value="{{$value->qty}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first("qty")}}
                                     </div>
                                 </div>
-                                <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
-                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
                             </div>
+                            @endforeach
                         </div>
                         <div class="form-group mt-3">
                             <div>
                                 <button type="submit" class="btn btn-success waves-effect waves-light btn-flat">
                                     Update
                                 </button>
-                                <a href="{{route('admin.pembelian.index')}}"
+                                <a href="{{route('admin.penjualan.index')}}"
                                     class="btn btn-secondary waves-effect btn-flat">
                                     Cancel
                                 </a>
@@ -126,23 +126,23 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 {{$errors->first("barang_id") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
-                <option value="">Select Barang</option>
+            <label for="">Name Barang</label>
+            <select class="form-control select2 {{$errors->first("") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
             </select>
                 <div class="invalid-feedback">
-                    {{$errors->first("categories_id")}}
+                    {{$errors->first("")}}
                 </div>
             </div>
         <div class="col">
+            <label for="">Jumlah</label>
             <input type="text" name="qty[]" id="qty_b" class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}" placeholder="Jumlah" value="{{old("qty")}}">
             <div class="invalid-feedback">
             {{$errors->first("qty")}}
             </div>
         </div>
-        <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
         </div>
         </div>`
             $('#appendBarang').append(appendBarangDetail)
@@ -161,10 +161,7 @@
         $('.select2').select2();
         $('#datepicker').datepicker({
             autoclose: true,
-            setDate: new Date()
         })
-        $("#datepicker").datepicker().datepicker("setDate", new Date());
-
     });
 </script>
 @endsection

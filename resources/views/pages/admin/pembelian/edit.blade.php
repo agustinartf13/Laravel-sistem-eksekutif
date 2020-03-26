@@ -44,7 +44,7 @@
                                     name="supplier" value="{{old("supplier")}}">
                                     <option value="">Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}" {{$pembelians->supplier_id == $supplier->id ? "selected" : ""}}>{{$supplier->name_supplier}}</option>
+                                        <option value="{{$supplier->id}}" {{$pembelians->supplier_id == $supplier->id ? "selected" : ""}}>{{$supplier->name_supplier}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -196,10 +196,7 @@
         $('.select2').select2();
         $('#datepicker').datepicker({
             autoclose: true,
-            setDate: new Date()
         })
-        $("#datepicker").datepicker().datepicker("setDate", new Date());
-
     });
 </script>
 @endsection

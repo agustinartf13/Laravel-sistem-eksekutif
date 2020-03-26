@@ -138,9 +138,10 @@ class PenjualanController extends Controller
      */
     public function edit($id)
     {
+        $penjualan = Penjualan::findOrFail($id);
         $barangs = Barang::all();
         return view('pages.admin.penjualan.edit', [
-            'barangs' => $barangs
+            'penjualan' => $penjualan, 'barangs' => $barangs
         ]);
     }
 
@@ -159,7 +160,6 @@ class PenjualanController extends Controller
         $penjualan->tanggal_transaksi =
             date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
 
-        $penjualan->status = $request->get('status');
         $penjualan->total_harga = 0;
         $penjualan->profit = 0;
         $penjualan->save();
@@ -205,7 +205,7 @@ class PenjualanController extends Controller
 
             $barang = BarangDetail::find($request->get('barang')[$key]);
             $detail_barang->harga_jual = $barang->harga_jual;
-            $detail_barang->harga_beli = $barang->harga_beli;
+            $detail_barang->harga_beli = $barang->harga_dasar;
             $detail_barang->save();
 
             $total_harga += $detail_barang->harga_jual * $detail_barang->qty;
@@ -235,6 +235,9 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $penjualan = Penjualan::findOrFail($id);
+        $penjualan->delete();
+
+        return response()->json(['status' => 'Penjualan deleted successfully']);
     }
 }

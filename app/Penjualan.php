@@ -24,6 +24,6 @@ class Penjualan extends Model
 
     public function dtlpenjualans()
     {
-        return $this->hasMany(DetailPenjualan::class, 'id');
+        return $this->hasMany(DetailPenjualan::class, 'penjualan_id');
     }
 }
