@@ -7,11 +7,11 @@ use App\BarangDetail;
 use App\Category;
 use App\DetailPembelian;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PembelianValidRequest;
 use App\Pembelian;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class PembelianController extends Controller
@@ -23,18 +23,21 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.pembelian.index');
+        $pembelian = Pembelian::with('supplier')->with('barang')->get();
+        return view('pages.admin.pembelian.index', [
+            'pembelians' => $pembelian
+        ]);
     }
 
     // api supplier get data
     public function apipembelian()
     {
-        $pembelian = Pembelian::with('supplier');
+        $pembelian = Pembelian::with('supplier')->with('barang')->get();
         return DataTables::of($pembelian)
             ->addColumn('action', function ($pembelian) {
                 return '' .
                     '<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> '.
+                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
                     '<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
     }
@@ -61,10 +64,12 @@ class PembelianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PembelianValidRequest $request)
     {
         $pembelian = new Pembelian;
         $pembelian->created_by = Auth::user()->id;
+        $pembelian->updated_by = Auth::user()->id;
+
         $pembelian->supplier_id = $request->get('supplier');
 
         $pembelian->tanggl_transaksi = date('Y-m-d', strtotime($request->get('tanggl_transaksi')));
@@ -138,7 +143,8 @@ class PembelianController extends Controller
         $categories = Category::all();
 
         return view(
-            'pages.admin.pembelian.edit', [
+            'pages.admin.pembelian.edit',
+            [
                 'pembelians' => $pembelians, 'barangs' => $barangs,
                 'suppliers' => $suppliers, 'categories' => $categories
             ]
@@ -178,11 +184,11 @@ class PembelianController extends Controller
 
         // hapus barang
         $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $pembelian_id)->get();
-        foreach ($detail_pembelian as $details_pembelian) {
-            $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $detail_pembelian->pembelian_id)
-                ->where('barang_id', '-', $details_pembelian->barang_id)
+        foreach ($detail_pembelian as $details) {
+            $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $details->pembelian_id)
+                ->where('barang_id', '-', $details->barang_id)
                 ->first();
-            $detail_pembelian->save();
+            $detail_pembelian->delete();
         }
 
         // update produk
@@ -248,6 +254,9 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $pembelian = Pembelian::findOrFail($id);
+        // $pembelian->delete();
+
+        // return response()->json(['status' => 'Pembelian deleted successfully']);
     }
 }

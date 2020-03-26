@@ -30,7 +30,7 @@ class MekanikController extends Controller
       {
           $mekanik = Mekanik::orderBy('id', 'DESC')->get();
           return DataTables::of($mekanik)->addColumn('action', function ($mekanik) {
-            return '<a href="' . route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) . '" class="btn btn-dark btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>'.
+            return '<a href="' . route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>'.
             '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$mekanik->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
           })->rawColumns(['action'])->make(true);
       }

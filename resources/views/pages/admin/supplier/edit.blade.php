@@ -23,6 +23,8 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Edit Supplier</h4>
+                    <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -30,35 +32,35 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title">Add Data</h4>
-                    <a href="{{route('admin.supplier.index')}}" class="btn btn-primary btn-flat" style="float: right"><i
-                            class="fas fa-reply mr-2"></i>Back</a>
-                    <br>
                     <form action="{{route('admin.supplier.update', $supplier->id)}}" method="POST"
                         class="shadow-sm bg-white p-3">
                         @csrf
                         @method('PUT')
-                        <div class="form-group mt-3">
-                            <label>Name Supplier</label>
-                            <input type="text" name="name_supplier"
-                                class="form-control {{$errors->first("name_supplier") ? "is-invalid" : ""}}"
-                                placeholder="Name Supplier"
-                                value="{{old("name_supplier") ? old("name_supplier") : $supplier->name_supplier}}" />
-                            <div class="invalid-feedback">
-                                {{$errors->first("name_supplier")}}
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label>Name Supplier</label>
+                                <input type="text" name="name_supplier"
+                                    class="form-control {{$errors->first("name_supplier") ? "is-invalid" : ""}}"
+                                    placeholder="Name Supplier"
+                                    value="{{old("name_supplier") ? old("name_supplier") : $supplier->name_supplier}}" />
+                                <div class="invalid-feedback">
+                                    {{$errors->first("name_supplier")}}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Email</label>
+                                <input type="text" name="email"
+                                    class="form-control {{$errors->first("email") ? "is-invalid" : ""}}" placeholder="Email"
+                                    value="{{old("email") ? old("email") : $supplier->email}}" />
+                                <div class="invalid-feedback">
+                                    {{$errors->first("email")}}
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group mt-3">
-                            <label>Email</label>
-                            <input type="text" name="email"
-                                class="form-control {{$errors->first("email") ? "is-invalid" : ""}}" placeholder="Email"
-                                value="{{old("email") ? old("email") : $supplier->email}}" />
-                            <div class="invalid-feedback">
-                                {{$errors->first("email")}}
-                            </div>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Perusahaan</label>
+
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label>Perusahaan</label>
                             <input type="text" name="perusahaan"
                                 class="form-control {{$errors->first("perusahaan") ? "is-invalid" : ""}}"
                                 placeholder="Perusahaan"
@@ -66,17 +68,19 @@
                             <div class="invalid-feedback">
                                 {{$errors->first("perusahaan")}}
                             </div>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Phone Number</label>
-                            <input type="text" name="no_telphone"
-                                class="form-control {{$errors->first("no_telphone") ? "is-invalid" : ""}}"
-                                placeholder="Phone Number"
-                                value="{{old("no_telphone") ? old("no_telphone") : $supplier->no_telphone}}" />
-                            <div class="invalid-feedback">
-                                {{$errors->first("no_telphone")}}
+                            </div>
+                            <div class="col">
+                                <label>Phone Number</label>
+                                <input type="text" name="no_telphone"
+                                    class="form-control {{$errors->first("no_telphone") ? "is-invalid" : ""}}"
+                                    placeholder="Phone Number"
+                                    value="{{old("no_telphone") ? old("no_telphone") : $supplier->no_telphone}}" />
+                                <div class="invalid-feedback">
+                                    {{$errors->first("no_telphone")}}
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group mt-3">
                             <label>Address</label>
                             <div>
@@ -119,7 +123,7 @@
                                 <button type="submit" class="btn btn-success waves-effect waves-light btn-flat">
                                     Update
                                 </button>
-                                <a href="{{route('admin.categories.index')}}"
+                                <a href="{{route('admin.supplier.index')}}"
                                     class="btn btn-secondary waves-effect btn-flat">
                                     Cancel
                                 </a>

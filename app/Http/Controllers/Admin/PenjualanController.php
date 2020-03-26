@@ -153,7 +153,78 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $penjualan = Penjualan::findOrFail($id);
+        $penjualan->name_pembeli = $request->get('name_pembeli');
+        $penjualan->updated_by = Auth::user()->id;
+        $penjualan->tanggal_transaksi =
+            date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
+
+        $penjualan->status = $request->get('status');
+        $penjualan->total_harga = 0;
+        $penjualan->profit = 0;
+        $penjualan->save();
+        $penjualan_id = $penjualan->id;
+
+        $total_harga = 0;
+        $profit = 0;
+
+        //kembalikan stock
+        $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)->get();
+        foreach($detail_barang as $details) {
+            $stock = BarangDetail::find($details->barang_id);
+            $stock->stock += $details->qty;
+            $stock->save();
+        }
+
+        // haus barang
+        $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)->get();
+        foreach ($detail_barang as $details) {
+            $detail_barang = DetailPenjualan::where('penjualan_id', '=', $details->penjualan_id)
+                ->where('barang_id', '=', $details->barang_id)
+                ->first();
+                $detail_barang->delete();
+        }
+
+        //update barang
+        foreach ($request->get('barang') as $key => $brg) {
+            $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)
+            ->where('barang_id', '=', $brg)
+            ->first();
+
+            if ($detail_barang != '') {
+                $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)
+                ->where('barang_id', '=', $brg)
+                ->first();
+            } else {
+                $detail_barang = new DetailPenjualan;
+                $detail_barang->penjualan_id = $penjualan_id;
+                $detail_barang->barang_id = $brg;
+            }
+
+            $detail_barang->qty = $request->get('qty')[$key];
+
+            $barang = BarangDetail::find($request->get('barang')[$key]);
+            $detail_barang->harga_jual = $barang->harga_jual;
+            $detail_barang->harga_beli = $barang->harga_beli;
+            $detail_barang->save();
+
+            $total_harga += $detail_barang->harga_jual * $detail_barang->qty;
+            $profit += ($detail_barang->harga_jual - $detail_barang->harga_beli) * $detail_barang->qty;
+
+            //update stock
+            $new_stock = BarangDetail::find($request->get('barang')[$key]);
+            $new_stock->stock -= $request->get('qty')[$key];
+            $new_stock->save();
+        }
+
+        $penjualan = Penjualan::find($penjualan_id);
+        $penjualan->total_harga = $total_harga;
+        $penjualan->profit = $profit;
+
+        $penjualan->save();
+
+        return redirect()->route('admin.penjualan.edit', $id)
+            ->with('status', 'Penjualan Sccessfully update' );
     }
 
     /**

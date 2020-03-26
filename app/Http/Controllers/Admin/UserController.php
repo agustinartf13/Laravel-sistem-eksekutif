@@ -35,10 +35,9 @@ class UserController extends Controller
         $users = User::orderBy('id', 'DESC')->get();
           return DataTables::of($users)->addColumn('action', function ($users) {
             return '' .
-            '<a  href="'.route('admin.user.edit', ['user' => $users->id]).'" class="btn btn-info btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a> '.
+            '<a  href="'.route('admin.user.edit', ['user' => $users->id]).'" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a> '.
             '<a  href="'.route('admin.user.show', ['user' => $users->id]).'" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i> Show</a> '.
             '&nbsp;<button type="button" name="delete" id="' . $users->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-
           })->rawColumns(['action'])->make(true);
     }
 

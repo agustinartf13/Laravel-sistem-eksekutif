@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Motor</h4>
+            <h4 class="page-title">Data Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Pembelian</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.create')}}"></a> Add Pembelian</li>
             </ol>
         </div>
     </div>
@@ -29,7 +29,7 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down"></i> Data
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
                         Pembelian</h4>
                     <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
@@ -141,6 +141,55 @@
                     }
                 }]
             });
+
+
+                // load id motor for delete
+                $(document).on('click', '#delete', function (event) {
+                var pembelianId = $(this).data('id');
+                SwalDelete(pembelianId);
+                event.preventDefault();
+            });
+
         });
+
+          // delete action
+          function SwalDelete(pembelianId) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: 'it will be deleted permanently!',
+                type: 'warning',
+                showCancelButton: true,
+                confrimButtonColor: '#3058d0',
+                cancelButtonColor: '#d33',
+                confrimButtonText: 'Yes, delete it!',
+                showLoaderOnConfrim: true,
+
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.ajax({
+                                url: "{{ url('admin/pembelian') }}" + '/' + pembelianId,
+                                type: "DELETE",
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': csrf_token
+                                },
+                            })
+                            .done(function (response) {
+                                swal('Deleted!', response.message, response.status);
+                                readMotor();
+                            })
+                            .fail(function () {
+                                swal('Oops...', 'Something want worng with ajax!', 'error');
+                            });
+                    });
+                },
+                allowOutsideClick: false
+            });
+
+            function readMotor() {
+                $('#datatable').DataTable().ajax.reload();
+            }
+        }
     </script>
     @endsection

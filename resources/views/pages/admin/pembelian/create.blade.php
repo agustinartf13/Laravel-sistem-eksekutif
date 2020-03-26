@@ -36,7 +36,7 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Name Supplier</label>
-                                <select class="form-control select2 {{$errors->first("supplier") ? "is-invalid" : ""}}"
+                                <select class="form-control select2 {{$errors->first('supplier') ? "is-invalid": ""}}"
                                     name="supplier" value="{{old("supplier")}}">
                                     <option value="">Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
@@ -52,21 +52,25 @@
                             <div class="col">
                                 <label for="">Date:</label>
                                 <input type="text" id="datepicker" name="tanggl_transaksi"
-                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
+                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid": ""}}"
                                     placeholder="Tanggal Transaksi" value="{{old('tanggal_transaksi')}}">
                                 <div class="invalid-feedback">
                                     {{$errors->first('tanggal_transaksi')}}
                                 </div>
                             </div>
                         </div>
+
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="Status">Status</label>
-                                <select class="form-control select2" name="status" id="Status" style="width: 100%;">
+                                <select class="form-control select2 {{$errors->first('supplier') ? "is-invalid": ""}}" name="status" id="Status" style="width: 100%;">
                                     <option>Process</option>
                                     <option selected>Finish</option>
                                     <option>Cancel</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    {{$errors->first('supplier')}}
+                                </div>
                             </div>
 
                         </div>
@@ -75,7 +79,7 @@
                             <div class="row" id="barang">
                                 <div class="col mt-4">
                                     <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                            class="fa fa-plus mr-2"></i> Add Barang</a>
+                                        class="fa fa-plus mr-2"></i> Add Barang</a>
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -107,7 +111,7 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}"
+                                        class="form-control {{$errors->first("qty") ? "is-invalid" : ""}}"
                                         placeholder="Jumlah" value="{{old("qty")}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first("qty")}}

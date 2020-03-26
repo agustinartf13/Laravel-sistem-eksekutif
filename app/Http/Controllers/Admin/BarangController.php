@@ -36,7 +36,7 @@ class BarangController extends Controller
         $barangs = Barang::with('category')->with('details_barang');
         return DataTables::of($barangs)
             ->addColumn('action', function ($barangs) {
-                return '<a href="' . route('admin.barang.edit', ['barang' => $barangs->id]) . '" class="btn btn-dark btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
+                return '<a href="' . route('admin.barang.edit', ['barang' => $barangs->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $barangs->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
     }

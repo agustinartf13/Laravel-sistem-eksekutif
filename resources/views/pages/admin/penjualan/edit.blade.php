@@ -29,9 +29,14 @@
                     </div>
                     @endif
                     <h4 class="mt-0"><i class="fa fa-cart-plus"></i> Edit Penjualan</h4>
-                    <a href="{{route('admin.penjualan.index')}}" class="btn btn-primary btn-flat"
-                        style="float: right"><i class="fas fa-reply mr-2"></i>Back</a>
-                    <br>
+                    <hr>
+                    @if (session("status"))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
+                        {{session('status')}}
+                    </div>
+                    @endif
                     <form id="add_barang" action="{{route('admin.penjualan.store')}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf

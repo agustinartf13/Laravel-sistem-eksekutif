@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Motor</h4>
+            <h4 class="page-title">Data Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashoard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Pembelian</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.create')}}"></a>Add Pembelian</li>
             </ol>
         </div>
     </div>
@@ -29,8 +29,8 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down"></i> Data
-                        Pembelian</h4>
+                    <h4 class="mt-0" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
+                        Penjualan</h4>
                     <a href="{{route('admin.penjualan.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <br><br><br>

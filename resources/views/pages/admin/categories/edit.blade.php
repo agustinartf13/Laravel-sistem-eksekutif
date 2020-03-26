@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Data Category</h4>
+            <h4 class="page-title">Updated Data Categories</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
                 <li class="breadcrumb-item"><a href="#">Categories</a></li>
@@ -23,6 +23,8 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <h4 class="mt-0"><i class="mdi mdi-cube"></i> Edit Categories</h4>
+                    <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -30,10 +32,6 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title">Update Data Barang</h4>
-                    <a href="{{route('admin.categories.index')}}" class="btn btn-secondary btn-flat"
-                        style="float: right"><i class="fas fa-reply mr-2"></i>Back</a>
-                    <br>
                     <form action="{{route('admin.categories.update', $category->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -60,11 +58,6 @@
                                 <label>Input Image</label>
                                 <input type="file" name="image" id="filestyle" class="filestyle"
                                     data-buttonname="btn-secondary">
-
-
-
-
-
                             </div>
                         </div>
                         <div class="form-group mt-3">

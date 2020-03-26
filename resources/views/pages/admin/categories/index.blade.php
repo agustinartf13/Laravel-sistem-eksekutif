@@ -11,8 +11,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.categories.index')}}">Categories</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('admin.categories.create')}}">Add Data
-                        Categories</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('admin.categories.create')}}">Add Data Categories</a></li>
             </ol>
         </div>
     </div>
@@ -31,7 +30,8 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px">Data Categories</h4>
+                    <h4 class="mt-0"><i class="mdi mdi-cube"></i> Data Categories</h4>
+                    <hr>
                     <button id="btn_addcategory" name="btn_addcategory" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                             class="fa fa-plus mr-2"></i>Add Category</button>

@@ -23,6 +23,8 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <h4 class="mt-0"><i class="mdi mdi-cube"></i> Edit Data</h4>
+                    <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -30,10 +32,6 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title">Add Data</h4>
-                    <a href="{{route('admin.motor.index')}}" class="btn btn-secondary btn-flat" style="float: right"><i
-                            class="fas fa-reply mr-2"></i>Back</a>
-                    <br>
                     <form action="{{route('admin.motor.update', $motor->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @method("PUT")

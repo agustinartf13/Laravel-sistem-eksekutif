@@ -30,7 +30,8 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px">Data Mekanik</h4>
+                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data Mekanik</h4>
+                    <hr>
                     <button id="btn_addmekanik" name="btn_addmekanik" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                             class="fa fa-plus mr-2"></i>Add Mekanik</button>
