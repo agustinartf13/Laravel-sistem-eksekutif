@@ -19,12 +19,14 @@ class CreateDetailsServiceTable extends Migration
             $table->bigInteger('barang_id')->unsigned();
             $table->string('keluhan');
             $table->enum('tipe_servis', ["BERAT", "RINGAN"]);
-            $table->date('time_servis');
+            $table->string('waktu_servis');
             $table->string('km_datang');
+
+            $table->integer('qty')->unsigned();
+            $table->integer('harga_beli');
+            $table->integer('harga_jual');
             $table->integer('harga_jasa');
 
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
 
             $table->primary(['service_id', 'motor_id', 'barang_id']);

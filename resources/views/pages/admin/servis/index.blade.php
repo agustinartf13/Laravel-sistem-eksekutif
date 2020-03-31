@@ -9,9 +9,9 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Service</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.servis.index')}}">Service</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.servis.create')}}"></a>Add Service</li>
             </ol>
         </div>
     </div>
@@ -49,6 +49,7 @@
                             </tr>
                         </thead>
                         <tfoot>
+                           <tr>
                             <th>No</th>
                             <th>Invoice Number</th>
                             <th>Tanggal Service</th>
@@ -57,6 +58,7 @@
                             <th>Tipe Motor</th>
                             <th>Status</th>
                             <th class="text-center">Action</th>
+                           </tr>
                         </tfoot>
                         <tbody>
                             {{-- server Side --}}
@@ -81,7 +83,7 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin.api.pembelian')}}",
+                ajax: "{{route('admin.api.servis')}}",
                 columns: [{
                         data: 'id',
                         sortable: true,
@@ -91,24 +93,24 @@
                         width: '20'
                     },
                     {
-                        data: 'invoice_number',
-                        name: 'invoice_number'
+                        data: 'invocie_number',
+                        name: 'invocie_number'
                     },
                     {
-                        data: 'tanggal_service',
-                        name: 'tanggal_service'
+                        data: 'tanggal_servis',
+                        name: 'tanggal_servis'
                     },
                     {
                         data: 'no_polis',
                         name: 'no_polis'
                     },
                     {
-                        data: 'customer_service',
-                        name: 'customer_service'
+                        data: 'customer_servis',
+                        name: 'customer_servis'
                     },
                     {
-                        data: 'tipe_motor',
-                        name: 'tipe_motor'
+                        data: 'motor.tipe_motor',
+                        name: 'motor.tipe_motor'
                     },
                     {
                         data: 'status',
@@ -124,29 +126,76 @@
                     }
                 ],
                 columnDefs: [{
-                    targets: 5,
+                    targets: 6,
                     render: function (data, type, row) {
                         var css1 = 'badge badge-danger ';
                         var css2 = 'badge badge-success';
-                        var css3 = 'badge badge-dark';
+                        var css3 = 'badge badge-warning';
                         if (data == 'FINISH') {
                             css1 = 'badge badge-success';
                             return '<h6><span class="' + css1 + '">' + data +
                             '</span></h6>';
                         }
-                        if (data == 'PROCESS') {
+                        if (data == 'SERVICE') {
                             css2 = 'badge badge-danger';
                             return '<h6><span class="' + css2 + '">' + data +
                             '</span></h6>';
                         }
-                        if (data == 'CANCEL') {
-                            css3 = 'badge badge-dark';
+                        if (data == 'CHECKING') {
+                            css3 = 'badge badge-warning';
                             return '<h6><span class="' + css3 + '">' + data +
                             '</span></h6>';
                         }
                     }
                 }]
             });
+
+            // load id motor for delete
+            $(document).on('click', '#delete', function (event) {
+                var serviceId = $(this).data('id');
+                SwalDelete(serviceId);
+                event.preventDefault();
+            });
         });
+
+         // delete action
+         function SwalDelete(serviceId) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: 'it will be deleted permanently!',
+                type: 'warning',
+                showCancelButton: true,
+                confrimButtonColor: '#3058d0',
+                cancelButtonColor: '#d33',
+                confrimButtonText: 'Yes, delete it!',
+                showLoaderOnConfrim: true,
+
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.ajax({
+                                url: "{{ url('admin/servis') }}" + '/' + serviceId,
+                                type: "DELETE",
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': csrf_token
+                                },
+                            })
+                            .done(function (response) {
+                                swal('Deleted!', response.message, response.status);
+                                readMotor();
+                            })
+                            .fail(function () {
+                                swal('Oops...', 'Something want worng with ajax!', 'error');
+                            });
+                    });
+                },
+                allowOutsideClick: false
+            });
+
+            function readMotor() {
+                $('#datatable').DataTable().ajax.reload();
+            }
+        }
     </script>
     @endsection

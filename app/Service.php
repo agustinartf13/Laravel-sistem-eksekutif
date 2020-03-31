@@ -8,25 +8,31 @@ class Service extends Model
 {
     protected $table = 'services';
     protected $primaryKey = 'id';
-    protected $fillable = ['mekanik_id', 'jasa_service_id', 'customer_id', 'user_id', 'status', 'created_by', 'updated_by'];
+    protected $fillable = ['mekanik_id', 'user_id', 'customer_servis', 'invocie_number', 'no_polis', 'status', 'tanggal_servis', 'total_harga', 'sub_total', 'profit', 'created_by', 'updated_by'];
 
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
-    }
 
     public function mekanik()
     {
         return $this->belongsTo(Mekanik::class, 'mekanik_id', 'id');
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function detailBarang()
+    public function dtlbarang()
     {
-        return $this->hasMany(DetailService::class, 'id');
+        return $this->belongsTo(BarangDetail::class, 'id');
+    }
+
+    public function dtlservice()
+    {
+        return $this->hasMany(DetailService::class, 'service_id');
+    }
+
+    public function motor()
+    {
+        return $this->belongsTo(Motor::class, 'id');
     }
 }

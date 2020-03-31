@@ -41,7 +41,7 @@ class LoginController extends Controller
         # jika role id 1
         if (Auth::check() && Auth::user()->role->id == 1) {
             # jalankan ini
-            $this->redirectTo = route('admin.dashboard');
+            $this->redirectTo = route('admin.dashboard')->with('status', 'Data successfully Updated');
             # jika id 2
         } elseif (Auth::check() && Auth::user()->role->id == 2) {
             # jalankan ini

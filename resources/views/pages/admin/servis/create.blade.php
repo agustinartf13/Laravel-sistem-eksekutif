@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Data Users</h4>
+            <h4 class="page-title">Add Data Service</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.servis.index')}}">Service</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.servis.create')}}"></a>Add Service</li>
             </ol>
         </div>
     </div>
@@ -23,8 +23,7 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-settings"></i> Add Service</h4>
-
+                    <h4 class="mt-0"><i class="mdi mdi-settings mr-2"></i> Add Service</h4>
                     <br>
                     <form action="{{route('admin.servis.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -41,18 +40,6 @@
                                     {{$errors->first('mekanik')}}
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <label for="Name">Operator</label>
-                               <select name="name_operator" id="operator" class="form-control select2">
-                                   <option value="">Select Operator</option>
-                                   @foreach ($users as $user)
-                                        <option value="{{$user->id}}">{{$user->name}}</option>
-                                   @endforeach
-                               </select>
-                                <div class="invalid-feedback">
-                                    {{$errors->first('name')}}
-                                </div>
-                            </div>
                         </div>
 
                         <hr>
@@ -60,11 +47,11 @@
                         <div class="row mt-5">
                             <div class="col">
                                 <label for="">Date:</label>
-                                <input type="text" id="datepicker" name="tanggl_transaksi"
-                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
-                                    placeholder="Tanggal Transaksi" value="{{old('tanggal_transaksi')}}">
+                                <input type="text" id="datepicker" name="tanggal_servis"
+                                    class="form-control {{$errors->first('tanggal_servis') ? "is-invalid" : ""}}"
+                                    placeholder="Tanggal Transaksi" value="{{old('tanggal_servis')}}">
                                 <div class="invalid-feedback">
-                                    {{$errors->first('tanggal_transaksi')}}
+                                    {{$errors->first('tanggal_servis')}}
                                 </div>
                             </div>
                         </div>
@@ -73,10 +60,10 @@
                             <div class="col">
                                 <label for="Email">Customer Name</label>
                                 <input type="text" name="name_customer"
-                                    class="form-control {{$errors->first('customer_name') ? "is-invalid" : ""}}"
+                                    class="form-control {{$errors->first('name_customer') ? "is-invalid" : ""}}"
                                     placeholder="Customer Name" value="">
                                 <div class="invalid-feedback">
-                                    {{$errors->first('customer_name')}}
+                                    {{$errors->first('name_customer')}}
                                 </div>
                             </div>
                             <div class="col">
@@ -92,7 +79,7 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="">Motor</label>
-                                <select name="motor_id" id="motor" class="form-control select2">
+                                <select id="motor" class="form-control select2" name="motor">
                                     <option value="">Select Motor</option>
                                     @foreach ($motors as $motor)
                                         <option value="{{$motor->id}}">{{$motor->name}} || {{$motor->tipe_motor}}</option>
@@ -106,7 +93,7 @@
                                 <label for="keluhan">Keluhan</label>
                                 <textarea name="keluhan" id="" cols="10" rows="5" class="form-control"></textarea>
                                 <div class="invalid-feedback">
-                                    {{$errors->first('Password')}}
+                                    {{$errors->first('keluhan')}}
                                 </div>
                             </div>
                             <div class="flex col">
@@ -119,24 +106,22 @@
                                         {{$errors->first('km_datang')}}
                                     </div>
                                 </div>
+
                                 <div class="col mt-3">
-                                    <label class="">Tipe Service</label>
-                                    <select class="form-control select2 {{$errors->first('tipe_service') ? "is-invalid" : ""}}" name="role"
-                                        value="">
-                                        <option value="">Select Servise</option>
-                                        <option value="">BERAT</option>
-                                        <option value="">RINGAN</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        {{$errors->first('tipe_service')}}
-                                    </div>
-                                </div>
+                                <label for="">Tipe Servis</label>
+                                <select id="tipe_service" class="form-control select2" name="tipe_servis">
+                                    <option value="">Select Servise</option>
+                                        <option value="BERAT">BERAT</option>
+                                        <option value="RINGAN">RINGAN</option>
+                                </select>
+                            </div>
+
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Time service</label>
-                                <input type="time" class="form-control" name="time" value="">
+                                <label>Waktu Pengerjaan</label>
+                                <input type="text" class="form-control" name="waktu_servis" value="">
                             </div>
                             <div class="col">
                                 <label for="">Harga Jasa</label>
@@ -145,11 +130,10 @@
                             </div>
                             <div class="col">
                                 <label class="control-label">Status</label>
-                                <select class="form-control select2 {{$errors->first('status') ? "is-invalid" : ""}}"
-                                    name="status">
-                                    <option value="" selected>CHECKING</option>
-                                    <option value="">SERVICE</option>
-                                    <option value="">FINISH</option>
+                                <select class="form-control select2 {{$errors->first('status') ? "is-invalid" : ""}}" name="status">
+                                    <option value="CHECKING">CHECKING</option>
+                                    <option value="SERVICE">SERVICE</option>
+                                    <option value="FINISH">FINISH</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     {{$errors->first('status')}}
@@ -259,6 +243,12 @@
                     setDate: new Date()
                 })
                 $("#datepicker").datepicker().datepicker("setDate", new Date());
+
+                $('#timepicker').timepicker({
+                    autoclose: true,
+                    setTime: new Date()
+                })
+                $('#timepicker').timepicker('setTime', new Date());
 
             });
         </script>

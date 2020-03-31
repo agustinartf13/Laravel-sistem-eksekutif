@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    
+
 @endsection
 @section('content')
 <div class="row">
@@ -10,6 +10,13 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Welcome to {{Auth::user()->username}} Dashboard</li>
             </ol>
+            @if (session("status"))
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Good Job!</h4>
+                {{session('status')}}
+            </div>
+            @endif
             <div class="state-information d-none d-sm-block">
                 <div class="state-graph">
                     <div id="header-chart-1"></div>
@@ -36,7 +43,8 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Orders</h6>
                             <h3 class="mb-3 mt-0">1,587</h3>
                             <div class="">
-                                <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous period</span>
+                                <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous
+                                    period</span>
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -55,7 +63,8 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Revenue</h6>
                             <h3 class="mb-3 mt-0">$46,785</h3>
                             <div class="">
-                                <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From previous period</span>
+                                <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From
+                                    previous period</span>
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -74,7 +83,8 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Average Price</h6>
                             <h3 class="mb-3 mt-0">15.9</h3>
                             <div class="">
-                                <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
+                                <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From
+                                    previous period</span>
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -93,7 +103,8 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Product Sold</h6>
                             <h3 class="mb-3 mt-0">1890</h3>
                             <div class="">
-                                <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
+                                <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous
+                                    period</span>
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -106,4 +117,4 @@
     </div>
     <!-- end row -->
 
-@endsection
+    @endsection

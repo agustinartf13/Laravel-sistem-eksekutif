@@ -74,9 +74,15 @@
                             </div>
                         </div>
 
+                        <div class="row" id="barang">
+                            <div class="col mt-4">
+                                <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
+                                class="fa fa-plus mr-2"></i> Add Barang</a>
+                            </div>
+                        </div>
+
                         <div id="appendBarang">
                             @foreach ($pembelians->dtlpembelian as $value)
-                            <div class="row" id="barang"></div>
                             <div class="row mt-4">
                                 <div class="col">
                                     <label for="">Select Category</label>

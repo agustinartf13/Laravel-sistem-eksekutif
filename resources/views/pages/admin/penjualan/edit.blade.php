@@ -126,7 +126,6 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <label for="">Name Barang</label>
             <select class="form-control select2 {{$errors->first("") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
@@ -137,12 +136,12 @@
                 </div>
             </div>
         <div class="col">
-            <label for="">Jumlah</label>
             <input type="text" name="qty[]" id="qty_b" class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}" placeholder="Jumlah" value="{{old("qty")}}">
             <div class="invalid-feedback">
             {{$errors->first("qty")}}
             </div>
         </div>
+        <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
         </div>
         </div>`
             $('#appendBarang').append(appendBarangDetail)
