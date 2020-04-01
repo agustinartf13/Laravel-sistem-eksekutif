@@ -12,16 +12,6 @@ class Supplier extends Model
         'name_supplier', 'email', 'perusahaan', 'no_telphone', 'address', 'status'
     ];
 
-    public function barangs()
-    {
-        return $this->belongsTo(Barang::class, 'id');
-    }
-
-    public function pembelian()
-    {
-        return $this->hasMany(Pembelian::class, 'id');
-    }
-
     public function findData($id)
     {
         return static::find($id);

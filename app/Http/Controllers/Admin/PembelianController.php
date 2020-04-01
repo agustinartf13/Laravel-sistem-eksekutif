@@ -40,6 +40,7 @@ class PembelianController extends Controller
                     '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
                     '<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
+            return response()->toJson(['pembelian' => $pembelian]);
     }
 
     /**
@@ -64,7 +65,7 @@ class PembelianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PembelianValidRequest $request)
+    public function store(Request $request)
     {
         $pembelian = new Pembelian;
         $pembelian->created_by = Auth::user()->id;
@@ -230,8 +231,7 @@ class PembelianController extends Controller
 
     public function invoice(Request $request, $id)
     {
-
-        $pembelians = Pembelian::with('dtlpembelian')->findOrFail($id);
+        $pembelians = Pembelian::with('dtlpembelian')->findOrFail($id)->get();
         $suppliers = Supplier::all();
 
         // join table pembelians->barangs->dtlpembelians
@@ -244,6 +244,7 @@ class PembelianController extends Controller
 
     public function invoicePrint($id)
     {
+        //
     }
 
     /**
@@ -254,9 +255,8 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
-        // $pembelian = Pembelian::findOrFail($id);
-        // $pembelian->delete();
-
-        // return response()->json(['status' => 'Pembelian deleted successfully']);
+        $pembelian = Pembelian::findOrFail($id);
+        $pembelian->delete();
+        return response()->json(['status' => 'Pembelian deleted successfully']);
     }
 }

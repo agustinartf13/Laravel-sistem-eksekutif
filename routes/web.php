@@ -49,11 +49,20 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/pembelian", "PembelianController@apipembelian")->name("api.pembelian");
     Route::resource('pembelian', 'PembelianController');
 
+    Route::get("/penjualan/{id}/invoice", "PenjualanController@invoice")->name("penjualan.invoice");
     Route::get("/api/penjualan", "PenjualanController@apipenjualan")->name("api.penjualan");
     Route::resource('penjualan', 'PenjualanController');
 
+
+    Route::get("/servis/{id}/invoice", "ServiceController@invoice")->name("servis.invoice");
     Route::get("/api/servis", "ServiceController@apiservis")->name("api.servis");
     Route::resource('servis', 'ServiceController');
+
+
+    Route::get("/laporan/pembelian", "LaporanController@laporanBeli")->name("laporan.beli");
+    Route::get("/laporan/penjualan", "LaporanController@laporanJual")->name("laporan.jual");
+    Route::get("/laporan/service", "LaporanController@laporanService")->name("laporan.service");
+
 });
 
 # route toplevel group

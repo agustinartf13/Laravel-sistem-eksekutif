@@ -7,9 +7,9 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Laporan Pembelian</h4>
+            <h4 class="page-title">Laporan Service</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Pembelian</a></li>
+                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Service</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-file-document-box mr-2"></i>
                         Laporan
-                        Pembelian</h4>
+                        Service</h4>
                     <hr>
                     <div class="row">
                         <div class="col-lg-4">
@@ -79,8 +79,8 @@
             <div class="card">
                 <div class="card-body">
                     <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
-                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
-                    <h4>List Pembelian</h4>
+                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
+                    <h4>List Service</h4>
                     <hr>
                     <div class="row input-daterange">
                         <div class="col-md-4">

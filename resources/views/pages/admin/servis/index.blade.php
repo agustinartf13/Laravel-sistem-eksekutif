@@ -110,7 +110,7 @@
                     },
                     {
                         data: 'motor.tipe_motor',
-                        name: 'motor.tipe_motor'
+                        name: 'motor'
                     },
                     {
                         data: 'status',

@@ -14,12 +14,12 @@ class Penjualan extends Model
 
     public function barangs()
     {
-        return $this->belongsToMany(Barang::class, 'id');
+        return $this->belongsTo(Barang::class, 'id');
     }
 
     public function dtlbarangs()
     {
-        return $this->belongsToMany(BarangDetail::class, 'id');
+        return $this->belongsTo(BarangDetail::class, 'id');
     }
 
     public function dtlpenjualans()

@@ -37,9 +37,10 @@ class ServiceController extends Controller
             ->addColumn('action', function ($service) {
                 return '' .
                     '<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a>' .
+                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
+            return response()->toJson(['service' => $service]);
     }
 
     /**
@@ -78,6 +79,7 @@ class ServiceController extends Controller
             date('Y-m-d', strtotime($request->get('tanggal_servis')));
 
         $new_service->no_polis = $request->get('no_polis');
+        $new_service->motor_id = $request->get('motor');
         $new_service->status = $request->get('status');
 
 
@@ -106,7 +108,6 @@ class ServiceController extends Controller
         foreach ($request->get('barang') as $key => $brg) {
             $new_dtlservice = new DetailService;
             $new_dtlservice->service_id = $service_id;
-            $new_dtlservice->motor_id = $request->get('motor');
             $new_dtlservice->waktu_servis = $request->get('waktu_servis');
             $new_dtlservice->km_datang = $request->get('km_datang');
             $new_dtlservice->harga_jasa = $request->get('harga_jasa');
@@ -138,6 +139,14 @@ class ServiceController extends Controller
         $new_service->save();
 
         return redirect()->route('admin.servis.create', ['id' => $service_id])->with('status', 'penjualan successfully created');
+    }
+
+    public function invoice(Request $request, $id)
+    {
+        $service = Service::with('mekanik')->with('dtlbarang')->with('dtlservice')->with('motor')->findOrFail($id);
+        return view('pages.admin.servis.invoice', [
+            'service' => $service
+        ]);
     }
 
     /**

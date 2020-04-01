@@ -15,7 +15,6 @@ class CreateDetailsServiceTable extends Migration
     {
         Schema::create('details_service', function (Blueprint $table) {
             $table->bigInteger('service_id')->unsigned();
-            $table->bigInteger('motor_id')->unsigned();
             $table->bigInteger('barang_id')->unsigned();
             $table->string('keluhan');
             $table->enum('tipe_servis', ["BERAT", "RINGAN"]);
@@ -29,7 +28,7 @@ class CreateDetailsServiceTable extends Migration
 
             $table->timestamps();
 
-            $table->primary(['service_id', 'motor_id', 'barang_id']);
+            $table->primary(['service_id', 'barang_id']);
         });
     }
 

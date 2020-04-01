@@ -98,7 +98,7 @@
                     },
                     {
                         data: 'supplier.name_supplier',
-                        name: 'supplier.name_supplier'
+                        name: 'supplier'
                     },
                     {
                         data: 'total_harga',

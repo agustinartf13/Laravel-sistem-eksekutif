@@ -8,17 +8,12 @@ class Service extends Model
 {
     protected $table = 'services';
     protected $primaryKey = 'id';
-    protected $fillable = ['mekanik_id', 'user_id', 'customer_servis', 'invocie_number', 'no_polis', 'status', 'tanggal_servis', 'total_harga', 'sub_total', 'profit', 'created_by', 'updated_by'];
+    protected $fillable = ['mekanik_id', 'motor_id', 'customer_servis', 'invocie_number', 'no_polis', 'status', 'tanggal_servis', 'total_harga', 'sub_total', 'profit', 'created_by', 'updated_by'];
 
 
     public function mekanik()
     {
         return $this->belongsTo(Mekanik::class, 'mekanik_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function dtlbarang()
@@ -28,11 +23,11 @@ class Service extends Model
 
     public function dtlservice()
     {
-        return $this->hasMany(DetailService::class, 'service_id');
+        return $this->hasMany(DetailService::class, 'service_id', 'barang_id');
     }
 
     public function motor()
     {
-        return $this->belongsTo(Motor::class, 'id');
+        return $this->belongsTo('App\Motor');
     }
 }

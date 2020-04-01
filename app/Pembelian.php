@@ -12,20 +12,25 @@ class Pembelian extends Model
         'supplier_id', 'tanggal_transaksi', 'invoice_number', 'total_harga', 'status'
     ];
 
-    public function supplier() {
-        return $this->belongsTo(Supplier::class, 'id');
+    // public function supplier() {
+    //     return $this->belongsTo(Supplier::class, 'id');
+    // }
+
+    public function supplier()
+    {
+        return $this->belongsTo('App\Supplier');
     }
 
     public function dtlpembelian() {
-        return $this->hasMany(DetailPembelian::class, 'pembelian_id');
+        return $this->hasMany(DetailPembelian::class, 'pembelian_id', 'categories_id', 'barang_id');
     }
 
     public function barang() {
-        return $this->belongsTo(Barang::class, 'id');
+        return $this->belongsTo('App\Barang');
     }
 
     public function dtlbarang() {
-        return $this->belongsTo(BarangDetail::class, 'id');
+        return $this->belongsTo('App\BarangDetail');
     }
 
 }

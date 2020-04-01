@@ -33,7 +33,7 @@ class PenjualanController extends Controller
             ->addColumn('action', function ($penjualan) {
                 return '' .
                     '<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a>' .
+                    '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $penjualan->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
     }
@@ -225,6 +225,20 @@ class PenjualanController extends Controller
 
         return redirect()->route('admin.penjualan.edit', $id)
             ->with('status', 'Penjualan Sccessfully update' );
+    }
+
+    public function invoice(Request $request, $id)
+    {
+        $penjualans = Penjualan::with('barangs')->with('dtlbarangs')->with('dtlpenjualans')->findOrFail($id);
+
+        return view('pages.admin.penjualan.invoice', [
+            'penjualans' => $penjualans
+        ]);
+    }
+
+    public function invoicePrint(Request $request, $id)
+    {
+        //
     }
 
     /**
