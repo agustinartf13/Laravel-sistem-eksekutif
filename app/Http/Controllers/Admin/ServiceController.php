@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Barang;
 use App\BarangDetail;
+use App\DetailPembelian;
 use App\DetailService;
 use App\Http\Controllers\Controller;
 use App\Mekanik;
@@ -40,7 +41,7 @@ class ServiceController extends Controller
                     '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
             })->rawColumns(['action'])->make(true);
-            return response()->toJson(['service' => $service]);
+        return response()->toJson(['service' => $service]);
     }
 
     /**
@@ -168,10 +169,16 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $services = Service::findOrFail($id);
+        $service = Service::with('dtlservice')->findOrFail($id);
+
         $barangs = Barang::all();
-        return view('pages.admin.penjualan.edit', [
-            'services' => $services, 'barangs' => $barangs
+        $mekaniks = Mekanik::all();
+        $dtlservice = DetailService::all();
+        $motors = Motor::all();
+
+        return view('pages.admin.servis.edit', [
+            'service' => $service, 'barangs' => $barangs,
+            'mekaniks' => $mekaniks, 'dtlservice' => $dtlservice, 'motors' => $motors
         ]);
     }
 
@@ -184,7 +191,99 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = Service::findOrFail($id);
+        $service->updated_by = Auth::user()->id;
+        $service->created_by = Auth::user()->id;
+        $service->mekanik_id = $request->get('name_mekanik');
+        $service->customer_servis = $request->get('name_customer');
+
+        $service->tanggal_servis =
+            date('Y-m-d', strtotime($request->get('tanggal_servis')));
+
+        $service->no_polis = $request->get('no_polis');
+        $service->motor_id = $request->get('motor');
+        $service->status = $request->get('status');
+
+        $invoice = Service::get('invocie_number')->last();
+        if ($invoice === null) {
+            $invoice_no = 1001;
+        } else {
+            $invoice_no = $invoice->invocie_number + 1;
+        }
+        $service->invocie_number = $invoice_no;
+        $service->total_harga = 0;
+        $service->profit = 0;
+        $service->sub_total = 0;
+        $service->save();
+
+        $service_id = $service->id;
+
+        $total_harga = 0;
+        $sub_total = 0;
+        $profit = 0;
+
+        $service_id = $service->id;
+
+        //kembalikan ke stock
+        $dtl_service = DetailService::where('service_id', '=', $service_id)->get();
+        foreach ($dtl_service as $detail) {
+            $stock = BarangDetail::find($detail->barang_id);
+            $stock->stock -= $detail->qty;
+            $stock->save();
+        }
+
+        //hapus barang
+        $dtl_service = DetailService::where('service_id', '=', $service_id)->get();
+        foreach ($dtl_service as $detail) {
+            $dtl_service = DetailService::where('service_id', '=', $detail->service_id)
+                ->where('barang_id', '=', $detail->barang_id)
+                ->first();
+            $dtl_service->delete();
+        }
+
+        // update service
+        foreach ($request->get('barang') as $key => $brg) {
+            $dtl_service = DetailService::where('service_id', '=', $service_id)
+                ->where('barang_id', '=', $brg)
+                ->first();
+
+            if ($dtl_service != '') {
+                $dtl_service = DetailService::where('service_id', '=', $service_id)
+                    ->where('barang_id', '=', $brg)
+                    ->first();
+            } else {
+                $dtl_service = new DetailService;
+                $dtl_service->service_id = $service;
+                $dtl_service->waktu_servis = $request->get('waktu_servis');
+                $dtl_service->km_datang = $request->get('km_datang');
+                $dtl_service->harga_jasa = $request->get('harga_jasa');
+                $dtl_service->keluhan = $request->get('keluhan');
+                $dtl_service->tipe_servis = $request->get('tipe_servis');
+                $dtl_service->barang_id = $brg;
+            }
+            $dtl_service->qty = $request->get('qty')[$key];
+
+            $barang = BarangDetail::find($request->get('barang')[$key]);
+            $dtl_service->harga_jual = $barang->harga_jual;
+            $dtl_service->harga_beli = $barang->harga_dasar;
+            $dtl_service->save();
+
+            $total_harga += $dtl_service->harga_Jual * $dtl_service->qty;
+            $profit += ($dtl_service->harga_jual - $dtl_service->harga_beli) * $dtl_service->qty;
+            $sub_total += ($dtl_service->harga_jual * $dtl_service->qty) + $dtl_service->harga_jasa;
+
+            $new_stock = BarangDetail::find($request->get('barang')[$key]);
+            $new_stock->stock -= $request->get('qty')[$key];
+            $new_stock->save();
+        }
+
+        $service = Service::find($service_id);
+        $service->total_harga = $total_harga;
+        $service->sub_total = $sub_total;
+        $service->profit = $profit;
+        $service->save();
+
+        return redirect()->route('admin.servis.update', ['id' => $service_id])->with('status', 'penjualan successfully created');
     }
 
     /**

@@ -176,18 +176,18 @@ class PembelianController extends Controller
         $total_harga = 0;
 
         // kembalikan ke stock
-        $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $pembelian_id)->get();
-        foreach ($detail_pembelian as $details_pembelian) {
-            $stock = BarangDetail::find($details_pembelian->barang_id);
-            $stock->stock -= $details_pembelian->qty;
+        $detail_pembelian = DetailPembelian::where('pembelian_id', '=', $pembelian_id)->get();
+        foreach ($detail_pembelian as $detail) {
+            $stock = BarangDetail::find($detail->barang_id);
+            $stock->stock -= $detail->qty;
             $stock->save();
         }
 
         // hapus barang
-        $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $pembelian_id)->get();
+        $detail_pembelian = DetailPembelian::where('pembelian_id', '=', $pembelian_id)->get();
         foreach ($detail_pembelian as $details) {
-            $detail_pembelian = DetailPembelian::where('pembelian_id', '-', $details->pembelian_id)
-                ->where('barang_id', '-', $details->barang_id)
+            $detail_pembelian = DetailPembelian::where('pembelian_id', '=', $details->pembelian_id)
+                ->where('barang_id', '=', $details->barang_id)
                 ->first();
             $detail_pembelian->delete();
         }

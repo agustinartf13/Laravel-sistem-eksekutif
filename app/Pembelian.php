@@ -22,15 +22,15 @@ class Pembelian extends Model
     }
 
     public function dtlpembelian() {
-        return $this->hasMany(DetailPembelian::class, 'pembelian_id', 'categories_id', 'barang_id');
+        return $this->hasMany(DetailPembelian::class, 'pembelian_id', 'id');
     }
 
     public function barang() {
-        return $this->belongsTo('App\Barang');
+        return $this->belongsTo(Barang::class, 'id');
     }
 
     public function dtlbarang() {
-        return $this->belongsTo('App\BarangDetail');
+        return $this->belongsTo(BarangDetail::class, 'id');
     }
 
 }

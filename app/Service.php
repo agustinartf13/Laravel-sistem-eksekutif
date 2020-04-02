@@ -23,7 +23,7 @@ class Service extends Model
 
     public function dtlservice()
     {
-        return $this->hasMany(DetailService::class, 'service_id', 'barang_id');
+        return $this->hasMany('App\DetailService');
     }
 
     public function motor()
