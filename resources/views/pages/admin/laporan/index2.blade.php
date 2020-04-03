@@ -82,7 +82,7 @@
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <h4>List Pembelian</h4>
                     <hr>
-                    <div class="row input-daterange">
+                    <div class="row input-daterange mb-3">
                         <div class="col-md-4">
                             <input type="text" name="from_date" id="from_date" class="form-control"
                                 placeholder="From Date" readonly />
@@ -106,10 +106,10 @@
                                 <th>No</th>
                                 <th>Invoice Number</th>
                                 <th>Tanggal pesan</th>
-                                <th>Customer</th>
+                                <th>Suppliers</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,10 +120,10 @@
                                 <th>No</th>
                                 <th>Invoice Number</th>
                                 <th>Tanggal pesan</th>
-                                <th>Customer</th>
+                                <th>Suppliers</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -141,12 +141,79 @@
 $(document).ready(function() {
 
     var table = $('#datatable-buttons').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'print']
-    });
+        aaSorting: [
+                    [0, "DESC"]
+                ],
+                processing: true,
+                serverSide: true,
+                ajax: "{{route('admin.api.pembelian')}}",
+                columns: [{
+                        data: 'id',
+                        sortable: true,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        width: '20'
+                    },
+                    {
+                        data: 'invoice_number',
+                        name: 'invoice_number'
+                    },
+                    {
+                        data: 'tanggl_transaksi',
+                        name: 'tanggl_transaksi'
+                    },
+                    {
+                        data: 'supplier.name_supplier',
+                        name: 'supplier'
+                    },
+                    {
+                        data: 'total_harga',
+                        name: 'total_harga'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        width: '80'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        width: '120px'
+                    }
+                ],
+                columnDefs: [{
+                    targets: 5,
+                    render: function (data, type, row) {
+                        var css1 = 'badge badge-danger ';
+                        var css2 = 'badge badge-success';
+                        var css3 = 'badge badge-dark';
+                        if (data == 'FINISH') {
+                            css1 = 'badge badge-success';
+                            return '<h6><span class="' + css1 + '">' + data +
+                            '</span></h6>';
+                        }
+                        if (data == 'PROCESS') {
+                            css2 = 'badge badge-danger';
+                            return '<h6><span class="' + css2 + '">' + data +
+                            '</span></h6>';
+                        }
+                        if (data == 'CANCEL') {
+                            css3 = 'badge badge-dark';
+                            return '<h6><span class="' + css3 + '">' + data +
+                            '</span></h6>';
+                        }
+                    }
+                }],
+            dom: 'lBfrtip',
+            lengthChange: true,
+            buttons: ['copy', 'excel', 'pdf', 'print'],
+        });
 
-    table.buttons().container()
-        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        table.buttons().container()
+            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 } );
 </script>
 @endsection

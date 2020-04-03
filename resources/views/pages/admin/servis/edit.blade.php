@@ -24,7 +24,14 @@
             <div class="card m-b-20">
                 <div class="card-body">
                     <h4 class="mt-0"><i class="mdi mdi-settings mr-2"></i> Edit Service</h4>
-                    <br>
+                    <hr>
+                    @if (session("status"))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
+                        {{session('status')}}
+                    </div>
+                    @endif
                     <form action="{{route('admin.servis.update', $service->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

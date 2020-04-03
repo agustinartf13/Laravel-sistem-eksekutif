@@ -204,13 +204,14 @@ class ServiceController extends Controller
         $service->motor_id = $request->get('motor');
         $service->status = $request->get('status');
 
-        $invoice = Service::get('invocie_number')->last();
-        if ($invoice === null) {
-            $invoice_no = 1001;
-        } else {
-            $invoice_no = $invoice->invocie_number + 1;
-        }
-        $service->invocie_number = $invoice_no;
+        // $invoice = Service::get('invocie_number')->last();
+        // if ($invoice === null) {
+        //     $invoice_no = 1001;
+        // } else {
+        //     $invoice_no = $invoice->invocie_number + 1;
+        // }
+        // $service->invocie_number = $invoice_no;
+
         $service->total_harga = 0;
         $service->profit = 0;
         $service->sub_total = 0;
@@ -253,7 +254,7 @@ class ServiceController extends Controller
                     ->first();
             } else {
                 $dtl_service = new DetailService;
-                $dtl_service->service_id = $service;
+                $dtl_service->service_id = $service_id;
                 $dtl_service->waktu_servis = $request->get('waktu_servis');
                 $dtl_service->km_datang = $request->get('km_datang');
                 $dtl_service->harga_jasa = $request->get('harga_jasa');
@@ -283,7 +284,7 @@ class ServiceController extends Controller
         $service->profit = $profit;
         $service->save();
 
-        return redirect()->route('admin.servis.update', ['id' => $service_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('admin.servis.edit', $id)->with('status', 'Service successfully Updated');
     }
 
     /**

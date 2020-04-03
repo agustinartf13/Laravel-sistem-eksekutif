@@ -9,9 +9,9 @@ class DetailService extends Model
 {
     use CompositeKey;
     protected $table = 'details_service';
-    protected $primaryKey = ['service_id', 'barang_id', 'motor_id'];
+    protected $primaryKey = ['service_id', 'barang_id'];
     protected $fillable = [
-        'service_id', 'motor_id', 'barang_id', 'km_datang', 'keluhan', 'tipe_servis', 'waktu_servis', 'qty',  'harga_beli', 'harga_jual', 'harga_jasa'
+        'service_id', 'barang_id', 'km_datang', 'keluhan', 'tipe_servis', 'waktu_servis', 'qty',  'harga_beli', 'harga_jual', 'harga_jasa'
     ];
 
     public function service()

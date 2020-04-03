@@ -82,7 +82,7 @@
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <h4>List Pembelian</h4>
                     <hr>
-                    <div class="row input-daterange">
+                    <div class="row input-daterange mb-3">
                         <div class="col-md-4">
                             <input type="text" name="from_date" id="from_date" class="form-control"
                                 placeholder="From Date" readonly />
@@ -105,11 +105,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Invoice Number</th>
-                                <th>Tanggal pesan</th>
+                                <th>Tanggal Transaksi</th>
                                 <th>Customer</th>
                                 <th>Total</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -119,11 +118,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Invoice Number</th>
-                                <th>Tanggal pesan</th>
+                                <th>Tanggal Transaksi</th>
                                 <th>Customer</th>
                                 <th>Total</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -141,9 +139,98 @@
 $(document).ready(function() {
 
     var table = $('#datatable-buttons').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'print']
-    });
+        aaSorting: [
+                    [0, "DESC"]
+                ],
+                processing: true,
+                serverSide: true,
+                ajax: "{{route('admin.api.penjualan')}}",
+                columns: [{
+                        data: 'id',
+                        sortable: true,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        width: '20'
+                    },
+                    {
+                        data: 'invoice_number',
+                        name: 'invoice_number'
+                    },
+                    {
+                        data: 'tanggal_transaksi',
+                        name: 'tanggal_transaksi'
+                    },
+                    {
+                        data: 'name_pembeli',
+                        name: 'name_pembeli'
+                    },
+                    {
+                        data: 'total_harga',
+                        name: 'total_harga'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        width: '120px'
+                    }
+                ],
+                dom: 'lBfrtip',
+            lengthChange: true,
+            buttons: ['copy', 'excel', 'pdf', 'print'],
+        });
+
+        table.buttons().container()
+            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+
+             // load id motor for delete
+             $(document).on('click', '#delete', function (event) {
+                var penjualanId = $(this).data('id');
+                SwalDelete(penjualanId);
+                event.preventDefault();
+            });
+
+         // delete action
+         function SwalDelete(penjualanId) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: 'it will be deleted permanently!',
+                type: 'warning',
+                showCancelButton: true,
+                confrimButtonColor: '#3058d0',
+                cancelButtonColor: '#d33',
+                confrimButtonText: 'Yes, delete it!',
+                showLoaderOnConfrim: true,
+
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.ajax({
+                                url: "{{ url('admin/penjualan') }}" + '/' + penjualanId,
+                                type: "DELETE",
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': csrf_token
+                                },
+                            })
+                            .done(function (response) {
+                                swal('Deleted!', response.message, response.status);
+                                readMotor();
+                            })
+                            .fail(function () {
+                                swal('Oops...', 'Something want worng with ajax!', 'error');
+                            });
+                    });
+                },
+                allowOutsideClick: false
+            });
+
+            function readMotor() {
+                $('#datatable').DataTable().ajax.reload();
+            }
+        }
 
     table.buttons().container()
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');

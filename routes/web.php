@@ -59,9 +59,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('servis', 'ServiceController');
 
 
-    Route::get("/laporan/pembelian", "LaporanController@laporanBeli")->name("laporan.beli");
-    Route::get("/laporan/penjualan", "LaporanController@laporanJual")->name("laporan.jual");
-    Route::get("/laporan/service", "LaporanController@laporanService")->name("laporan.service");
+    Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
+    Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
+    Route::get("/laporan/service", "LaporanServiceController@laporanService")->name("laporan.service");
 
 });
 
