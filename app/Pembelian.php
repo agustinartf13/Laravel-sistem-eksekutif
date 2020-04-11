@@ -12,12 +12,7 @@ class Pembelian extends Model
         'supplier_id', 'tanggal_transaksi', 'invoice_number', 'total_harga', 'status'
     ];
 
-    // public function supplier() {
-    //     return $this->belongsTo(Supplier::class, 'id');
-    // }
-
-    public function supplier()
-    {
+    public function supplier() {
         return $this->belongsTo('App\Supplier');
     }
 

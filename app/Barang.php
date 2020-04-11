@@ -15,13 +15,15 @@ class Barang extends Model
         'categories_id', 'kode_barang', 'name_barang'
     ];
 
-    public function details_barang()
-    {
+    protected $hidden = [
+
+    ];
+
+    public function details_barang() {
         return $this->hasOne(BarangDetail::class, 'barang_id', 'id');
     }
 
-    public function category()
-    {
+    public function category() {
         return $this->belongsTo(Category::class, 'categories_id', 'id');
     }
 

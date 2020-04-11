@@ -14,4 +14,5 @@ class DetailPenjualan extends Model
         'penjualan_id', 'barang_id', 'qty', 'harga_beli', 'harga_jual'
     ];
 
+    
 }

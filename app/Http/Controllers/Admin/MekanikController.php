@@ -25,15 +25,17 @@ class MekanikController extends Controller
         ]);
     }
 
-      // api data users
-      public function apimekanik()
-      {
-          $mekanik = Mekanik::orderBy('id', 'DESC')->get();
-          return DataTables::of($mekanik)->addColumn('action', function ($mekanik) {
-            return '<a href="' . route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>'.
-            '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$mekanik->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-          })->rawColumns(['action'])->make(true);
-      }
+    // api data users
+    public function apimekanik()
+    {
+        $mekanik = Mekanik::orderBy('id', 'DESC')->get();
+        return DataTables::of($mekanik)->addColumn('action', function ($mekanik) {
+            return '' .
+                '&nbsp;<a href="#mymodal" data-remote="' . route('admin.mekanik.show', ['mekanik' => $mekanik->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $mekanik->name . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
+                '&nbsp;<a href="' . route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
+                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $mekanik->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+        })->rawColumns(['action'])->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -88,8 +90,6 @@ class MekanikController extends Controller
 
         $mekanik->save();
         return response()->json(['success' => 'Data successfully Created!']);
-
-
     }
 
     /**
@@ -100,7 +100,11 @@ class MekanikController extends Controller
      */
     public function show($id)
     {
-        //
+        $mekanik = Mekanik::findOrFail($id);
+
+        return view('pages.admin.mekanik.show')->with([
+            'mekanik' => $mekanik
+        ]);
     }
 
     /**
@@ -124,31 +128,31 @@ class MekanikController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $mekanik = Mekanik::findOrFail($id);
-       $validation = array(
-           "name" => ['required', Rule::unique('mekaniks')->ignore($mekanik->name, 'name')],
-           "email" => ['required', Rule::unique('mekaniks')->ignore($mekanik->email, 'email')],
-           "no_telphone" => "required|numeric|min:0",
-           "address" => "required",
-       );
-       $messages = array(
-        "name.required" => "field Name tidak Boleh Kosong!",
-        "name.unique" => "Name Mekanik Sudah Ada",
-        "email.required" => "field email tidak boleh kosong",
-        "email.unique" => "email sudah terdaftar",
-        "address.required" => "isi alamat dengan lengkap",
-        "no_telphone.required" => "field No Phone tidak boleh kosong",
-        "no_telphone.numeric" => "inputan berupa angka"
-       );
+        $mekanik = Mekanik::findOrFail($id);
+        $validation = array(
+            "name" => ['required', Rule::unique('mekaniks')->ignore($mekanik->name, 'name')],
+            "email" => ['required', Rule::unique('mekaniks')->ignore($mekanik->email, 'email')],
+            "no_telphone" => "required|numeric|min:0",
+            "address" => "required",
+        );
+        $messages = array(
+            "name.required" => "field Name tidak Boleh Kosong!",
+            "name.unique" => "Name Mekanik Sudah Ada",
+            "email.required" => "field email tidak boleh kosong",
+            "email.unique" => "email sudah terdaftar",
+            "address.required" => "isi alamat dengan lengkap",
+            "no_telphone.required" => "field No Phone tidak boleh kosong",
+            "no_telphone.numeric" => "inputan berupa angka"
+        );
 
-       $mekanik->name = $request->get('name');
-       $mekanik->email = $request->get('email');
-       $mekanik->no_telphone = $request->get('no_telphone');
-       $mekanik->address = $request->get('address');
-       $mekanik->status= $request->get('status');
+        $mekanik->name = $request->get('name');
+        $mekanik->email = $request->get('email');
+        $mekanik->no_telphone = $request->get('no_telphone');
+        $mekanik->address = $request->get('address');
+        $mekanik->status = $request->get('status');
 
-       $mekanik->save();
-       return redirect()->route('admin.mekanik.edit', $id)->with('status', 'Mekanik status successfully updated');
+        $mekanik->save();
+        return redirect()->route('admin.mekanik.edit', $id)->with('status', 'Mekanik status successfully updated');
     }
 
     /**
@@ -159,9 +163,21 @@ class MekanikController extends Controller
      */
     public function destroy($id)
     {
-        $mekaniks= Mekanik::findOrFail($id);
+        $mekaniks = Mekanik::findOrFail($id);
         $mekaniks->delete();
 
         return response()->json(['status' => 'Supplier deleted successfully']);
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $mekanik = Mekanik::findOrFail($id);
+        $mekanik->status = $request->status;
+
+        $mekanik->save();
+
+        return redirect()->route('admin.mekanik.index')
+            ->with('status', 'Status successfully updated');
+
     }
 }

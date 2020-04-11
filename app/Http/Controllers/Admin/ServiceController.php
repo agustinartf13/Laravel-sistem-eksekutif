@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Barang;
 use App\BarangDetail;
-use App\DetailPembelian;
 use App\DetailService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServisRequest;
 use App\Mekanik;
 use App\Motor;
 use App\Service;
@@ -37,9 +37,10 @@ class ServiceController extends Controller
         return DataTables::of($service)
             ->addColumn('action', function ($service) {
                 return '' .
-                    '<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
-                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                    '&nbsp;<a href="' . route('admin.servis.show', $service->id) . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
+                    '&nbsp;<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>'.
+                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>'.
+                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['service' => $service]);
     }
@@ -67,7 +68,7 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServisRequest $request)
     {
         //create data service
         $new_service = new Service;
@@ -82,8 +83,6 @@ class ServiceController extends Controller
         $new_service->no_polis = $request->get('no_polis');
         $new_service->motor_id = $request->get('motor');
         $new_service->status = $request->get('status');
-
-
 
         $invoice = Service::get('invocie_number')->last();
         if ($invoice === null) {
@@ -139,7 +138,7 @@ class ServiceController extends Controller
         $new_service->profit = $profit;
         $new_service->save();
 
-        return redirect()->route('admin.servis.create', ['id' => $service_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('admin.servis.index', ['id' => $service_id])->with('status', 'penjualan successfully created');
     }
 
     public function invoice(Request $request, $id)
@@ -158,7 +157,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -284,7 +283,7 @@ class ServiceController extends Controller
         $service->profit = $profit;
         $service->save();
 
-        return redirect()->route('admin.servis.edit', $id)->with('status', 'Service successfully Updated');
+        return redirect()->route('admin.servis.index', $id)->with('status', 'Service successfully Updated');
     }
 
     /**

@@ -31,6 +31,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post("/motor/update", "MotorController@update")->name("motor.update");
     Route::resource('motor', 'MotorController');
 
+    Route::get("/mekanik/{id}/set-status", "MekanikController@setStatus")->name("mekanik.status");
     Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
     Route::resource('mekanik', 'MekanikController');
 

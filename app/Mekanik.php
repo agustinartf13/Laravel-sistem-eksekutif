@@ -14,13 +14,7 @@ class Mekanik extends Model
         'no_telphone', 'status'
     ];
 
-    public function mekanik()
-    {
-        return $this->hasMany(Service::class, 'id');
-    }
-
-    public function deleteData($id)
-    {
-        return static::find($id)->delete();
+    public function mekanik() {
+        return $this->hasMany(Service::class, 'mekanik_id');
     }
 }

@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <h6>Pengeluaran</h6>
+                                <h6>Pendapatan</h6>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

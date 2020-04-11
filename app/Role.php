@@ -9,7 +9,9 @@ class Role extends Model
     protected $fillable = [
         'name', 'slug'
     ];
-    protected $hidden = [];
+    protected $hidden = [
+        
+    ];
     
     public function users() {
         return $this->hasMany(User::class, 'id');

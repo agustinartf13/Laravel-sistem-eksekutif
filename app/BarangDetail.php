@@ -11,19 +11,15 @@ class BarangDetail extends Model
 
     protected $table = 'details_barang';
     protected $primaryKey = 'barang_id';
-    public $incrementing = false;
-    public $timestamps = false;
     protected $fillable = [
         'barang_id', 'image', 'description', 'harga_dasar', 'harga_jual', 'stock'
     ];
 
-    public function barang()
-    {
+    public function barang() {
         return $this->belongsTo(Barang::class, 'barang_id', 'id');
     }
 
-    public function pembelian()
-    {
+    public function pembelian() {
         return $this->belongsTo(Pembelian::class, 'id');
     }
 }

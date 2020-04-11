@@ -10,8 +10,7 @@ class Customer extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'email', 'no_polis', 'address', 'no_telphone'];
 
-    public function service()
-    {
+    public function service() {
         return $this->hasMany(Service::class, 'id');
     }
 }

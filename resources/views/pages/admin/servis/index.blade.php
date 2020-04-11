@@ -22,6 +22,10 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
+
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down"></i> Data
+                        Service</h4>
+                    <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -29,8 +33,6 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down"></i> Data
-                        Service</h4>
                     <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
                     <br><br><br>
@@ -49,16 +51,16 @@
                             </tr>
                         </thead>
                         <tfoot>
-                           <tr>
-                            <th>No</th>
-                            <th>Invoice Number</th>
-                            <th>Tanggal Service</th>
-                            <th>No Polis</th>
-                            <th>Customer Service</th>
-                            <th>Tipe Motor</th>
-                            <th>Status</th>
-                            <th class="text-center">Action</th>
-                           </tr>
+                            <tr>
+                                <th>No</th>
+                                <th>Invoice Number</th>
+                                <th>Tanggal Service</th>
+                                <th>No Polis</th>
+                                <th>Customer Service</th>
+                                <th>Tipe Motor</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
                         </tfoot>
                         <tbody>
                             {{-- server Side --}}
@@ -134,17 +136,17 @@
                         if (data == 'FINISH') {
                             css1 = 'badge badge-success';
                             return '<h6><span class="' + css1 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                         if (data == 'SERVICE') {
                             css2 = 'badge badge-danger';
                             return '<h6><span class="' + css2 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                         if (data == 'CHECKING') {
                             css3 = 'badge badge-warning';
                             return '<h6><span class="' + css3 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                     }
                 }]
@@ -158,8 +160,8 @@
             });
         });
 
-         // delete action
-         function SwalDelete(serviceId) {
+        // delete action
+        function SwalDelete(serviceId) {
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',

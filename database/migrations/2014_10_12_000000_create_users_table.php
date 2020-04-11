@@ -21,13 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('no_telphone')->nullable();
             $table->string('address')->nullable();
-            $table->enum("gender", ["LAKI-LAKI", "PEREMPUAN"])->nullable();
             $table->enum("status", ["ACTIVE", "INACTIVE"])->nullable();
             $table->string('image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('confrime_password')->nullable();
-            $table->string('about')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });

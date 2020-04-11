@@ -31,8 +31,10 @@ class SupplierController extends Controller
         $supplier = Supplier::orderBy('id', 'DESC')->get();
         return DataTables::of($supplier)
             ->addColumn('action', function ($supplier) {
-                return '<a href="' . route('admin.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$supplier->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                return ''.
+                '&nbsp;<a href="' . route('admin.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
+                '&nbsp;<a href="' . route('admin.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
+                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$supplier->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
     }
 

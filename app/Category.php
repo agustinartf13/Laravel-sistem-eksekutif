@@ -11,15 +11,15 @@ class Category extends Model
     protected $fillable = [
         'name', 'slug', 'image'
     ];
-    protected $hidden = [];
+    protected $hidden = [
 
-    public function barangs()
-    {
+    ];
+
+    public function barangs() {
         return $this->hasMany(Barang::class, 'id');
     }
 
-    public function pembelians()
-    {
+    public function pembelians() {
         return $this->hasMany(Pembelian::class, 'id');
     }
 }

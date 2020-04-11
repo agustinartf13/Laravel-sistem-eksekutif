@@ -22,7 +22,7 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                        <h4 class="mt-0"><i class="mdi mdi-cart-outline"></i> Add Penjualan</h4>
+                    <h4 class="mt-0"><i class="mdi mdi-cart-outline"></i> Add Penjualan</h4>
                     <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible mt-2">
@@ -38,21 +38,25 @@
                             <div class="col">
                                 <label for="">Date:</label>
                                 <input type="text" id="datepicker" name="tanggal_transaksi"
-                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
+                                    class="form-control @error('tanggal_transaksi') is-invalid @enderror"
                                     placeholder="Tanggal Transaksi">
-                                <div class="invalid-feedback">
-                                    {{$errors->first('tanggal_transaksi')}}
+                                @error('tanggal_transaksi')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
                                 </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Customer</label>
-                                <input type="text" class="form-control {{$errors->first('name_pembeli') ? "is-invalid" : ""}}" placeholder="Name Pembeli"
-                                name="name_pembeli">
-                                <div class="invalid-feedback">
-                                    {{$errors->first("name_pembeli")}}
+                                <input type="text" class="form-control @error('name_pembeli') is-invalid @enderror"
+                                    placeholder="Name Pembeli" name="name_pembeli">
+                                @error('name_pembeli')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
                                 </div>
+                                @enderror
                             </div>
                         </div>
 
@@ -60,30 +64,33 @@
                             <div class="row" id="barang">
                                 <div class="col mt-4">
                                     <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                    class="fa fa-plus mr-2"></i> Add Barang</a>
+                                            class="fa fa-plus mr-2"></i> Add Barang</a>
                                 </div>
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
-                                    <select
-                                        class="form-control select2 {{$errors->first("name_barang[]") ? "is-invalid" : ""}}"
+                                    <select class="form-control select2 @error('name_barang') is-invalid @enderror"
                                         name="barang[]" id="barang[]">
                                         <option value="">Select Barang</option>
                                         @foreach ($barangs as $barang)
-                                            <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
+                                        <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">
-                                        {{$errors->first("name_barang")}}
+                                    @error('name_barang')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
                                     </div>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control {{$errors->first("qty") ? "is-invalid" : ""}}"
+                                        class="form-control @error('quantity') is-invalid @enderror"
                                         placeholder="Jumlah">
-                                    <div class="invalid-feedback">
-                                        {{$errors->first("qty")}}
+                                    @error('quantity')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
                                     </div>
+                                    @enderror
                                 </div>
                                 <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
                                     class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
@@ -119,21 +126,21 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 {{$errors->first("barang_id") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
+            <select class="form-control select2 @error('name_barang') is-invalid @enderror" name="barang[]" id="barang" value="{{old("barang")}}">
                 <option value="">Select Barang</option>
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
             </select>
-                <div class="invalid-feedback">
-                    {{$errors->first("categories_id")}}
+            @error('name_barang')
+                <div class="help-block" style="color: red;">
+                    <strong>{{ $message }}</strong>
                 </div>
+            @enderror
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}" placeholder="Jumlah" value="{{old("qty")}}">
-            <div class="invalid-feedback">
-            {{$errors->first("qty")}}
-            </div>
+            <input type="text" name="qty[]" id="qty_b" class="form-control " placeholder="Jumlah" value="{{old("qty")}}">
+
         </div>
         <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
         </div>
@@ -159,5 +166,6 @@
         $("#datepicker").datepicker().datepicker("setDate", new Date());
 
     });
+
 </script>
 @endsection

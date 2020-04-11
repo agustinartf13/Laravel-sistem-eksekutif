@@ -14,8 +14,11 @@ class DetailService extends Model
         'service_id', 'barang_id', 'km_datang', 'keluhan', 'tipe_servis', 'waktu_servis', 'qty',  'harga_beli', 'harga_jual', 'harga_jasa'
     ];
 
-    public function service()
-    {
-        return $this->belongsTo(Service::class, 'service_id', 'barang_id', 'motor_id', 'id');
+    public function service() {
+        return $this->belongsTo(Service::class, 'service_id', 'barang_id', 'id');
+    }
+
+    public function barang() {
+        return $this->belongsTo(Barang::class, 'barang_id', 'id');
     }
 }

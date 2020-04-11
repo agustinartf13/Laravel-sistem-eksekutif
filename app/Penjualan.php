@@ -12,18 +12,15 @@ class Penjualan extends Model
         'tanggal_trasnaksi', 'name_pembeli', 'invoice_number', 'total_harga', 'profit', 'created_by', 'updated_by'
     ];
 
-    public function barangs()
-    {
+    public function barangs() {
         return $this->belongsTo(Barang::class, 'id');
     }
 
-    public function dtlbarangs()
-    {
+    public function dtlbarangs() {
         return $this->belongsTo(BarangDetail::class, 'id');
     }
 
-    public function dtlpenjualans()
-    {
+    public function dtlpenjualans() {
         return $this->hasMany(DetailPenjualan::class, 'penjualan_id');
     }
 }
