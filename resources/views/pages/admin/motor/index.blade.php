@@ -44,7 +44,7 @@
                                 <th>Name Motor</th>
                                 <th>Tipe Motor</th>
                                 <th>Jenis Motor</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -52,7 +52,7 @@
                             <th>Name Motor</th>
                             <th>Tipe Motor</th>
                             <th>Jenis Motor</th>
-                            <th class="text-center">Action</th>
+                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- Server Side --}}

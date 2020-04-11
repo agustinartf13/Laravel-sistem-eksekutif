@@ -36,8 +36,9 @@ class CategoryController extends Controller
                 }
                 return '<img class="rounded mr-2 mo-mb-2" src="' . asset('storage/' . $categories->image) . '" width="120px" /><br>';
             })->addColumn('action', function ($categories) {
-                return '<a href="' . route('admin.categories.edit', ['category' => $categories->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$categories->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                return ''.
+                    '<a href="' . route('admin.categories.edit', ['category' => $categories->id]) . '" class="btn btn-flat btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $categories->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></ button>';
             })->rawColumns(['show_photo', 'action'])->make(true);
     }
 

@@ -33,11 +33,13 @@ class BarangController extends Controller
     // api data barang
     public function apibarang()
     {
-        $barangs = Barang::with('category')->with('details_barang');
+        $barangs = Barang::with('category')->with('details_barang')->orderBy('id', 'DESC')->get();
         return DataTables::of($barangs)
             ->addColumn('action', function ($barangs) {
-                return '<a href="' . route('admin.barang.edit', ['barang' => $barangs->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $barangs->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                return ''.
+                '<a href="#mymodal" data-remote="' . route('admin.barang.show', ['barang' => $barangs->id]) . '" data-toggle="modal" data-target="#mymodal" data-title="' . $barangs->name_barang . '" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
+                '&nbsp;<a href="' . route('admin.barang.edit', ['barang' => $barangs->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>'.
+                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $barangs->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
     }
 
@@ -126,7 +128,11 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-        //
+        $barang = Barang::with('category', 'details_barang')->findOrFail($id);
+
+        return view('pages.admin.barang.show')->with([
+            'barang' => $barang
+        ]);
     }
 
     /**

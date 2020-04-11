@@ -1,5 +1,5 @@
 <h5>Name :</h5>
-<h6>{{$mekanik->email}}</h6>
+<h6>{{$mekanik->name}}</h6>
 
 
 <h5 class="mt-4">Avatar :</h5>

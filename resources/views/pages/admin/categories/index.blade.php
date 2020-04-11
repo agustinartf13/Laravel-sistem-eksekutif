@@ -43,14 +43,14 @@
                                 <th>No.</th>
                                 <th>Name Categories</th>
                                 <th>Categories Image</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <th>No.</th>
                             <th>Name Categories</th>
                             <th>Categories Image</th>
-                            <th class="text-center">Action</th>
+                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- data Server Side --}}

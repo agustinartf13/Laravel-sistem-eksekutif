@@ -28,13 +28,11 @@ class MotorController extends Controller
     //api data motor
     public function apimotor()
     {
-        // <a href="javascript:void(0)" id="edit" data-id="' . $motors->id . '" class="edit btn btn-dark btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>
-
         $motors = Motor::orderBy('id', 'DESC')->get();
         return DataTables::of($motors)
             ->addColumn('action', function ($motors) {
-                return '<a href="' . route('admin.motor.edit', ['motor' => $motors->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $motors->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                return '<a href="' . route('admin.motor.edit', ['motor' => $motors->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
+                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $motors->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
     }
 

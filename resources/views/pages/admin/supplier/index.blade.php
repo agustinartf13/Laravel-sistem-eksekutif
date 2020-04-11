@@ -25,15 +25,15 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data Supplier</h4>
+                    <hr>
                     @if(session('status'))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                        <h4><i class="icon fa fa-check"></i> Good job!</h4>
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data Supplier</h4>
-                    <hr>
                     <button id="btn_addsupplier" name="btn_addsupplier" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                             class="fa fa-plus mr-2"></i>Add Supplier</button>
@@ -369,4 +369,34 @@
             }
         }
     </script>
+
+<script>
+    jQuery(document).ready(function($){
+        $('#mymodal').on('show.bs.modal', function(e){
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+
+            modal.find('.modal-body').load(button.data("remote"));
+            modal.find('.modal-title').html(button.data("title"));
+        });
+    });
+</script>
+
+<div class="row">
+    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     @endsection

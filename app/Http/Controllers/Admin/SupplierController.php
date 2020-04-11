@@ -32,7 +32,7 @@ class SupplierController extends Controller
         return DataTables::of($supplier)
             ->addColumn('action', function ($supplier) {
                 return ''.
-                '&nbsp;<a href="' . route('admin.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
+                '&nbsp;<a href="#mymodal" data-remote="' . route('admin.supplier.show', ['supplier' => $supplier->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $supplier->name_supplier . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
                 '&nbsp;<a href="' . route('admin.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
                 '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$supplier->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
@@ -100,7 +100,11 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        return view('pages.admin.supplier.show')->with([
+            'supplier' => $supplier
+        ]);
     }
 
     /**
@@ -166,5 +170,16 @@ class SupplierController extends Controller
         $supplier->delete();
 
         return response()->json(['status' => 'Supplier deleted successfully']);
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $supplier = Supplier::findOrFail($id);
+        $supplier->status = $request->status;
+
+        $supplier->save();
+
+        return redirect()->route('admin.supplier.index')
+            ->with('status', 'Status successfully updated');
     }
 }
