@@ -22,6 +22,9 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <h4 class="mt-0" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
+                        Penjualan</h4>
+                    <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -29,8 +32,6 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
-                        Penjualan</h4>
                     <a href="{{route('admin.penjualan.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <br><br><br>

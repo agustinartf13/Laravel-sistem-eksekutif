@@ -33,92 +33,113 @@
                     <form id="add_barang" action="{{route('admin.pembelian.store')}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+
                         <div class="row mt-4">
+
                             <div class="col">
                                 <label for="">Name Supplier</label>
-                                <select class="form-control select2 {{$errors->first('supplier') ? "is-invalid": ""}}"
+                                <select class="form-control select2 @error('supplier') is-invalid @enderror"
                                     name="supplier" value="{{old("supplier")}}">
                                     <option value="">Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
                                     <option value="{{$supplier->id}}">{{$supplier->name_supplier}}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback">
-                                    {{$errors->first("supplier")}}
+                                @error('supplier')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
                                 </div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Date:</label>
                                 <input type="text" id="datepicker" name="tanggl_transaksi"
-                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid": ""}}"
+                                    class="form-control @error('tanggl_transaksi') is-invalid @enderror"
                                     placeholder="Tanggal Transaksi" value="{{old('tanggal_transaksi')}}">
-                                <div class="invalid-feedback">
-                                    {{$errors->first('tanggal_transaksi')}}
+                                @error('tanggl_transaksi')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
                                 </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="Status">Status</label>
-                                <select class="form-control select2 {{$errors->first('supplier') ? "is-invalid": ""}}" name="status" id="Status" style="width: 100%;">
-                                    <option>Process</option>
-                                    <option selected>Finish</option>
-                                    <option>Cancel</option>
+                                <select class="form-control select2 @error('status') is-invalid @enderror" name="status"
+                                    id="Status" style="width: 100%;">
+                                    <option value="PROCESS">PROCESS</option>
+                                    <option value="FINISH" selected>FINISH</option>
+                                    <option value="CANCEL">CANCEL</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    {{$errors->first('supplier')}}
+                                @error('status')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
                                 </div>
+                                @enderror
                             </div>
 
                         </div>
 
                         <div id="appendBarang">
+
                             <div class="row" id="barang">
                                 <div class="col mt-4">
                                     <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                        class="fa fa-plus mr-2"></i> Add Barang</a>
+                                            class="fa fa-plus mr-2"></i> Add Barang</a>
                                 </div>
                             </div>
+
                             <div class="row mt-4">
                                 <div class="col">
-                                    <select
-                                        class="form-control select2 {{$errors->first("categories") ? "is-invalid" : ""}}"
-                                        name="categories[]" id="categories" value="{{old("categories")}}">
+                                    <select class="form-control select2 @error('categories.*') is-invalid @enderror"
+                                        name="categories[]" id="categories">
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">
-                                        {{$errors->first("categories")}}
+                                    @error('categories.*')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
                                     </div>
+                                    @enderror
                                 </div>
+
                                 <div class="col">
-                                    <select
-                                        class="form-control select2 {{$errors->first("barang") ? "is-invalid" : ""}}"
-                                        name="barang[]" id="barang[]" value="{{old("barang")}}">
+                                    <select class="form-control select2 @error('barang.*') is-invalid @enderror"
+                                        name="barang[]" id="barang[]">
                                         <option value="">Select Barang</option>
                                         @foreach ($barangs as $barang)
                                         <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">
-                                        {{$errors->first("barang")}}
+                                    @error('barang.*')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
                                     </div>
+                                    @enderror
                                 </div>
+
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control {{$errors->first("qty") ? "is-invalid" : ""}}"
-                                        placeholder="Jumlah" value="{{old("qty")}}">
-                                    <div class="invalid-feedback">
-                                        {{$errors->first("qty")}}
+                                        class="form-control @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
+                                    @error('qty.*')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
                                     </div>
+                                    @enderror
                                 </div>
-                                <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
-                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+                                        class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group mt-3">
@@ -151,34 +172,43 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-                <select class="form-control select2 {{$errors->first("categories") ? "is-invalid" : ""}}" name="categories[]" id="categories" value="{{old("categories")}}">
+                <select class="form-control select2 @error('categories.*') is-invalid @enderror" name="categories[]" id="categories">
                     <option value="">Select Category</option>
                 @foreach ($categories as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
                 </select>
-                <div class="invalid-feedback">
-                {{$errors->first("categories")}}
-                </div>
+                @error('categories.*')
+                    <div class="help-block" style="color: red;">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                 @enderror
             </div>
             <div class="col">
-            <select class="form-control select2 {{$errors->first("barang_id") ? "is-invalid" : ""}}" name="barang[]" id="barang" value="{{old("barang")}}">
+            <select class="form-control select2 @error('barang.*') is-invalid @enderror" name="barang[]" id="barang">
                 <option value="">Select Barang</option>
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
             </select>
-                <div class="invalid-feedback">
-                    {{$errors->first("categories_id")}}
+            @error('barang.*')
+                <div class="help-block" style="color: red;">
+                    <strong>{{ $message }}</strong>
                 </div>
+            @enderror
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}" placeholder="Jumlah" value="{{old("qty")}}">
-            <div class="invalid-feedback">
-            {{$errors->first("qty")}}
-            </div>
+            <input type="text" name="qty[]" id="qty_b" class="form-control @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
+            @error('qty.*')
+                <div class="help-block" style="color: red;">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
         </div>
-        <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+        <div class="form-group">
+            <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+            class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+        </div>
         </div>
         </div>`
             $('#appendBarang').append(appendBarangDetail)

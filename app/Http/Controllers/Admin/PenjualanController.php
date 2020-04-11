@@ -6,6 +6,7 @@ use App\Barang;
 use App\BarangDetail;
 use App\DetailPenjualan;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PenjualanRequest;
 use App\Http\Requests\PenjualanValidRequest;
 use App\Penjualan;
 use Illuminate\Http\Request;
@@ -32,9 +33,9 @@ class PenjualanController extends Controller
         return DataTables::of($penjualan)
             ->addColumn('action', function ($penjualan) {
                 return '' .
-                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>'.
+                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $penjualan->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
     }
@@ -58,7 +59,7 @@ class PenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PenjualanRequest $request)
     {
         foreach ($request->get('barang') as $key => $brg) {
             $stock = BarangDetail::find($request->get('barang')[$key]);
@@ -171,7 +172,7 @@ class PenjualanController extends Controller
 
         //kembalikan stock
         $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)->get();
-        foreach($detail_barang as $details) {
+        foreach ($detail_barang as $details) {
             $stock = BarangDetail::find($details->barang_id);
             $stock->stock += $details->qty;
             $stock->save();
@@ -183,19 +184,19 @@ class PenjualanController extends Controller
             $detail_barang = DetailPenjualan::where('penjualan_id', '=', $details->penjualan_id)
                 ->where('barang_id', '=', $details->barang_id)
                 ->first();
-                $detail_barang->delete();
+            $detail_barang->delete();
         }
 
         //update barang
         foreach ($request->get('barang') as $key => $brg) {
             $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)
-            ->where('barang_id', '=', $brg)
-            ->first();
+                ->where('barang_id', '=', $brg)
+                ->first();
 
             if ($detail_barang != '') {
                 $detail_barang = DetailPenjualan::where('penjualan_id', '=', $penjualan_id)
-                ->where('barang_id', '=', $brg)
-                ->first();
+                    ->where('barang_id', '=', $brg)
+                    ->first();
             } else {
                 $detail_barang = new DetailPenjualan;
                 $detail_barang->penjualan_id = $penjualan_id;
@@ -225,7 +226,7 @@ class PenjualanController extends Controller
         $penjualan->save();
 
         return redirect()->route('admin.penjualan.edit', $id)
-            ->with('status', 'Penjualan Sccessfully update' );
+            ->with('status', 'Penjualan Sccessfully update');
     }
 
     public function invoice(Request $request, $id)

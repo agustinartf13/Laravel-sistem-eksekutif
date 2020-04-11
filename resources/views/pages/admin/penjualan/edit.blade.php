@@ -67,7 +67,7 @@
                         <div class="row" id="barang">
                             <div class="col mt-4">
                                 <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                        class="fa fa-plus mr-2"></i> Add Barang</a>
+                                    class="fa fa-plus mr-2"></i> Add Barang</a>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@
                             <div class="row mt-4">
                                 <div class="col">
                                     <label for="">Name Barang</label>
-                                    <select class="form-control select2 @error('name_barang') is-invalid @enderror"
+                                    <select class="form-control select2 @error('barang.*') is-invalid @enderror"
                                         name="barang[]" id="barang[]" value="{{old("barang")}}">
                                         @foreach ($barangs as $barang)
                                         <option value="{{$barang->id}}"
@@ -84,7 +84,7 @@
                                             {{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
-                                    @error('name_barang')
+                                    @error('barang.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
@@ -93,9 +93,9 @@
                                 <div class="col">
                                     <label for="">Jumlah</label>
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control flex @error('quantity') is-invalid @enderror"
+                                        class="form-control flex  @error('qty.*') is-invalid @enderror"
                                         placeholder="Jumlah" value="{{$value->qty}}">
-                                    @error('quantity')
+                                    @error('qty.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>

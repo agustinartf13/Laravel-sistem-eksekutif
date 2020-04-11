@@ -7,7 +7,7 @@ use App\BarangDetail;
 use App\Category;
 use App\DetailPembelian;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PembelianValidRequest;
+use App\Http\Requests\PembelianRequest;
 use App\Pembelian;
 use App\Supplier;
 use Illuminate\Http\Request;
@@ -66,7 +66,7 @@ class PembelianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PembelianRequest $request)
     {
         $pembelian = new Pembelian;
         $pembelian->created_by = Auth::user()->id;

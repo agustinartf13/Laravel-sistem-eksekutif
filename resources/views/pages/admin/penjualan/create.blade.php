@@ -51,7 +51,7 @@
                             <div class="col">
                                 <label for="">Customer</label>
                                 <input type="text" class="form-control @error('name_pembeli') is-invalid @enderror"
-                                    placeholder="Name Pembeli" name="name_pembeli">
+                                    placeholder="Name Pembeli" name="name_pembeli" value="{{old('name_pembeli')}}">
                                 @error('name_pembeli')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -69,14 +69,14 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
-                                    <select class="form-control select2 @error('name_barang') is-invalid @enderror"
+                                    <select class="form-control select2 @error('barang.*') is-invalid @enderror"
                                         name="barang[]" id="barang[]">
                                         <option value="">Select Barang</option>
                                         @foreach ($barangs as $barang)
                                         <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
-                                    @error('name_barang')
+                                    @error('barang.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
@@ -84,16 +84,20 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control @error('quantity') is-invalid @enderror"
+                                        class="form-control @error('qty.*') is-invalid @enderror"
                                         placeholder="Jumlah">
-                                    @error('quantity')
+                                    @error('qty.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
                                     @enderror
                                 </div>
-                                <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+
+                                <div class="form-group">
+                                    <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
                                     class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group mt-3">
@@ -126,23 +130,32 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 @error('name_barang') is-invalid @enderror" name="barang[]" id="barang" value="{{old("barang")}}">
+            <select class="form-control select2 @error('barang.*') is-invalid @enderror" name="barang[]" id="barang">
                 <option value="">Select Barang</option>
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
             </select>
-            @error('name_barang')
+            @error('barang.*')
                 <div class="help-block" style="color: red;">
                     <strong>{{ $message }}</strong>
                 </div>
             @enderror
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control " placeholder="Jumlah" value="{{old("qty")}}">
-
+            <input type="text" name="qty[]" id="qty_b" class="form-control  @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
+        @error('qty.*')
+            <div class="help-block" style="color: red;">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
         </div>
-        <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+
+        <div class="form-group">
+            <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+            class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+        </div>
+
         </div>
         </div>`
             $('#appendBarang').append(appendBarangDetail)
@@ -166,6 +179,5 @@
         $("#datepicker").datepicker().datepicker("setDate", new Date());
 
     });
-
 </script>
 @endsection
