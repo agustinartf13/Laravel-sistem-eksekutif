@@ -46,6 +46,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
     Route::resource('supplier', 'SupplierController');
 
+    Route::get("/pembelian/{id}/set-status", "PembelianController@setStatus")->name("pembelian.status");
     Route::get("/pembelian/{id}/invoice", "PembelianController@invoice")->name("pembelian.invoice");
     Route::get("/pembelian/{id}/invoice-print", "PembelianController@invoicePrint")->name("pembelian.invoiceprint");
     Route::get("/api/pembelian", "PembelianController@apipembelian")->name("api.pembelian");

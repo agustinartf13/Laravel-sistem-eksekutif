@@ -36,12 +36,12 @@ class PembelianController extends Controller
         return DataTables::of($pembelian)
             ->addColumn('action', function ($pembelian) {
                 return '' .
-                    '&nbsp;<a href="' . route('admin.pembelian.show', ['pembelian' => $pembelian->id]) . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>'.
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.pembelian.show', ['pembelian' => $pembelian->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" Invoice Number #' . $pembelian->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
-            return response()->toJson(['pembelian' => $pembelian]);
+        return response()->toJson(['pembelian' => $pembelian]);
     }
 
     /**
@@ -128,7 +128,13 @@ class PembelianController extends Controller
      */
     public function show($id)
     {
-        //
+        $pembelian = Pembelian::with('supplier')
+            ->with('dtlpembelian.category')
+                ->with('dtlpembelian.barang')->findOrFail($id);
+
+        return view('pages.admin.pembelian.show')->with([
+            'pembelian' => $pembelian
+        ]);
     }
 
     /**
@@ -259,5 +265,16 @@ class PembelianController extends Controller
         $pembelian = Pembelian::findOrFail($id);
         $pembelian->delete();
         return response()->json(['status' => 'Pembelian deleted successfully']);
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $pembelian = Pembelian::findOrFail($id);
+        $pembelian->status = $request->status;
+
+        $pembelian->save();
+
+        return redirect()->route('admin.pembelian.index')
+            ->with('status', 'Status successfully updated');
     }
 }

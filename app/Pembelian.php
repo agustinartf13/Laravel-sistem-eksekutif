@@ -13,7 +13,7 @@ class Pembelian extends Model
     ];
 
     public function supplier() {
-        return $this->belongsTo('App\Supplier');
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
 
     public function dtlpembelian() {
@@ -22,6 +22,10 @@ class Pembelian extends Model
 
     public function barang() {
         return $this->belongsTo(Barang::class, 'id');
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class, 'id');
     }
 
     public function dtlbarang() {

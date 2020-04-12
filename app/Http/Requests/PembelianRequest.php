@@ -31,4 +31,15 @@ class PembelianRequest extends FormRequest
             'qty.*' => 'required|numeric|max:100'
         ];
     }
+
+    public function messages()
+    {
+        return [
+          'supplier.required' => 'field name supplier tidak boleh kosong!',
+          'status.required' => 'kolom status harus diisi!',
+          'categories.*.required' => 'field category tidak boleh kosong!',
+          'barang.*.required' => 'field barang tidak boleh kosong!',
+          'qty.*.required' => 'field jumlah barang harus diisi!'
+        ];
+    }
 }

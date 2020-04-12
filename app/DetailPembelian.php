@@ -15,10 +15,16 @@ class DetailPembelian extends Model
     ];
 
     public function pembelian() {
-        return $this->belongsTo(Pembelian::class, 'pembelian_id', 'id');
+        return $this->belongsTo(Pembelian::class, 'pembelian_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id');
     }
 
     public function barang() {
-        return $this->belongsTo(Barang::class, 'barang_id', 'id');
+        return $this->belongsTo(Barang::class, 'barang_id');
     }
+
 }

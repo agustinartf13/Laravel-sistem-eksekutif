@@ -13,7 +13,7 @@ class Penjualan extends Model
     ];
 
     public function barangs() {
-        return $this->belongsTo(Barang::class, 'id');
+        return $this->belongsTo('App\Barang');
     }
 
     public function dtlbarangs() {
@@ -21,6 +21,6 @@ class Penjualan extends Model
     }
 
     public function dtlpenjualans() {
-        return $this->hasMany(DetailPenjualan::class, 'penjualan_id');
+        return $this->hasMany(DetailPenjualan::class, 'penjualan_id', 'id');
     }
 }

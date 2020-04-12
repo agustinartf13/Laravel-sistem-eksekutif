@@ -33,7 +33,7 @@ class PenjualanController extends Controller
         return DataTables::of($penjualan)
             ->addColumn('action', function ($penjualan) {
                 return '' .
-                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #' . $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
                     '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
                     '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $penjualan->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
@@ -129,7 +129,11 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        $penjualan = Penjualan::with('dtlpenjualans.barangs')->findOrFail($id);
+
+        return view('pages.admin.penjualan.show')->with([
+            'penjualan' => $penjualan
+        ]);
     }
 
     /**

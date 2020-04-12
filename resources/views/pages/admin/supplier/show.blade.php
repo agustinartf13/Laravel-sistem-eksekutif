@@ -40,3 +40,4 @@
             <i class="fa fa-times"></i> Set Inactive
         </a>
     </div>
+</div>

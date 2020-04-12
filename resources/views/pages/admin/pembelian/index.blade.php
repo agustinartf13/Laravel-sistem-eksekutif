@@ -122,7 +122,7 @@
                     render: function (data, type, row) {
                         var css1 = 'badge badge-danger ';
                         var css2 = 'badge badge-success';
-                        var css3 = 'badge badge-dark';
+                        var css3 = 'badge badge-warning';
                         if (data == 'FINISH') {
                             css1 = 'badge badge-success';
                             return '<h6><span class="' + css1 + '">' + data +
@@ -134,7 +134,7 @@
                             '</span></h6>';
                         }
                         if (data == 'CANCEL') {
-                            css3 = 'badge badge-dark';
+                            css3 = 'badge badge-warning';
                             return '<h6><span class="' + css3 + '">' + data +
                             '</span></h6>';
                         }
@@ -192,4 +192,34 @@
             }
         }
     </script>
+
+
+<script>
+    jQuery(document).ready(function($){
+        $('#mymodal').on('show.bs.modal', function(e){
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+
+            modal.find('.modal-body').load(button.data("remote"));
+            modal.find('.modal-title').html(button.data("title"));
+        });
+    });
+</script>
+
+<div class="row">
+    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     @endsection

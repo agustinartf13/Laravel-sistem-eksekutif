@@ -31,4 +31,9 @@ class Barang extends Model
     {
         return $this->belongsTo('App\Pembelian');
     }
+
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class, 'barang_id', 'id');
+    }
 }

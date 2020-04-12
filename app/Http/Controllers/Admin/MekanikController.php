@@ -178,6 +178,5 @@ class MekanikController extends Controller
 
         return redirect()->route('admin.mekanik.index')
             ->with('status', 'Status successfully updated');
-
     }
 }
