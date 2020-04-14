@@ -56,7 +56,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/penjualan", "PenjualanController@apipenjualan")->name("api.penjualan");
     Route::resource('penjualan', 'PenjualanController');
 
-
+    Route::get("/servis/{id}/set-status", "ServiceController@setStatus")->name("servis.status");
     Route::get("/servis/{id}/invoice", "ServiceController@invoice")->name("servis.invoice");
     Route::get("/api/servis", "ServiceController@apiservis")->name("api.servis");
     Route::resource('servis', 'ServiceController');

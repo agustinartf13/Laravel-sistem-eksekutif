@@ -86,6 +86,30 @@
                                     <strong>{{ $message }}</strong></div> @enderror
                             </div>
                         </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="Email">Alamat</label>
+                                <textarea name="alamat" id="" cols="30" rows="5" class="ckeditor form-control @error('alamat') is-invalid @enderror">{{$service->alamat}}</textarea>
+                                @error('alamat')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col">
+                                <label>No Telphone</label>
+                                <input type="text" name="no_telphone"
+                                    class="form-control @error('no_telphone') is-invalid @enderror" placeholder="No Telphone"
+                                    value="{{$service->no_telphone}}" />
+                                    @error('no_telphone')
+                                    <div class="help-block" style="color: red;">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                    @enderror
+                            </div>
+                        </div>
+
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="">Motor</label>
@@ -101,26 +125,26 @@
                                 @error('motor') <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong></div> @enderror
                             </div>
+                            <div class="col">
+                                <label for="">KM/ Datang</label>
+                                <input type="text" name="km_datang"
+                                    class="form-control @error('km_datang') is-invalid @enderror"
+                                    placeholder="Km Datang" value="{{$service->dtlservice[0]->km_datang}}">
+                                @error('motor') <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong></div> @enderror
+                            </div>
+
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="keluhan">Keluhan</label>
                                 <textarea name="keluhan" id="" cols="10" rows="5"
-                                    class="form-control @error('keluhan') is-invalid @enderror">{{$service->dtlservice[0]->keluhan}}</textarea>
+                                    class="ckkeluhan form-control @error('keluhan') is-invalid @enderror">{{ $service->dtlservice[0]->keluhan}}</textarea>
                                 @error('keluhan') <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong></div> @enderror
                             </div>
-                            <div class="flex col">
-                                <div class="col">
-                                    <label for="">KM/ Datang</label>
-                                    <input type="text" name="km_datang"
-                                        class="form-control @error('km_datang') is-invalid @enderror"
-                                        placeholder="Km Datang" value="{{$service->dtlservice[0]->km_datang}}">
-                                    @error('motor') <div class="help-block" style="color: red;">
-                                        <strong>{{ $message }}</strong></div> @enderror
-                                </div>
-
+                            <div class="col">
                                 <div class="col mt-3">
                                     <label for="">Tipe Servis</label>
                                     <select id="tipe_service"
@@ -184,7 +208,7 @@
                                 <div class="col">
                                     <label for="">Name Barang</label>
                                     <select class="form-control select2 @error('name_barang') is-invalid @enderror"
-                                        name="barang[]" id="barang[]" value="{{old("barang")}}">
+                                        name="barang[]" id="barang[]">
                                         @foreach ($barangs as $barang)
                                         <option value="{{$barang->id}}"
                                             {{$barang->id == $value->barang_id ? "selected" : ""}}>
@@ -201,7 +225,7 @@
                                     <label for="">Jumlah</label>
                                     <input type="text" name="qty[]" id="qty_b"
                                         class="form-control flex @error('quantity') is-invalid @enderror"
-                                        placeholder="Jumlah" value="{{$value->qty}}">
+                                        placeholder="Jumlah" value="{{$service->dtlservice[0]->qty}}">
                                     @error('quantity')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
@@ -241,7 +265,7 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 " name="barang[]" id="barang" value="{{old("barang")}}">
+            <select class="form-control select2 " name="barang[]" id="barang">
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
@@ -251,7 +275,7 @@
                 </div>
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control @error('quantity') is-invalid @enderror" placeholder="Jumlah" value="{{old("qty")}}">
+            <input type="text" name="qty[]" id="qty_b" class="form-control @error('quantity') is-invalid @enderror" placeholder="Jumlah">
             @error('quantity')
             <div class="help-block" style="color: red;">
                 <strong>{{ $message }}</strong>
@@ -289,4 +313,28 @@
 
     });
 </script>
+
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+            .create( document.querySelector( '.ckeditor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script>
+
+<script>
+    ClassicEditor
+            .create( document.querySelector( '.ckkeluhan' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script> --}}
+
 @endsection

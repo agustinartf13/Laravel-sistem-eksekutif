@@ -21,6 +21,8 @@ class CreateServicesTable extends Migration
             $table->date('tanggal_servis');
             $table->string('no_polis');
             $table->string('customer_servis');
+            $table->string('alamat');
+            $table->string('no_telphone');+
 
             $table->string('total_harga');
             $table->string('sub_total');

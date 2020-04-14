@@ -37,9 +37,9 @@ class ServiceController extends Controller
         return DataTables::of($service)
             ->addColumn('action', function ($service) {
                 return '' .
-                    '&nbsp;<a href="' . route('admin.servis.show', $service->id) . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>'.
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['service' => $service]);
@@ -76,6 +76,8 @@ class ServiceController extends Controller
         $new_service->updated_by = Auth::user()->id;
         $new_service->mekanik_id = $request->get('name_mekanik');
         $new_service->customer_servis = $request->get('name_customer');
+        $new_service->alamat = $request->get('alamat');
+        $new_service->no_telphone = $request->get('no_telphone');
 
         $new_service->tanggal_servis =
             date('Y-m-d', strtotime($request->get('tanggal_servis')));
@@ -124,6 +126,7 @@ class ServiceController extends Controller
 
             $total_harga += $new_dtlservice->harga_Jual * $new_dtlservice->qty;
             $profit += ($new_dtlservice->harga_jual - $new_dtlservice->harga_beli) * $new_dtlservice->qty;
+
             $sub_total += ($new_dtlservice->harga_jual * $new_dtlservice->qty) + $new_dtlservice->harga_jasa;
 
 
@@ -143,7 +146,7 @@ class ServiceController extends Controller
 
     public function invoice(Request $request, $id)
     {
-        $service = Service::with('mekanik')->with('dtlbarang')->with('dtlservice')->with('motor')->findOrFail($id);
+        $service = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->findOrFail($id);
         return view('pages.admin.servis.invoice', [
             'service' => $service
         ]);
@@ -157,7 +160,11 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
+        $service = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->findOrFail($id);
 
+        return view('pages.admin.servis.show')->with([
+            'service' => $service
+        ]);
     }
 
     /**
@@ -188,13 +195,15 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServisRequest $request, $id)
     {
         $service = Service::findOrFail($id);
         $service->updated_by = Auth::user()->id;
         $service->created_by = Auth::user()->id;
         $service->mekanik_id = $request->get('name_mekanik');
         $service->customer_servis = $request->get('name_customer');
+        $service->alamat = $request->get('alamat');
+        $service->no_telphone = $request->get('no_telphone');
 
         $service->tanggal_servis =
             date('Y-m-d', strtotime($request->get('tanggal_servis')));
@@ -270,6 +279,7 @@ class ServiceController extends Controller
 
             $total_harga += $dtl_service->harga_Jual * $dtl_service->qty;
             $profit += ($dtl_service->harga_jual - $dtl_service->harga_beli) * $dtl_service->qty;
+
             $sub_total += ($dtl_service->harga_jual * $dtl_service->qty) + $dtl_service->harga_jasa;
 
             $new_stock = BarangDetail::find($request->get('barang')[$key]);
@@ -298,5 +308,16 @@ class ServiceController extends Controller
         $service->delete();
 
         return response()->json(['status' => 'Service deleted successfully']);
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $service = Service::findOrFail($id);
+        $service->status = $request->status;
+
+        $service->save();
+
+        return redirect()->route('admin.servis.index')
+            ->with('status', 'Status successfully updated');
     }
 }

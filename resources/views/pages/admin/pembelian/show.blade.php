@@ -4,14 +4,45 @@
         <td>{{$pembelian->tanggl_transaksi}}</td>
       </tr>
     <tr>
-        <th>Nama Pembeli</th>
+        <th>Nama Supplier</th>
         <td>{{$pembelian->supplier->name_supplier}}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{$pembelian->supplier->email}}</td>
+    </tr>
+    <tr>
+        <th>Company</th>
+        <td>{{$pembelian->supplier->perusahaan}}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{$pembelian->supplier->address}}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{$pembelian->supplier->no_telphone}}</td>
     </tr>
     <tr>
         <th>Total Transaksi</th>
         <td>{{$pembelian->total_harga}}</td>
     </tr>
-
+    <tr>
+        <th>Status</th>
+        <td>
+            @if($pembelian->status == 'PROCESS')
+            <span class="badge badge-danger">
+          @elseif($pembelian->status == 'FINISH')
+            <span class="badge badge-success">
+          @elseif($pembelian->status == 'CANCEL')
+            <span class="badge badge-warning">
+          @else
+            <span>
+          @endif
+            {{ $pembelian->status }}
+            </span>
+        </td>
+    </tr>
     <tr>
       <th>Pembelian Barang</th>
       <td>
@@ -38,17 +69,17 @@
   <div class="row mt-4">
     <div class="col">
         <a href="{{route('admin.pembelian.status', $pembelian->id)}}?status=FINISH" class="btn btn-success btn-block">
-            <i class="fa fa-check"></i> Set Finish
+            <i class="fa fa-check mr-2"></i> Set Finish
         </a>
     </div>
     <div class="col">
         <a href="{{route('admin.pembelian.status', $pembelian->id)}}?status=PROCESS" class="btn btn-danger btn-block">
-            <i class="fa fa-spinner fa-spin"></i> Set Process
+            <i class="fa fa-spinner mr-2"></i> Set Process
         </a>
     </div>
     <div class="col">
         <a href="{{route('admin.pembelian.status', $pembelian->id)}}?status=CANCEL" class="btn btn-warning btn-block">
-            <i class="fa fa-times"></i> Set Cancel
+            <i class="fa fa-times mr-2"></i> Set Cancel
         </a>
     </div>
 </div>

@@ -56,7 +56,7 @@
 
                         <hr />
 
-                        <div class="row mt-5">
+                        <div class="row mt-3">
                             <div class="col">
                                 <label for="">Date:</label>
                                 <input type="text" id="datepicker" name="tanggal_servis"
@@ -83,7 +83,7 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label for="NoTelphone">No Polis</label>
+                                <label for="nopolis">No Polis</label>
                                 <input type="text" name="no_polis"
                                     class="form-control @error('no_polis') is-invalid @enderror" placeholder="No Polis"
                                     value="{{ old('no_polis') }}" />
@@ -94,6 +94,30 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="Email">Alamat</label>
+                                <textarea name="alamat" id="" cols="30" rows="5" class="ckeditor form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
+                                @error('alamat')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col">
+                                <label for="NoTelphone">No Telphone</label>
+                                <input type="text" name="no_telphone"
+                                    class="form-control @error('no_telphone') is-invalid @enderror" placeholder="No Telphone"
+                                    value="{{ old('no_telphone') }}" />
+                                @error('no_telphone')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="">Motor</label>
@@ -112,31 +136,29 @@
                                 </div>
                                 @enderror
                             </div>
+                            <div class="col">
+                                <label for="">KM/ Datang</label>
+                                <input type="text" name="km_datang"
+                                    class="form-control @error('km_datang') is-invalid @enderror"
+                                    placeholder="Km Datang" value="{{old('km_datang')}}" />
+                                @error('motor')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <label for="keluhan">Keluhan</label>
-                                <textarea name="keluhan" id="" cols="10" rows="5"
-                                    class="form-control @error('keluhan') is-invalid @enderror">{{old('keluhan')}}</textarea>
+                                <label for="Email">Keluhan</label>
+                                <textarea name="keluhan" id="" cols="30" rows="8" class="ckkeluhan form-control @error('keluhan') is-invalid @enderror">{{old('keluhan')}}</textarea>
                                 @error('keluhan')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
                             </div>
-                            <div class="flex col">
-                                <div class="col">
-                                    <label for="">KM/ Datang</label>
-                                    <input type="text" name="km_datang"
-                                        class="form-control @error('km_datang') is-invalid @enderror"
-                                        placeholder="Km Datang" value="{{old('km_datang')}}" />
-                                    @error('motor')
-                                    <div class="help-block" style="color: red;">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                    @enderror
-                                </div>
-
+                            <div class="col">
                                 <div class="col mt-3">
                                     <label for="">Tipe Servis</label>
                                     <select id="tipe_servis"
@@ -200,22 +222,22 @@
 
                         <div id="appendBarang">
                             <div class="row" id="barang">
-                                <div class="col mt-4">
+                                <div class="col">
                                     <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
                                             class="fa fa-plus mr-2"></i> Add Barang</a>
                                 </div>
                             </div>
 
-                            <div class="row mt-4">
+                            <div class="row mt-3">
                                 <div class="col">
-                                    <select class="form-control select2 @error('name_barang') is-invalid @enderror"
+                                    <select class="form-control select2 @error('barang.*') is-invalid @enderror"
                                         name="barang[]" id="barang[]">
                                         <option value="">Select Barang</option>
                                         @foreach ($barangs as $barang)
                                         <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
-                                    @error('name_barang')
+                                    @error('barang.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
@@ -223,16 +245,18 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control @error('quantity') is-invalid @enderror"
+                                        class="form-control @error('qty.*') is-invalid @enderror"
                                         placeholder="Jumlah">
-                                    @error('quantity')
+                                    @error('qty.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
                                     @enderror
                                 </div>
-                                <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
+                               <div class="form-group">
+                                    <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
                                     class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                               </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
@@ -265,23 +289,29 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 @error('name_barang') is-invalid @enderror" name="barang[]" id="barang">
+            <select class="form-control select2 @error('barang.*') is-invalid @enderror" name="barang[]" id="barang">
                 <option value="">Select Barang</option>
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
             </select>
-            @error('name_barang')
+            @error('barang.*')
                 <div class="help-block" style="color: red;">
                     <strong>{{ $message }}</strong>
                 </div>
             @enderror
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control " placeholder="Jumlah">
-
+            <input type="text" name="qty[]" id="qty_b" class="form-control @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
+            @error('qty.*')
+                <div class="help-block" style="color: red;">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
         </div>
-        <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+        <div class="form-group">
+            <button type="button" onclick="removeData(this)" id="btn_remove" href="#" class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+        </div>
         </div>
         </div>`
             $('#appendBarang').append(appendBarangDetail)
@@ -313,4 +343,28 @@
         $("#timepicker").timepicker("setTime", new Date());
     });
 </script>
+
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+            .create( document.querySelector( '.ckeditor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script>
+
+<script>
+    ClassicEditor
+            .create( document.querySelector( '.ckkeluhan' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+</script> --}}
+
 @endsection

@@ -15,10 +15,10 @@ class DetailService extends Model
     ];
 
     public function service() {
-        return $this->belongsTo(Service::class, 'service_id', 'barang_id', 'id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function barang() {
-        return $this->belongsTo(Barang::class, 'barang_id', 'id');
+        return $this->belongsTo(Barang::class, 'barang_id');
     }
 }
