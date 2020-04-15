@@ -9,7 +9,7 @@ class Penjualan extends Model
     protected $table = 'penjualans';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'tanggal_trasnaksi', 'name_pembeli', 'invoice_number', 'total_harga', 'profit', 'created_by', 'updated_by'
+        'tanggal_trasnaksi', 'name_pembeli', 'alamat', 'no_telphone', 'invoice_number', 'total_harga', 'profit', 'created_by', 'updated_by'
     ];
 
     public function barangs() {

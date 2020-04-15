@@ -238,14 +238,15 @@ class PembelianController extends Controller
 
     public function invoice(Request $request, $id)
     {
-        $pembelians = Pembelian::with('dtlpembelian')->findOrFail($id)->get();
-        $suppliers = Supplier::all();
+        $pembelian = Pembelian::with('supplier')
+            ->with('dtlpembelian.category')
+                ->with('dtlpembelian.barang')->findOrFail($id);
 
         // join table pembelians->barangs->dtlpembelians
 
         // dd($pembelians);
         return view('pages.admin.pembelian.invoice', [
-            'pembelians' => $pembelians, 'suppliers' => $suppliers
+            'pembelian' => $pembelian
         ]);
     }
 

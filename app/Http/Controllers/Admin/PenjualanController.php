@@ -75,6 +75,8 @@ class PenjualanController extends Controller
         $new_penjualan->updated_by = Auth::user()->id;
 
         $new_penjualan->name_pembeli = $request->get('name_pembeli');
+        $new_penjualan->alamat = $request->get('alamat');
+        $new_penjualan->no_telphone = $request->get('no_telphone');
 
         $new_penjualan->tanggal_transaksi =
             date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
@@ -162,6 +164,8 @@ class PenjualanController extends Controller
     {
         $penjualan = Penjualan::findOrFail($id);
         $penjualan->name_pembeli = $request->get('name_pembeli');
+        $penjualan->alamat = $request->get('alamat');
+        $penjualan->no_telphone = $request->get('no_telphone');
         $penjualan->updated_by = Auth::user()->id;
         $penjualan->tanggal_transaksi =
             date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
@@ -235,10 +239,10 @@ class PenjualanController extends Controller
 
     public function invoice(Request $request, $id)
     {
-        $penjualans = Penjualan::with('barangs')->with('dtlbarangs')->with('dtlpenjualans')->findOrFail($id);
+        $penjualan = Penjualan::with('dtlpenjualans.barangs')->findOrFail($id);
 
         return view('pages.admin.penjualan.invoice', [
-            'penjualans' => $penjualans
+            'penjualan' => $penjualan
         ]);
     }
 

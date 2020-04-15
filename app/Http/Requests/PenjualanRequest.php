@@ -25,6 +25,8 @@ class PenjualanRequest extends FormRequest
     {
         return [
             'name_pembeli' => 'required',
+            'no_telphone' => 'required',
+            'alamat' => 'required',
             'barang.*' => 'required',
             'qty.*' => 'required|numeric|max:100'
         ];
@@ -34,6 +36,8 @@ class PenjualanRequest extends FormRequest
     {
         return [
             'name_pembeli.required' => 'field name tidak boleh kosong!',
+            'no_telphone.required' => 'field Phone tidak boleh kosong!',
+            'alamat.required' => 'field Address tidak boleh kosong!',
             'barang.*.required' => 'field barang tidak boleh kosong!',
             'qty.*.required' => 'field quantity tidak boleh kosong!',
             'qty.*.numeric' => 'field yang di masukan berupa angka!'

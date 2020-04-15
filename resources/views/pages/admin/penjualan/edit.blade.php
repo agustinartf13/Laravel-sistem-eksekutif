@@ -63,6 +63,29 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">No Phone</label>
+                                <input type="text" class="form-control @error('no_telphone') is-invalid @enderror"
+                                    placeholder="No Phone" name="no_telphone" value="{{$penjualan->no_telphone}}">
+                                @error('no_telphone')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">Address</label>
+                                <textarea name="alamat" id="" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{$penjualan->alamat}}</textarea>
+                                @error('alamat')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row" id="barang">
                             <div class="col mt-4">
@@ -134,7 +157,7 @@
             var appendBarangDetail = `
             <div class="row mt-4" id="barang">
             <div class="col">
-            <select class="form-control select2 " name="barang[]" id="barang" value="{{old("barang")}}">
+            <select class="form-control select2 " name="barang[]" id="barang" value="">
                 @foreach ($barangs as $barang)
                     <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
                 @endforeach
@@ -144,7 +167,7 @@
                 </div>
             </div>
         <div class="col">
-            <input type="text" name="qty[]" id="qty_b" class="form-control @error('quantity') is-invalid @enderror" placeholder="Jumlah" value="{{old("qty")}}">
+            <input type="text" name="qty[]" id="qty_b" class="form-control @error('quantity') is-invalid @enderror" placeholder="Jumlah" value="">
             @error('quantity')
             <div class="help-block" style="color: red;">
                 <strong>{{ $message }}</strong>

@@ -17,6 +17,9 @@ class CreatePenjualansTable extends Migration
             $table->bigIncrements('id');
             $table->date('tanggal_transaksi');
             $table->string('name_pembeli');
+            $table->string('alamat');
+            $table->string('no_telphone');
+            
             $table->string('invoice_number');
             $table->string('total_harga');
             $table->integer('profit');

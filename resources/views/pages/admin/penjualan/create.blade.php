@@ -59,6 +59,29 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">No Phone</label>
+                                <input type="text" class="form-control @error('no_telphone') is-invalid @enderror"
+                                    placeholder="No Phone" name="no_telphone" value="{{old('no_telphone')}}">
+                                @error('no_telphone')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">Address</label>
+                                <textarea name="alamat" id="" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
+                                @error('alamat')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div id="appendBarang">
                             <div class="row" id="barang">

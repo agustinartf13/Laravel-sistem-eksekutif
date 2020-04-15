@@ -7,10 +7,14 @@
         <th>Nama Pembeli</th>
         <td>{{$penjualan->name_pembeli}}</td>
     </tr>
-    {{-- <tr>
-        <th>Jumlah Pembelian</th>
-        <td>{{$penjualan->dtlpenjualans[0]->qty}}</td>
-    </tr> --}}
+    <tr>
+        <th>No Phone</th>
+        <td>{{$penjualan->no_telphone}}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{$penjualan->alamat}}</td>
+    </tr>
     <tr>
         <th>Total Transaksi</th>
         <td>{{$penjualan->total_harga}}</td>
