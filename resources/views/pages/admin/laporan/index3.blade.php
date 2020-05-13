@@ -28,57 +28,106 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <h6>DATA TAHUN 2020</h6>
+                                <h6>DATA TAHUN {{$year_today}}</h6>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Pilih Tahun</span>
+                                    <span class="input-group-text btn btn-primary btn-sm" id="basic-addon1">Pilih Tahun</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1">
-                                <button class="btn btn-primary">Submit</button>
+                                <input type="text" id="datepicker" class="form-control" aria-label="Username"
+                                    aria-describedby="basic-addon1" value="{{Request::get('year')}}">
+                                <button class="btn btn-primary btn-sm">Submit</button>
                             </div>
                         </div>
-                        <div class="col-lg-4">
 
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <h6>Pendapatan</h6>
+
+                        @php
+                        function rupiah($angka){
+                            $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+                            return $hasil_rupiah;
+                        }
+                        @endphp
+
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-2"></div>
+                            <div class="form-group">
+                                <label for=""><h6>Omset</h6></label>
+                                {{rupiah($total_omset)}}
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Rp</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" disabled>
+                            <div class="form-group ml-3" >
+                                <label for=""><h6>Profit</h6></label>
+                                {{rupiah($total_profit)}}
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
 
-    <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-            <div class="box box-primary">
-                <figure class="highcharts-figure">
-                    <div id="container1"></div>
-                </figure>
-            </div>
-        </section>
-        <!-- /.Left col -->
-    </div>
+
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card m-b-20">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Bar Chart</h4>
+
+                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">2541</h5>
+                                <p class="text-muted">Activated</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">84845</h5>
+                                <p class="text-muted">Pending</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">12001</h5>
+                                <p class="text-muted">Deactivated</p>
+                            </li>
+                        </ul>
+
+                        <canvas id="bar" height="300"></canvas>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+
+            <div class="col-xl-6">
+                <div class="card m-b-20">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Pie Chart</h4>
+
+                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">2536</h5>
+                                <p class="text-muted">Activated</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">69421</h5>
+                                <p class="text-muted">Pending</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="mb-0">89854</h5>
+                                <p class="text-muted">Deactivated</p>
+                            </li>
+                        </ul>
+
+                        <canvas id="pie" height="260"></canvas>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
+                    <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
                     <h4>List Service</h4>
                     <hr>
@@ -270,5 +319,46 @@
         }
     }
 
+    $("#datepicker").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    function load_data(from_date = '', to_date = '') {
+        $('#datatable-buttons').DataTable({
+            
+        })
+    }
+
 </script>
+
+<script>
+    jQuery(document).ready(function($){
+        $('#mymodal').on('show.bs.modal', function(e){
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+
+            modal.find('.modal-body').load(button.data("remote"));
+            modal.find('.modal-title').html(button.data("title"));
+        });
+    });
+</script>
+
+<div class="row">
+    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

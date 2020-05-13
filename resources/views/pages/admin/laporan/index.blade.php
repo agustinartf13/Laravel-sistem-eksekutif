@@ -7,9 +7,9 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Laporan Pembelian</h4>
+            <h4 class="page-title">Laporan Penjualan</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Pembelian</a></li>
+                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Penjualan</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-file-document-box mr-2"></i>
                         Laporan
-                        Pembelian</h4>
+                        Penjualan</h4>
                     <hr>
                     <div class="row">
                         <div class="col-lg-4">
@@ -39,16 +39,27 @@
                                 <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-
-                        </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2">
                             <div class="input-group">
-                                <h6>Pengeluaran</h6>
+                                <h6>Pendapatan</h6>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Rp</span>
+                                    <span class="input-group-text btn btn-success" id="basic-addon1">Rp</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Username"
+                                    aria-describedby="basic-addon1" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="input-group">
+                                <h6>Profit</h6>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text btn btn-success" id="basic-addon1">Rp</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Username"
                                     aria-describedby="basic-addon1" disabled>
@@ -79,8 +90,8 @@
             <div class="card">
                 <div class="card-body">
                     <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
-                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
-                    <h4>List Pembelian</h4>
+                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
+                    <h4>List Penjualan</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
                         <div class="col-md-4">
@@ -236,4 +247,33 @@ $(document).ready(function() {
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 } );
 </script>
+
+<script>
+    jQuery(document).ready(function($){
+        $('#mymodal').on('show.bs.modal', function(e){
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+
+            modal.find('.modal-body').load(button.data("remote"));
+            modal.find('.modal-title').html(button.data("title"));
+        });
+    });
+</script>
+
+<div class="row">
+    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

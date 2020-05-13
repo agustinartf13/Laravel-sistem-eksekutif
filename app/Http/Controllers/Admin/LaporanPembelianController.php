@@ -22,9 +22,10 @@ class LaporanPembelianController extends Controller
         return DataTables::of($pembelian)
             ->addColumn('action', function ($pembelian) {
                 return '' .
-                    '<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>' .
-                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i> Invoice</a> ' .
-                    '<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+                '&nbsp;<a href="#mymodal" data-remote="' . route('admin.pembelian.show', ['pembelian' => $pembelian->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" Invoice Number #' . $pembelian->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                '&nbsp;<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
+                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
             return response()->toJson(['pembelian' => $pembelian]);
     }
