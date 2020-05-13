@@ -26,11 +26,12 @@ class LaporanServiceController extends Controller
 
         foreach ($months as $key => $month) {
             $service_laba = Service::selectRaw('CAST(sum(profit) as UNSIGNED) as profit')
-                ->selectRaw('YEAR(tanggal_servis) year, MONTH(tanggal_servis) month')
-                ->whereMonth('tanggal_servis', '=', $key + 1)
-                ->whereYear('tanggal_servis', '=', $year_today)
-                ->groupBy('year', 'month')
-                ->first();
+            ->selectRaw('YEAR(tanggal_servis) year, MONTH(tanggal_servis) month')
+            ->whereMonth('tanggal_servis', '=', $key + 1)
+            ->whereYear('tanggal_servis', '=', $year_today)
+            ->groupBy('year', 'month')
+            ->first();
+
             if (!empty($service_laba)) {
                 $profit[$key] = $service_laba->profit;
             } else {
@@ -38,23 +39,69 @@ class LaporanServiceController extends Controller
             }
         }
 
-        //chart service bulanan
-        $services = DB::table('services')
+        $month_a = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+        $jasa = [];
+
+        foreach ($month_a as $key => $month) {
+            $jasa_laba = DB::table('services')
             ->join('details_service', 'services.id', '=', 'details_service.service_id')
-            ->join('barangs', 'barangs.id', '=', 'details_service.barang_id')
-            ->join('categories', 'barangs.categories_id', 'categories.id')
-            ->select('categories.name as name', 'barangs.name_barang')
-            ->selectRaw('cast(sum(details_service.qty) as UNSIGNED) as y')
-            ->whereYear('services.tanggal_servis', $year_today)
-            ->groupBy('categories.name', 'barangs.name_barang')
-            ->orderBy('barangs.name_barang', 'asc')
-            ->get();
-            // dd($services);
+            ->selectRaw('CAST(sum(details_service.harga_jasa) as UNSIGNED) as jasa')
+            ->selectRaw('YEAR(tanggal_servis) year, MONTH(tanggal_servis) month')
+            ->whereMonth('tanggal_servis', '=', $key + 1)
+            ->whereYear('tanggal_servis', '=', $year_today)
+            ->groupBy('year', 'month')
+            ->first();
+
+            if (!empty($jasa_laba)) {
+                $jasa[$key] = $jasa_laba->jasa;
+            } else {
+                $jasa[$key] = 0;
+            }
+        }
+
+        $month_b = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+        $omset = [];
+
+        foreach ($month_b as $key => $month) {
+            $omset_a = DB::table('services')
+            ->selectRaw('CAST(sum(sub_total) as UNSIGNED) as omset')
+            ->selectRaw('YEAR(tanggal_servis) year, MONTH(tanggal_servis) month')
+            ->whereMonth('tanggal_servis', '=', $key + 1)
+            ->whereYear('tanggal_servis', '=', $year_today)
+            ->groupBy('year', 'month')
+            ->first();
+
+            if (!empty($omset_a)) {
+                $omset[$key] = $omset_a->omset;
+            } else {
+                $omset[$key] = 0;
+            }
+        }
+
+        //chart service bulanan
+        //    $services = DB::table('services')
+        //         ->join('details_service', 'services.id', '=', 'details_service.service_id')
+        //         ->join('barangs', 'barangs.id', '=', 'details_service.barang_id')
+        //         ->select('barangs.name_barang as name_barang')
+        //         ->selectRaw('cast(sum(details_service.qty) as UNSIGNED) as y')
+        //         ->whereYear('services.tanggal_servis', $year_today)
+        //         ->groupBy('barangs.name_barang')
+        //         ->orderBy('services.sub_total', 'asc')
+        //         ->get();
+        // dd($services);
+
+        // query pendapatan jasa
+        $cari_jasa = DB::table('services')
+            ->join('details_service', 'services.id', '=', 'details_service.service_id')
+            ->selectRaw('sum(details_service.harga_jasa)as harga_jasa')
+            ->whereYear('services.tanggal_servis', $year_today)  //mencari omset
+            ->first();
+        $total_jasa = $cari_jasa->harga_jasa;
 
         // query omset service tahun ini
         $cari_omset = DB::table('services')
             ->join('details_service', 'services.id', '=', 'details_service.service_id')
-            ->selectRaw('sum(details_service.harga_jasa)as omset')
+            ->selectRaw('sum(sub_total)as omset')
             ->whereYear('services.tanggal_servis', $year_today)  //mencari omset
             ->first();
         $total_omset = $cari_omset->omset;
@@ -103,25 +150,35 @@ class LaporanServiceController extends Controller
 
         return view('pages.admin.laporan.index3', [
             'year_today' => $year_today, 'month_today' => $month_today,
-            'months' => $months, 'profit' => $profit, 'services' => $services,
+            'months' => $months, 'profit' => $profit,
             'total_omset' => $total_omset, 'total_profit' => $total_profit,
             'total_customer' => $total_customer, 'rank_customer' => $rank_customer,
-            'rank_barang' => $rank_barang
+            'rank_barang' => $rank_barang , 'total_jasa' => $total_jasa, 'jasa' => $jasa, 'omset' => $omset
         ]);
     }
 
     // api data service datatabls
-    public function apiservis()
+    public function apiservice(Request $request)
     {
-        $service = Service::with('dtlservice')->with('motor')->orderBy('id', 'DESC')->get();
-        return DataTables::of($service)
+        if (request()->ajax()) {
+            if (!empty($request->from_date)) {
+                $service = Service::with('dtlservice')->with('motor')
+                ->whereBetween('tanggal_servis', array($request->from_date, $request->to_date))
+                ->orderBy('id', 'DESC')
+                ->get();
+            } else {
+                $service = Service::with('dtlservice')->with('motor')->orderBy('id', 'DESC')
+                ->get();
+            }
+
+            return DataTables::of($service)
             ->addColumn('action', function ($service) {
                 return '' .
                     '&nbsp;<a href="#mymodal" data-remote="' . route('admin.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
-                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
             })->rawColumns(['action'])->make(true);
-        return response()->toJson(['service' => $service]);
+            return response()->toJson(['service' => $service]);
+
+        }
    }
 }

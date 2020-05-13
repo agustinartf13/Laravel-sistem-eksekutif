@@ -9,7 +9,7 @@
         <div class="page-title-box">
             <h4>
                 Invoice
-                <small>INV-{{$penjualan->invocie_number}}</small>
+                <small>INV-{{$penjualan->invoice_number}}</small>
             </h4>
             <ol class="breadcrumb">
                 <h6>
@@ -79,8 +79,8 @@
                                             <thead>
                                                 @php
                                                 function rupiah($angka){
-                                                    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-                                                    return $hasil_rupiah;
+                                                $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                                                return $hasil_rupiah;
                                                 }
                                                 @endphp
                                                 <tr>
@@ -92,16 +92,16 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                    $no=1;
+                                                $no=1;
                                                 @endphp
-                                                 @foreach ($penjualan->dtlpenjualans as $value)
-                                                 <tr>
-                                                  <td>{{$no++}}</td>
-                                                  <td class="text-center">{{$value->barangs->name_barang}}</td>
-                                                  <td class="text-center">{{$value->harga_jual}}</td>
-                                                  <td class="text-center">{{$value->qty}}</td>
-                                                 </tr>
-                                               @endforeach
+                                                @foreach ($penjualan->dtlpenjualans as $value)
+                                                <tr>
+                                                    <td>{{$no++}}</td>
+                                                    <td class="text-center">{{$value->barangs->name_barang}}</td>
+                                                    <td class="text-center">{{$value->harga_jual}}</td>
+                                                    <td class="text-center">{{$value->qty}}</td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

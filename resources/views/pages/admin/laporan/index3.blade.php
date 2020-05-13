@@ -1,7 +1,9 @@
+
 @extends('layouts.admin')
 @section('title')
 
 @endsection
+
 
 @section('content')
 <div class="row">
@@ -30,96 +32,108 @@
                             <div class="input-group">
                                 <h6>DATA TAHUN {{$year_today}}</h6>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary btn-sm" id="basic-addon1">Pilih Tahun</span>
-                                </div>
-                                <input type="text" id="datepicker" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" value="{{Request::get('year')}}">
-                                <button class="btn btn-primary btn-sm">Submit</button>
-                            </div>
                         </div>
 
 
                         @php
                         function rupiah($angka){
-                            $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+                            $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
                             return $hasil_rupiah;
                         }
                         @endphp
-
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-2"></div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @foreach ($rank_barang as $rbrg)
+                                        <label for=""><h6>Peringkat Barang</h6></label>
+                                        <p style="margin-top: -10px;">Name Barang: <u>{{$rbrg->name_barang}}</u></p>
+                                        <p  style="margin-top: -18px;"> total terjual sebanyak: <u>{{$rbrg->jumlah}}</u></p>
+                                    @endforeach
+                                </div>
+                            </div>
+                           <div class="col-lg-2">
                             <div class="form-group">
                                 <label for=""><h6>Omset</h6></label>
                                 {{rupiah($total_omset)}}
                             </div>
-                            <div class="form-group ml-3" >
+                           </div>
+                           <div class="col-lg-2">
+                            <div class="form-group" >
                                 <label for=""><h6>Profit</h6></label>
                                 {{rupiah($total_profit)}}
                             </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="">Pilih Tahun</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
 
 
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl">
                 <div class="card m-b-20">
                     <div class="card-body">
 
-                        <h4 class="mt-0 header-title">Bar Chart</h4>
+                        <h4 class="mt-0 header-title">Statistic Service Motor {{$year_today}}</h4>
 
                         <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
                             <li class="list-inline-item">
-                                <h5 class="mb-0">2541</h5>
-                                <p class="text-muted">Activated</p>
+                                <h5 class="mb-0"> {{rupiah($total_omset)}}</h5>
+                                <p class="text-muted">Omset</p>
                             </li>
                             <li class="list-inline-item">
-                                <h5 class="mb-0">84845</h5>
-                                <p class="text-muted">Pending</p>
+                                <h5 class="mb-0">{{rupiah($total_jasa)}}</h5>
+                                <p class="text-muted">Pendapatan Jasa</p>
                             </li>
                             <li class="list-inline-item">
-                                <h5 class="mb-0">12001</h5>
-                                <p class="text-muted">Deactivated</p>
+                                <h5 class="mb-0">{{rupiah($total_profit)}}</h5>
+                                <p class="text-muted">Profit</p>
                             </li>
                         </ul>
 
-                        <canvas id="bar" height="300"></canvas>
+                        <canvas id="bar" height="80"></canvas>
 
                     </div>
                 </div>
             </div> <!-- end col -->
 
-            <div class="col-xl-6">
+            {{-- <div class="col-xl">
                 <div class="card m-b-20">
                     <div class="card-body">
 
-                        <h4 class="mt-0 header-title">Pie Chart</h4>
+                        <h4 class="mt-0 header-title">Penjualan Spareart Motor {{ $year_today }} </h4>
 
                         <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
                             <li class="list-inline-item">
-                                <h5 class="mb-0">2536</h5>
-                                <p class="text-muted">Activated</p>
+                                <h5 class="mb-0">{{ $status['service'] }}</h5>
+                                <p class="text-muted">Service</p>
                             </li>
                             <li class="list-inline-item">
-                                <h5 class="mb-0">69421</h5>
-                                <p class="text-muted">Pending</p>
+                                <h5 class="mb-0">{{ $status['checking'] }}</h5>
+                                <p class="text-muted">Checking</p>
                             </li>
                             <li class="list-inline-item">
-                                <h5 class="mb-0">89854</h5>
-                                <p class="text-muted">Deactivated</p>
+                                <h5 class="mb-0">{{ $status['finish'] }}</h5>
+                                <p class="text-muted">Finish</p>
                             </li>
                         </ul>
 
-                        <canvas id="pie" height="260"></canvas>
+                        <canvas id="flotPie1" height="215"></canvas>
 
                     </div>
                 </div>
-            </div> <!-- end col -->
+            </div> <!-- end col --> --}}
         </div> <!-- end row -->
 
 
@@ -160,7 +174,7 @@
                                 <th>Customer Service</th>
                                 <th>Tipe Motor</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -175,30 +189,92 @@
                                 <th>Customer Service</th>
                                 <th>Tipe Motor</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
 @endsection
 @section('js')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
+    var ctx = document.getElementById('bar').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            datasets: [
+                {
+                    label: "Total Omset",
+                    backgroundColor: "#f5b225",
+                    borderColor: "#f5b225",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#f5b225",
+                    hoverBorderColor: "#f5b225",
+                    data: {!!json_encode($omset)!!}
+                },
+                {
+                    label: "Sales Jasa",
+                    backgroundColor: "#f16c69",
+                    borderColor: "#f16c69",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#f16c69",
+                    hoverBorderColor: "#f16c69",
+                    data: {!!json_encode($jasa)!!}
+                },
+                {
+                    label: "Sales Profit",
+                    backgroundColor: "#28bbe3",
+                    borderColor: "#28bbe3",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#28bbe3",
+                    hoverBorderColor: "#28bbe3",
+                    data: {!!json_encode($profit)!!}
+                }
+
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var table = $('#datatable-buttons').DataTable({
+        $('.input-daterange').datepicker({
+            todayBtn:'linked',
+            format:'yyyy-mm-dd',
+            autoclose:true
+        });
+
+        load_data();
+        function load_data(from_date = '', to_date = '') {
+
+            var table = $('#datatable-buttons').DataTable({
             aaSorting: [
                 [0, "DESC"]
             ],
             processing: true,
             serverSide: true,
-            ajax: "{{route('admin.api.servis')}}",
+            ajax: {
+                url: "{{route('admin.api.service')}}",
+                data: {from_date:from_date, to_date:to_date}
+            },
             columns: [{
                     data: 'id',
                     sortable: true,
@@ -266,10 +342,30 @@
             dom: 'lBfrtip',
             lengthChange: true,
             buttons: ['copy', 'excel', 'pdf', 'print'],
-        });
 
+        });
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        }
+
+        $('#filter').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if (from_date != '' && to_date !='') {
+                $('#datatable-buttons').DataTable().destroy();
+                load_data(from_date, to_date);
+            } else {
+                alert('Both Data is Required');
+            }
+        });
+
+        $('#refresh').click(function(){
+            $('#from_date').val('');
+            $('#to_date').val('');
+            $('#datatable-buttons').DataTable().destroy();
+            load_data();
+        });
+
 
         // load id motor for delete
         $(document).on('click', '#delete', function (event) {
@@ -325,12 +421,6 @@
         minViewMode: "years"
     });
 
-    function load_data(from_date = '', to_date = '') {
-        $('#datatable-buttons').DataTable({
-            
-        })
-    }
-
 </script>
 
 <script>
@@ -360,5 +450,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

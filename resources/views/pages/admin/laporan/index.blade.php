@@ -28,68 +28,90 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <h6>DATA TAHUN 2020</h6>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Pilih Tahun</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1">
-                                <button class="btn btn-primary">Submit</button>
+                                <h6>DATA TAHUN {{$year_today}}</h6>
                             </div>
                         </div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-2">
-                            <div class="input-group">
-                                <h6>Pendapatan</h6>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-success" id="basic-addon1">Rp</span>
+
+
+                        @php
+                        function rupiah($angka){
+                            $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+                            return $hasil_rupiah;
+                        }
+                        @endphp
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @foreach ($rank_barang as $rbrg)
+                                        <label for=""><h6>Peringkat Barang</h6></label>
+                                        <p style="margin-top: -10px;">Name Barang: <u>{{$rbrg->name_barang}}</u></p>
+                                        <p  style="margin-top: -18px;"> total terjual sebanyak: <u>{{$rbrg->jumlah}}</u></p>
+                                    @endforeach
+
                                 </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" disabled>
+                            </div>
+                           <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for=""><h6>Omset</h6></label>
+                                {{rupiah($total_omset)}}
+                            </div>
+                           </div>
+                           <div class="col-lg-2">
+                            <div class="form-group" >
+                                <label for=""><h6>Profit</h6></label>
+                                {{rupiah($total_profit)}}
+                            </div>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="input-group">
-                                <h6>Profit</h6>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-success" id="basic-addon1">Rp</span>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="">Pilih Tahun</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" disabled>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
 
-    <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-            <div class="box box-primary">
-                <figure class="highcharts-figure">
-                    <div id="container1"></div>
-                </figure>
-            </div>
-        </section>
-        <!-- /.Left col -->
-    </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Statistic Service Motor {{$year_today}}</h4>
+
+                            <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0"> {{rupiah($total_omset)}}</h5>
+                                    <p class="text-muted">Omset</p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0"></h5>
+                                    <p class="text-muted"></p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0">{{rupiah($total_profit)}}</h5>
+                                    <p class="text-muted">Profit</p>
+                                </li>
+                            </ul>
+
+                            <canvas id="bar" height="90"></canvas>
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+
+            </div> <!-- end row -->
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
+                    <a href="{{route('admin.penjualan.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
                     <h4>List Penjualan</h4>
                     <hr>
@@ -119,7 +141,7 @@
                                 <th>Tanggal Transaksi</th>
                                 <th>Customer</th>
                                 <th>Total</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +154,7 @@
                                 <th>Tanggal Transaksi</th>
                                 <th>Customer</th>
                                 <th>Total</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -146,16 +168,61 @@
 </div>
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
+    var ctx = document.getElementById('bar').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            datasets: [
+                {
+                    label: "Sales Analytics",
+                    backgroundColor: "#28bbe3",
+                    borderColor: "#28bbe3",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#28bbe3",
+                    hoverBorderColor: "#28bbe3",
+                    data: {!!json_encode($profit)!!}
+                }
+
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 
-    var table = $('#datatable-buttons').DataTable({
+    $('.input-daterange').datepicker({
+        todayBtn: 'likend',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    })
+
+    load_data();
+    function load_data(from_date = '', to_date = '') {
+        var table = $('#datatable-buttons').DataTable({
         aaSorting: [
                     [0, "DESC"]
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin.api.penjualan')}}",
+                ajax: {
+                    url: "{{route('admin.api.jual')}}",
+                    data: {from_date:from_date, to_date:to_date}
+                },
                 columns: [{
                         data: 'id',
                         sortable: true,
@@ -196,12 +263,33 @@ $(document).ready(function() {
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 
-             // load id motor for delete
-             $(document).on('click', '#delete', function (event) {
-                var penjualanId = $(this).data('id');
-                SwalDelete(penjualanId);
-                event.preventDefault();
-            });
+        }
+
+        $('#filter').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if (from_date != '' && to_date !='') {
+                $('#datatable-buttons').DataTable().destroy();
+                load_data(from_date, to_date);
+            } else {
+                alert('Both Data is Required');
+            }
+        });
+
+        $('#refresh').click(function(){
+            $('#from_date').val('');
+            $('#to_date').val('');
+            $('#datatable-buttons').DataTable().destroy();
+            load_data();
+        });
+
+        // load id motor for delete
+        $(document).on('click', '#delete', function (event) {
+            var penjualanId = $(this).data('id');
+            SwalDelete(penjualanId);
+            event.preventDefault();
+        });
+    });
 
          // delete action
          function SwalDelete(penjualanId) {
@@ -243,9 +331,12 @@ $(document).ready(function() {
             }
         }
 
-    table.buttons().container()
-        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-} );
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+
 </script>
 
 <script>

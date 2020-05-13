@@ -7,21 +7,15 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Laporan Penjualan</h4>
+            <h4 class="page-title">Laporan Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Penjualan</a></li>
+                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Pembelian</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
             </ol>
         </div>
     </div>
 </div>
 
-@php
-    function rupiah($angka) {
-        $rupiah = "Rp " . number_format($angka,0,',','.');
-        return $rupiah;
-    }
-@endphp
 
 <div class="page-content-wrapper">
     <div class="row">
@@ -35,51 +29,83 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <h6>DATA TAHUN</h6>
+                                <h6>DATA TAHUN {{$year_today}}</h6>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Pilih Tahun</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" >
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
+
 
                         </div>
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <h6>Pengeluaran</h6>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text btn btn-primary" id="basic-addon1">Rp</span>
+
+
+                        @php
+                        function rupiah($angka){
+                            $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                            return $hasil_rupiah;
+                        }
+                        @endphp
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @foreach ($rank_supplier as $rsupplier)
+                                        <label for=""><h6>Peringkat Supplier</h6></label>
+                                        <p style="margin-top: -10px;">Name Supplier: <u>{{$rsupplier->name_supplier}}</u></p>
+                                        <p  style="margin-top: -18px;"> total Pembelian sebanyak: <u>{{$rsupplier->jumlah}}</u></p>
+                                    @endforeach
                                 </div>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" disabled>
                             </div>
+                           <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for=""><h6>Pengeluaran &nbsp;</h6></label>
+                               <div style="margin-top: -10px;">
+                                {{ rupiah($total_pengeluaran) }}
+                               </div>
+                            </div>
+                           </div>
+
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="">Pilih Tahun</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
 
-    <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-            <div class="box box-primary">
-                <figure class="highcharts-figure">
-                    <div id="container1"></div>
-                </figure>
-            </div>
-        </section>
-        <!-- /.Left col -->
-    </div>
+            <div class="row">
+
+                <div class="col-xl">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Pembelian Sparepart {{ $year_today }} </h4>
+
+                            <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0"> </h5>
+
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0">{{rupiah($total_pengeluaran)}}</h5>
+                                    <p class="text-muted">Pengeluaran</p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="mb-0"></h5>
+
+                                </li>
+                            </ul>
+
+                            <canvas id="bar" height="80"></canvas>
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
 
     <div class="row">
         <div class="col-lg-12">
@@ -116,7 +142,7 @@
                                 <th>Suppliers</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,7 +155,7 @@
                                 <th>Suppliers</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -143,16 +169,59 @@
 </div>
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
+    var ctx = document.getElementById('bar').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            datasets: [
+                {
+                    label: "Sales Analytics",
+                    backgroundColor: "#f16c69",
+                    borderColor: "#f16c69",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "#f16c69",
+                    hoverBorderColor: "#f16c69",
+                    data: {!!json_encode($pengeluaran)!!}
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
-    var table = $('#datatable-buttons').DataTable({
+    $('.input-daterange').datepicker({
+        todayBtn: 'linked',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+
+    load_data();
+    function load_data(from_date = '', to_date = '') {
+        var table = $('#datatable-buttons').DataTable({
         aaSorting: [
                     [0, "DESC"]
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin.api.pembelian')}}",
+                ajax: {
+                    url: "{{route('admin.api.beli')}}",
+                    data:{from_date:from_date, to_date:to_date}
+                },
                 columns: [{
                         data: 'id',
                         sortable: true,
@@ -168,6 +237,7 @@ $(document).ready(function() {
                     {
                         data: 'tanggl_transaksi',
                         name: 'tanggl_transaksi'
+
                     },
                     {
                         data: 'supplier.name_supplier',
@@ -220,7 +290,80 @@ $(document).ready(function() {
 
         table.buttons().container()
             .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-} );
+    }
+
+    $('#filter').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if (from_date != '' && to_date !='') {
+                $('#datatable-buttons').DataTable().destroy();
+                load_data(from_date, to_date);
+            } else {
+                alert('Both Data is Required');
+            }
+        });
+
+    $('#refresh').click(function(){
+        $('#from_date').val('');
+        $('#to_date').val('');
+        $('#datatable-buttons').DataTable().destroy();
+        load_data();
+    });
+
+    // load id motor for delete
+    $(document).on('click', '#delete', function (event) {
+        var serviceId = $(this).data('id');
+        SwalDelete(serviceId);
+        event.preventDefault();
+    });
+
+});
+
+ // delete action
+ function SwalDelete(serviceId) {
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+        swal({
+            title: 'Are you sure?',
+            text: 'it will be deleted permanently!',
+            type: 'warning',
+            showCancelButton: true,
+            confrimButtonColor: '#3058d0',
+            cancelButtonColor: '#d33',
+            confrimButtonText: 'Yes, delete it!',
+            showLoaderOnConfrim: true,
+
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                            url: "{{ url('admin/servis') }}" + '/' + serviceId,
+                            type: "DELETE",
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': csrf_token
+                            },
+                        })
+                        .done(function (response) {
+                            swal('Deleted!', response.message, response.status);
+                            readLaporan();
+                        })
+                        .fail(function () {
+                            swal('Oops...', 'Something want worng with ajax!', 'error');
+                        });
+                });
+            },
+            allowOutsideClick: false
+        });
+
+        function readLaporan() {
+            $('#datatable').DataTable().ajax.reload();
+        }
+    }
+
+    $("#datepicker").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
 </script>
 
 <script>

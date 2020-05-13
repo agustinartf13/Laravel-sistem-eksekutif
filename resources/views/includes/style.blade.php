@@ -8,7 +8,7 @@
 <!-- Daterange picker -->
 <link href="{{url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet" />
 {{-- chart js --}}
-<link rel="stylesheet" href="{{url('assets/plugins/chartist/css/chartist.min.css')}}">
+{{-- <link rel="stylesheet" href="{{url('assets/plugins/chartist/css/chartist.min.css')}}"> --}}
 
 <!-- Sweet Alert -->
 <link href="{{url('assets/plugins/sweet-alert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css">

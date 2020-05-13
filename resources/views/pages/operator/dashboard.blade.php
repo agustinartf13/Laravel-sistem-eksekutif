@@ -1,15 +1,28 @@
-@extends('layouts.admin')
+@extends('layouts.operator')
 @section('title')
-    
+
 @endsection
 @section('content')
+<div class="col-sm-12">
+      <div class="title-box mt-3">
+          <h4>Dashboard</h4>
+      </div>
+  </div>
 <div class="row">
   <div class="col-sm-12">
       <div class="title-box mt-3">
-          <h4>Dashboard</h4>
-          <ol class="breadcrumb">
-              <li class="breadcrumb-item active">Welcome to {{Auth::user()->username}} Dashboard</li>
-          </ol>
+        <div class="col-lg">
+            <div class="card m-b-30" style="background-color: #cfcfcf;" >
+                <div class="card-body">
+                    <blockquote class="card-blockquote mb-0">
+                        <p><h4>Hallo!!</h4></p>
+                        <footer class="blockquotetext-white font-12">
+                            <h6>Wellcome to Dashboard {{Auth::user()->username}}</h6>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
       </div>
   </div>
 </div>
@@ -17,82 +30,7 @@
 
 <div class="page-content-wrapper mt-3">
 <div class="row">
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary mini-stat position-relative">
-            <div class="card-body">
-                <div class="mini-stat-desc">
-                    <h6 class="text-uppercase verti-label text-white-50">Orders</h6>
-                    <div class="text-white">
-                        <h6 class="text-uppercase mt-0 text-white-50">Orders</h6>
-                        <h3 class="mb-3 mt-0">1,587</h3>
-                        <div class="">
-                            <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous period</span>
-                        </div>
-                    </div>
-                    <div class="mini-stat-icon">
-                        <i class="mdi mdi-cube-outline display-2"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary mini-stat position-relative">
-            <div class="card-body">
-                <div class="mini-stat-desc">
-                    <h6 class="text-uppercase verti-label text-white-50">Revenue</h6>
-                    <div class="text-white">
-                        <h6 class="text-uppercase mt-0 text-white-50">Revenue</h6>
-                        <h3 class="mb-3 mt-0">$46,785</h3>
-                        <div class="">
-                            <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From previous period</span>
-                        </div>
-                    </div>
-                    <div class="mini-stat-icon">
-                        <i class="mdi mdi-buffer display-2"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary mini-stat position-relative">
-            <div class="card-body">
-                <div class="mini-stat-desc">
-                    <h6 class="text-uppercase verti-label text-white-50">Av. Price</h6>
-                    <div class="text-white">
-                        <h6 class="text-uppercase mt-0 text-white-50">Average Price</h6>
-                        <h3 class="mb-3 mt-0">15.9</h3>
-                        <div class="">
-                            <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
-                        </div>
-                    </div>
-                    <div class="mini-stat-icon">
-                        <i class="mdi mdi-tag-text-outline display-2"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary mini-stat position-relative">
-            <div class="card-body">
-                <div class="mini-stat-desc">
-                    <h6 class="text-uppercase verti-label text-white-50">Pr. Sold</h6>
-                    <div class="text-white">
-                        <h6 class="text-uppercase mt-0 text-white-50">Product Sold</h6>
-                        <h3 class="mb-3 mt-0">1890</h3>
-                        <div class="">
-                            <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
-                        </div>
-                    </div>
-                    <div class="mini-stat-icon">
-                        <i class="mdi mdi-briefcase-check display-2"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 <!-- end row -->
 </div>

@@ -54,7 +54,7 @@ TABLES OF CSS
 ===================*/
 body {
     background-repeat: repeat;
-    background: #f3f3f3;
+    background: #e8e8e8;
     font-family: "Roboto", sans-serif;
     color: #5b626b;
     font-size: 13.5px;
@@ -1146,7 +1146,7 @@ dt {
 /************* page title *************/
 .page-title-box {
     /* background: url("../images/bg12.jpg"); */
-    background-color: #5b626b;
+    background-color: #343a40;
     margin: 0 -30px 23px -30px;
     padding: 20px 30px 100px 30px;
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);

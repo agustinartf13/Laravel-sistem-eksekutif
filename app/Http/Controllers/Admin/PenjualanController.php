@@ -29,7 +29,7 @@ class PenjualanController extends Controller
     // api supplier get data
     public function apipenjualan()
     {
-        $penjualan = Penjualan::all();
+        $penjualan = Penjualan::with('dtlpenjualans');
         return DataTables::of($penjualan)
             ->addColumn('action', function ($penjualan) {
                 return '' .

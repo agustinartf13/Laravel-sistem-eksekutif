@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <title>Agroxa - Responsive Bootstrap 4 Admin Dashboard</title>
+  <title>Sie Assh Motor Lukluk</title>
   <meta content="Admin Dashboard" name="description" />
   <meta content="Themesbrand" name="author" />
   <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -26,7 +26,7 @@
     @yield('content')
   </div>
   <!-- END wrapper -->
-      
+
   <!-- jQuery  -->
   <script src="{{url('assets/js/jquery.min.js')}}"></script>
   <script src="{{url('assets/js/bootstrap.bundle.min.js')}}"></script>

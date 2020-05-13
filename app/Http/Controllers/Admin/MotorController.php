@@ -55,13 +55,13 @@ class MotorController extends Controller
     public function store(Request $request)
     {
         $validation = array(
-            "name" => "required|unique:motors|max:100",
+            "name" => "required|max:100",
             "tipe_motor" => "required|unique:motors|max:255",
             "jenis" => "required"
         );
         $messages = array(
             "name.required" => "field Nama Motor tidak boleh Kosong!",
-            "name.unique" => "Nama Motor Sudah terdaftar!",
+            "tipe_motor.unique" => "Tipe Motor Sudah terdaftar!",
             "tipe_motor.required" => "field Tipe Motor tidak boleh Kosong!",
         );
 
@@ -119,13 +119,13 @@ class MotorController extends Controller
 
         $motor = Motor::findOrFail($id);
         $validation = array(
-            "name" => ['required', Rule::unique('motors')->ignore($motor->name, 'name')],
-            "tipe_motor" => "required",
+            "name" => "required",
+            "tipe_motor" => ['required', Rule::unique('motors')->ignore($motor->tipe_motor, 'tipe_motor')],
             "jenis" => "required",
         );
         $messages = array(
             "name.required" => "field Nama Motor tidak boleh Kosong!",
-            "name.unique" => "Nama Motor Sudah terdaftar!",
+            "tipe_motor.unique" => "Tipe Motor Sudah terdaftar!",
             "tipe_motor.required" => "field Tipe Motor tidak boleh Kosong!",
         );
 

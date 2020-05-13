@@ -35,10 +35,9 @@
 
 <script src="{{url('assets/plugins/select2/js/select2.min.js')}}"></script>
 
- <!--Chartist Chart-->
- <script src="{{url('assets/plugins/chartist/js/chartist.min.js')}}"></script>
- <script src="{{url('assets/plugins/chartist/js/chartist-plugin-tooltip.min.js')}}"></script>
- <script src="{{url('assets/pages/chartist.init.js')}}"></script>
+ <!-- Chart JS -->
+ <script src="{{url('assets/plugins/chart.js/chart.min.js')}}"></script>
+ <script src="{{url('assets/pages/chartjs.init.js')}}"></script>
 
 <!-- Peity JS -->
 <script src="{{url('assets/plugins/peity/jquery.peity.min.js')}}"></script>

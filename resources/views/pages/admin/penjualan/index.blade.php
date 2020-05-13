@@ -32,7 +32,9 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <a href="{{route('admin.penjualan.create')}}" class="btn btn-danger btn-flat d-inline"
+                    <a href="{{route('admin.laporan.jual')}}" class="btn btn-secondary btn-flat d-inline"
+                        style="float: right"><i class="fa fa-print"></i></a>
+                    <a href="{{route('admin.penjualan.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"

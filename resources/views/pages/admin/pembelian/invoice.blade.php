@@ -9,11 +9,11 @@
         <div class="page-title-box">
             <h4>
                 Invoice
-                <small>INV-{{$pembelian->invocie_number}}</small>
+                <small>INV-{{$pembelian->invoice_number}}</small>
             </h4>
             <ol class="breadcrumb">
                 <h6>
-                    <li class="breadcrumb-item">Tanggal Transaksi : {{$pembelian->tanggal_servis}}</li>
+                    <li class="breadcrumb-item">Tanggal Transaksi : {{$pembelian->tanggl_transaksi}}</li>
                 </h6>
             </ol>
         </div>
@@ -127,7 +127,7 @@
                             <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i
                                     class="fa fa-print"></i></a>
                             <a href="#" class="btn btn-danger waves-effect waves-light">Send</a>
-                            <a href="{{route('admin.servis.index')}}"
+                            <a href="{{route('admin.pembelian.index')}}"
                                 class="btn btn-secondary waves-effect waves-light">back</a>
                         </div>
                     </div>

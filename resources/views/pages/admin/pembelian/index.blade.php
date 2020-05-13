@@ -31,7 +31,9 @@
                     @endif
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
                         Pembelian</h4>
-                    <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
+                    <a href="{{route('admin.laporan.beli')}}" class="btn btn-secondary btn-flat d-inline"
+                        style="float: right"><i class="fa fa-print"></i></a>
+                    <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
                     <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"

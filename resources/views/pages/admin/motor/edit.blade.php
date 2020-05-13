@@ -89,12 +89,14 @@
         </div>
         <!-- end col -->
 
+        @endsection
+
+        @section('js')
         <script>
             $(document).ready(function () {
                 $(":file").filestyle();
+                $('.select2').select2();
             });
 
         </script>
-
-
         @endsection

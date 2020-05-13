@@ -142,11 +142,6 @@
         </li>
         <li class="menu-title">Main Menu</li>
         <li>
-            <a href="#" class="waves-effect">
-                <i class="mdi mdi-upload-multiple"></i><span> Update Stock </span>
-            </a>
-        </li>
-        <li>
             <a href="{{route('admin.servis.index')}}" class="waves-effect">
                 <i class="mdi mdi-file-document-box"></i><span> Service Motor </span>
             </a>
