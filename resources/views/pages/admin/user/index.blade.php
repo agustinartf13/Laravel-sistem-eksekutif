@@ -44,7 +44,6 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>No. Telphone</th>
-                                <th>Tanggal Daftar</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -54,7 +53,6 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>No. Telphone</th>
-                            <th>Tanggal Daftar</th>
                             <th>Status</th>
                             <th class="text-center">Action</th>
                         </tfoot>
@@ -237,11 +235,6 @@
                     data: 'no_telphone',
                     name: 'no_telphone'
                 },
-
-                {
-                    data: 'created_at',
-                    name: 'created_at'
-                },
                 {
                     data: 'status',
                     name: 'status'
@@ -255,7 +248,7 @@
                 }
             ],
             columnDefs: [{
-                targets: 5,
+                targets: 4,
                 render: function (data, type, row) {
                     var css1 = 'badge badge-success';
                     var css2 = 'badge badge-primary'

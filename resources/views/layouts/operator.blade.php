@@ -101,40 +101,36 @@
     <ul class="metismenu" id="side-menu">
         <li class="menu-title">Main</li>
         <li>
-            <a href="{{route('toplevel.dashboard')}}" class="waves-effect">
+            <a href="{{route('operator.dashboard')}}" class="waves-effect">
                 <i class="mdi mdi-home"></i><span> Dashboard </span>
             </a>
         </li>
-        <li>
-            <a href="{{route('toplevel.user.index')}}" class="waves-effect">
-                <i class="mdi mdi-account-box"></i><span> User </span>
-            </a>
-        </li>
+
         <li>
             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-database-search"></i><span> Manage Data <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
             <ul class="submenu">
                 <li>
-                    <a href="{{route('toplevel.mekanik.index')}}">
+                    <a href="{{route('operator.mekanik.index')}}">
                         Mechanic </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('toplevel.supplier.index')}}">
+                    <a href="{{route('operator.supplier.index')}}">
                         Suppliers </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('toplevel.categories.index')}}">
+                    <a href="{{route('operator.categories.index')}}">
                         Category </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('toplevel.motor.index')}}">
+                    <a href="{{route('operator.motor.index')}}">
                         Motor </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('toplevel.barang.index')}}">
+                    <a href="{{route('operator.barang.index')}}">
                         Barang </span>
                     </a>
                 </li>
@@ -142,27 +138,14 @@
         </li>
         <li class="menu-title">Main Menu</li>
         <li>
-            <a href="{{route('toplevel.servis.index')}}" class="waves-effect">
+            <a href="{{route('operator.servis.index')}}" class="waves-effect">
                 <i class="mdi mdi-file-document-box"></i><span> Service Motor </span>
             </a>
         </li>
         <li>
-            <a href="{{route('toplevel.pembelian.index')}}" class="waves-effect">
-                <i class="mdi mdi-cart-outline"></i><span> Transaksi Pembalian </span>
-            </a>
-        </li>
-        <li>
-            <a href="{{route('toplevel.penjualan.index')}}" class="waves-effect">
+            <a href="{{route('operator.penjualan.index')}}" class="waves-effect">
                 <i class="mdi mdi-cart-plus"></i><span> Transaksi Penjualan </span>
             </a>
-        </li>
-        <li>
-            <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> Repot <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
-            <ul class="submenu">
-                <li><a href="{{route('toplevel.laporan.service')}}">Laporan Service</a></li>
-                <li><a href="{{route('toplevel.laporan.beli')}}">Laporan Pembelian</a></li>
-                <li><a href="{{route('toplevel.laporan.jual')}}">Laporan Penjualan</a></li>
-            </ul>
         </li>
     </ul>
 </div>
