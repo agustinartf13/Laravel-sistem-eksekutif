@@ -11,7 +11,6 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Pembelian</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.create')}}"></a> Add Pembelian</li>
             </ol>
         </div>
     </div>

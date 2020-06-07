@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserValidRequest;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Datatables;
 
 
@@ -37,7 +37,7 @@ class UserController extends Controller
             return '' .
             '&nbsp;<a href="'.route('admin.user.show', ['user' => $users->id]).'" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>'.
             '&nbsp;<a href="'.route('admin.user.edit', ['user' => $users->id]).'" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>'.
-            '&nbsp;<button type="button" name="delete" id="' . $users->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+            '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $users->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
           })->rawColumns(['action'])->make(true);
     }
 
@@ -57,16 +57,43 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserValidRequest $request)
+    public function store(Request $request)
     {
+
+        $validation = array(
+            "name" => "required|unique:users",
+            "username" => "required|unique:users",
+            "email" => "required|unique:users",
+            "no_telphone" => "required",
+            "address" => "required",
+            "password" => "required",
+            "roles" => "required",
+            "confrime_password" => "required|same:password"
+        );
+        $messages = array(
+            "name.required" => "Field Name Tidak Boleh Kosong",
+            "name.unique" => "Name Sudah Ada",
+            "username.required" => "Field Username Tidak Boleh Kosong",
+            "username.unique" => "Username sudah Ada",
+            "no_telphone.required" => "Field tidak Boleh Kosong",
+            "address.required" => "Field Address Tidak Boleh Kosong",
+            "password.required" => "Field Password Tidak Boleh Kosong",
+            "confrime_password.required" => "Field Confrime Password Tidak Boleh Kosong",
+            "confrime_password.same" => "Confirm Password harus Match Password",
+            "roles.required" => "Filed Role Tidak Boleh kosong"
+        );
+
+        $errors = Validator::make($request->all(), $validation, $messages);
+        if ($errors->fails()) {
+            return response()->json(['errors' => $errors->getMessageBag()->toArray()]);
+        }
+
         $user = new User;
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
         $user->no_telphone = $request->get('no_telphone');
-        $user->about = $request->get('about');
         $user->address = $request->get('address');
-        $user->gender = $request->get('gender');
         $user->status = "ACTIVE";
         $user->password = Hash::make($request->get('password'));
 
@@ -75,6 +102,9 @@ class UserController extends Controller
             $image_path = $image->store('image-user', 'public');
             $user->image = $image_path;
         }
+
+        $user->save();
+
         # create data roles
         $name = $request->get('name');
         $role = new Role;
@@ -83,10 +113,8 @@ class UserController extends Controller
 
         // var_dump($user, $role);
 
-        $user->save();
         $role->save();
-        return redirect()->route('admin.user.create')
-            ->with('status', 'Data successfully created!!');
+        return response()->json(['status', 'Data Successfully Created!']);
     }
 
     /**
@@ -155,14 +183,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $delete = User::findOrFail($id);
-        if ($delete->image) {
-            Storage::delete('public/' . $delete->image);
-            $delete->delete();
-        } else {
-            $delete->delete();
-        }
-        return redirect()->route('admin.user.index')
-            ->with('status', 'User successfully deleted!!');
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(['status' => 'User deleted successfully']);
     }
 }

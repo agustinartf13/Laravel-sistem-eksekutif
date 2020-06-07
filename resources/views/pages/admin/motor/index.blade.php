@@ -9,9 +9,8 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Motor</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Motor</li>
             </ol>
         </div>
     </div>
