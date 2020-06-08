@@ -64,7 +64,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $validation = array(
-            "kode_barang" => "required|unique:barangs|max:255",
+            "kode_barang" => "required|max:255",
             "name_barang" => "required|unique:barangs|max:255",
             "categories_id" => "required",
             "description" => "required",
@@ -75,7 +75,6 @@ class BarangController extends Controller
 
         $messages = array(
             "kode_barang.required" => "field Kode Barang tidak boleh Kosong!",
-            "kode_barang.unique" => "Kode Barang Sudah Ada!",
             "categories_id.required" => "field Name Category tidak boleh Kosong!",
             "description.required" => "field Description tidak Boleh Kosong!",
             "harga_dasar.required" => "field harga tidak boleh Kosong!",

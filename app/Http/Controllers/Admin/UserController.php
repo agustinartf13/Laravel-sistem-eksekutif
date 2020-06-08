@@ -35,7 +35,7 @@ class UserController extends Controller
         $users = User::orderBy('id', 'DESC')->get();
           return DataTables::of($users)->addColumn('action', function ($users) {
             return '' .
-            '&nbsp;<a href="'.route('admin.user.show', ['user' => $users->id]).'" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>'.
+            '&nbsp;<a href="#mymodal" data-remote="' . route('admin.user.show', ['user' => $users->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $users->name . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
             '&nbsp;<a href="'.route('admin.user.edit', ['user' => $users->id]).'" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>'.
             '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $users->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
           })->rawColumns(['action'])->make(true);
@@ -125,7 +125,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('pages.admin.user.show')->with([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -156,11 +160,9 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
-        $user->about = $request->get('about');
         $user->no_telphone = $request->get('no_telphone');
         $user->address = $request->get('address');
-        $user->gender = $request->get('gender');
-        $user->status = $request->get('status');
+        $user->status = "ACTIVE";
 
         if ($request->file('image')) {
             if ($user->image && file_exists(storage_path('app/public/' . $user->image))) {
@@ -169,7 +171,16 @@ class UserController extends Controller
             $file = $request->file('image')->store('image-user', 'public');
             $user->image = $file;
         }
+
         $user->save();
+
+        # update data roles
+        $name = $request->get('name');
+        $role = Role::findOrFail($id);
+        $role->name = $request->get('name');
+        $role->slug = Str::slug($name, '-');
+
+        $role->save();
         return redirect()->route('admin.user.index', [
             'id' => $id
         ])->with('status', 'User successfully Updated!!');

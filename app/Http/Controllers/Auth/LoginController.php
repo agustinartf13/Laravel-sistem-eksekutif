@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -41,7 +42,7 @@ class LoginController extends Controller
         # jika role id 1
         if (Auth::check() && Auth::user()->role->id == 1) {
             # jalankan ini
-            $this->redirectTo = route('admin.dashboard')->with('status', 'Data successfully Updated');
+            $this->redirectTo = route('admin.dashboard');
             # jika id 2
         } elseif (Auth::check() && Auth::user()->role->id == 2) {
             # jalankan ini
@@ -52,6 +53,30 @@ class LoginController extends Controller
         }
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request) {
+
+        $validation = \Validator::make($request->all(),[
+            'email' => 'required|string|max:255',
+            'password' => 'required'
+        ])->validate();
+
+
+        if ($request->isMethod('post')) {
+            $data = $request->input();
+            if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                return redirect()->route('admin.dashboard');
+            } elseif (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                return redirect()->route('toplevel.dashboard');
+            } elseif (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                return redirect()->route('operator.dashboard');
+            } else {
+                return redirect('/')->with('message_error', 'Email and Password Salah');
+            }
+        }
+        return redirect('/');
+    }
+
 
     public function logout()
     {

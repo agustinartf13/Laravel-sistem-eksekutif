@@ -40,19 +40,6 @@ class LaporanPenjualanController extends Controller
             }
         }
 
-        // chart barang laku bulanan
-        // $penjualan2 = DB::table('penjualans')
-        //     ->join('penjualan_barangs', 'penjualans.id', 'penjualan_barangs.penjualan_id')
-        //     ->join('barangs', 'barangs.id', '=', 'penjualan_barangs.barang_id')
-        //     ->join('categories', 'barangs.categories_id', '=', 'categories.id')
-        //     ->select('categories.name as name')
-        //     ->selectRaw('cast(sum(penjualan_barangs.qty)as UNSIGNED)as y')
-        //     ->whereYear('penjualans.tanggal_transaksi', $year_today)
-        //     ->groupBy('categories.name')
-        //     ->orderBy('barangs.name_barang','asc')
-        //     ->get();
-        // dd($penjualan2);
-
         // query omset tahun ini
         $cari_omset = DB::table('penjualans')->selectRaw('sum(total_harga)as omset')
             ->whereYear('penjualans.tanggal_transaksi', $year_today)

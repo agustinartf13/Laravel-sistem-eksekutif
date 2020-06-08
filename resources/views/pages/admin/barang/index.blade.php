@@ -31,7 +31,7 @@
                     <h4 class="mt-0"><i class="mdi mdi-cube mr-2"></i> Data Barang</h4>
                     <button id="btn_addbarang" name="btn_addbarang" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Supplier</button>
+                            class="fa fa-plus mr-2"></i>Add Barang</button>
                     <br><br><br>
                     <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap  mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">

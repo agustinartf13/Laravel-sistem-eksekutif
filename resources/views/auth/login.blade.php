@@ -4,7 +4,13 @@
 
 <div class="card">
     <div class="card-body">
-        <div class="p-3">
+        @if (session("message_error"))
+        <div class="alert alert-primary" role="alert">
+            <h6 class="alert-heading font-18">Login Failed</h6>
+            <p>{{ session("message_error") }}, <strong>masukan email dan password yang benar!</strong>
+            </div></p>
+        @endif
+        <div class="p-2">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Sari Indah Motor Lukluk !</h4>
             <p class="text-muted text-center">Sign in to continue to working.</p>
 
@@ -12,14 +18,20 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus id="email" placeholder="Enter Email">
+                    <input type="email" name="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" value="{{ old('email') }}" autocomplete="email" autofocus id="email" placeholder="Enter Email">
+                    <div class="invalid-feedback">
+                        {{$errors->first('email')}}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required autocomplete="password" autofocus id="password" placeholder="Enter password">
+                    <input type="password" name="password" class="form-control {{$errors->first('password') ? "is-invalid" : ""}}" value="{{ old('password') }}" autocomplete="password" autofocus id="password" placeholder="Enter password">
+                    <div class="invalid-feedback">
+                        {{$errors->first('password')}}
+                    </div>
                 </div>
                 <div class="form-group row m-t-20">
-                    <div class="col-6"> 
+                    <div class="col-6">
                     </div>
                     <div class="col-6 text-right">
                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
