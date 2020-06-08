@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Service</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('operator.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.servis.index')}}">Service</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.servis.create')}}"></a>Add Service</li>
+                <li>{{ Breadcrumbs::render('mekanikToplevel') }}</li>
             </ol>
         </div>
     </div>
@@ -33,7 +31,7 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    
+
                     <a href="{{route('operator.servis.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
                     <br><br><br>

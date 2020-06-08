@@ -10,7 +10,8 @@
             <h4 class="page-title">Add Data Supplier</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('admin.supplier.index') }}"></a> Supplier</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.supplier.index') }}">Supplier</a></li>
+                <li class="breadcrumb-item active"><a href=""></a> Edit Supplier</li>
             </ol>
         </div>
     </div>

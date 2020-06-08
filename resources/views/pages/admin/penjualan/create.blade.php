@@ -4,14 +4,15 @@
 @endsection
 
 @section('content')
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Penjualan</h4>
+            <h4 class="page-title">Add Penjualan</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Penjualan</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.create')}}">Add Pebjualan</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.penjualan.index') }}">Penjualan</a></li>
+                <li class="breadcrumb-item active"><a href=""></a>Add Penjualan</li>
             </ol>
         </div>
     </div>

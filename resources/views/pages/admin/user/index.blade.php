@@ -9,8 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Users</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('admin.user.index') }}">Users</a></li>
+               <li>{{ Breadcrumbs::render('user') }}</li>
             </ol>
         </div>
     </div>

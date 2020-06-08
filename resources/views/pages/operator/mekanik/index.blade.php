@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Mekanik</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li>{{ Breadcrumbs::render('mekanikOperator') }}</li>
             </ol>
         </div>
     </div>

@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Barang</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.barang.index')}}">Barang</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.barang.create')}}">Add Barang</a></li>
+                <li>{{ Breadcrumbs::render('barangToplevel') }}</li>
             </ol>
         </div>
     </div>

@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Service</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.servis.index')}}">Service</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.servis.create')}}"></a>Add Service</li>
+                <li>{{ Breadcrumbs::render('serviceAdmin') }}</li>
             </ol>
         </div>
     </div>

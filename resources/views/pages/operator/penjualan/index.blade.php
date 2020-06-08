@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Penjualan</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('operator.dashboard')}}">Dashoard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.penjualan.index')}}">Penjualan</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.penjualan.create')}}"></a>Add Penjualan</li>
+                <li>{{ Breadcrumbs::render('penjualanOperator') }}</li>
             </ol>
         </div>
     </div>

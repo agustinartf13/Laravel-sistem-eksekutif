@@ -9,9 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Categories</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="{{route('toplevel.categories.index')}}">Categories</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('toplevel.categories.create')}}">Add Data Categories</a></li>
+               <li>{{ Breadcrumbs::render('categoriesToplevel') }}</li>
             </ol>
         </div>
     </div>

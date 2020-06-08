@@ -4,19 +4,20 @@
 @endsection
 
 @section('content')
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Data Supplier</h4>
+            <h4 class="page-title">Data Supplier</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="#">Supplier</a></li>
-                <li class="breadcrumb-item active">Add Data</li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.supplier.index') }}">Supplier</a></li>
+                <li class="breadcrumb-item active"><a href=""></a> Edit Supplier</li>
             </ol>
         </div>
     </div>
 </div>
-<!-- end row -->
+
 
 <div class="page-content-wrapper">
     <div class="row">

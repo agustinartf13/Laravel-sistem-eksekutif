@@ -9,8 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Pembelian</a></li>
+                <li>{{ Breadcrumbs::render('pembelianAdmin') }}</li>
             </ol>
         </div>
     </div>

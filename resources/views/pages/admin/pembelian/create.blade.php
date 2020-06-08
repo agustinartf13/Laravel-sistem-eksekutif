@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">Add Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.index')}}">Barang</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.pembelian.create')}}">Add Barang</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.pembelian.index') }}">Pembelian</a></li>
+                <li class="breadcrumb-item active"><a href=""></a>Add Pembelian</li>
             </ol>
         </div>
     </div>

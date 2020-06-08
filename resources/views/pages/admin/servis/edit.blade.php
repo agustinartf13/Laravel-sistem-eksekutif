@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Data Service &nbsp; <small>{{ $service->invocie_number }}</small></h4>
+            <h4 class="page-title">Edit Service </h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.servis.index')}}">Service</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.servis.create')}}"></a>Add Service</li>
+                <li class="breadcrumb-item active"><a href=""></a>Edit Service</li>
             </ol>
         </div>
     </div>
@@ -23,8 +23,8 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-settings mr-2"></i> Edit Service &nbsp;
-                        <small>#invoice{{ $service->invocie_number }}</h4>
+                    <h4 class="mt-0"><i class=""></i>
+                        <strong>#invoice{{ $service->invocie_number }}</strong></h4>
                     <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">

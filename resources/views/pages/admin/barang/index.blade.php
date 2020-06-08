@@ -9,8 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Barang</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">{{route('admin.dashboard')}}</a>Dashboard</li>
-                <li class="breadcrumb-item"><a href="{{route('admin.barang.index')}}">Barang</a></li>
+                <li></li>{{ Breadcrumbs::render('barangAdmin') }}
             </ol>
         </div>
     </div>

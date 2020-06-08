@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Update Data Mekanik</h4>
+            <h4 class="page-title">Edit Mekanik</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.mekanik.index') }}">Mekanik</a></li>
+                <li class="breadcrumb-item active"><a href=""></a>Edit Mekanik</li>
             </ol>
         </div>
     </div>

@@ -9,8 +9,8 @@
         <div class="page-title-box">
             <h4 class="page-title">Laporan Pembelian</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Wellcome to Laporan Pembelian</a></li>
                 <li class="breadcrumb-item"><a href="{{route('toplevel.dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Laporan Pembelian</li>
             </ol>
         </div>
     </div>

@@ -9,9 +9,9 @@
         <div class="page-title-box">
             <h4 class="page-title">Updated Data Categories</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="#">Categories</a></li>
-                <li class="breadcrumb-item active">Add Data</li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.categories.index') }}">Categories</a></li>
+                <li class="breadcrumb-item active"><a href=""></a> Edit Categories</li>
             </ol>
         </div>
     </div>

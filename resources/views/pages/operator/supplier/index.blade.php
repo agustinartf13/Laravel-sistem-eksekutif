@@ -12,9 +12,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Supplier</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{Auth::user()->username}}</a></li>
-                <li class="breadcrumb-item"><a href="#">Supplier</a></li>
-                <li class="breadcrumb-item active">Home</li>
+                <li>{{ Breadcrumbs::render('supplierOperator') }}</li>
             </ol>
         </div>
     </div>

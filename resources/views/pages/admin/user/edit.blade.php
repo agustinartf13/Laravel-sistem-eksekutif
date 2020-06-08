@@ -9,7 +9,9 @@
         <div class="page-title-box">
             <h4 class="page-title">Edit Data Users</h4>
             <ol class="breadcrumb">
-
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">User</a></li>
+                <li class="breadcrumb-item active"><a href=""></a>Edit User</li>
             </ol>
         </div>
     </div>

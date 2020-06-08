@@ -9,13 +9,11 @@
         <div class="page-title-box">
             <h4 class="page-title">Data Categories</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashbord</a></>
-                <li class="breadcrumb-item active"><a href="{{route('admin.categories.index')}}">Categories</a></li>
+                <li>{{ Breadcrumbs::render('categoriesAdmin') }}</li>
             </ol>
         </div>
     </div>
 </div>
-<!-- end row -->
 
 <div class="page-content-wrapper">
     <div class="row">

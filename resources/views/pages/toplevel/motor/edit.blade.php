@@ -4,19 +4,19 @@
 @endsection
 
 @section('content')
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Data Users</h4>
+            <h4 class="page-title">Data Motor</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Agroxa</a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active">Data Table</li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('toplevel.motor.index') }}">Motor</a></li>
+                <li class="breadcrumb-item active"><a href=""></a> Edit Motor</li>
             </ol>
         </div>
     </div>
 </div>
-<!-- end row -->
 
 <div class="page-content-wrapper">
     <div class="row">
