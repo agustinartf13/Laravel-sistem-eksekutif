@@ -137,6 +137,11 @@
         </li>
         <li class="menu-title">Main Menu</li>
         <li>
+            <a href="{{route('toplevel.persediaan')}}" class="waves-effect">
+                <i class="mdi mdi-buffer"></i><span> Persediaan </span>
+            </a>
+        </li>
+        <li>
             <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> Repot <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
             <ul class="submenu">
                 <li><a href="{{route('toplevel.laporan.service')}}">Laporan Service</a></li>

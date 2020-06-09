@@ -47,6 +47,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
     Route::resource('supplier', 'SupplierController');
 
+    Route::get('persediaan', "PersediaanController@index")->name('persediaan');
+    Route::get("/api/persediaan", "PersediaanController@apipersediaan")->name("api.persediaan");
+
     Route::get("/pembelian/{id}/set-status", "PembelianController@setStatus")->name("pembelian.status");
     Route::get("/pembelian/{id}/invoice", "PembelianController@invoice")->name("pembelian.invoice");
     Route::get("/pembelian/{id}/invoice-print", "PembelianController@invoicePrint")->name("pembelian.invoiceprint");
@@ -95,6 +98,9 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
     Route::resource('barang', 'BarangController');
 
+    Route::get('persediaan', "PersediaanController@index")->name('persediaan');
+    Route::get("/api/persediaan", "PersediaanController@apipersediaan")->name("api.persediaan");
+
     Route::get("/supplier/{id}/set-status", "SupplierController@setStatus")->name("supplier.status");
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
     Route::resource('supplier', 'SupplierController');
@@ -113,7 +119,6 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/servis/{id}/invoice", "ServiceController@invoice")->name("servis.invoice");
     Route::get("/api/servis", "ServiceController@apiservis")->name("api.servis");
     Route::resource('servis', 'ServiceController');
-
 
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
@@ -146,6 +151,9 @@ Route::group(['as' => 'operator.', 'prefix' => 'operator', 'namespace' => 'Opera
 
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
     Route::resource('barang', 'BarangController');
+
+    Route::get('persediaan', "PersediaanController@index")->name('persediaan');
+    Route::get("/api/persediaan", "PersediaanController@apipersediaan")->name("api.persediaan");
 
     Route::get("/supplier/{id}/set-status", "SupplierController@setStatus")->name("supplier.status");
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");

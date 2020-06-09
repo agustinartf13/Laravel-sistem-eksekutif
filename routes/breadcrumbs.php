@@ -129,3 +129,20 @@ Breadcrumbs::for('pembelianToplevel', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('pembelian', route('toplevel.pembelian.index'));
 });
+
+
+Breadcrumbs::for('persediaanAdmin', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Persediaan', route('admin.persediaan'));
+});
+
+Breadcrumbs::for('persediaanToplevel', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Persediaan', route('toplevel.persediaan'));
+});
+
+Breadcrumbs::for('persediaanOperator', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Persediaan', route('operator.persediaan'));
+});
+

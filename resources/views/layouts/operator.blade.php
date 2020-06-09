@@ -138,15 +138,26 @@
         </li>
         <li class="menu-title">Main Menu</li>
         <li>
-            <a href="{{route('operator.servis.index')}}" class="waves-effect">
-                <i class="mdi mdi-file-document-box"></i><span> Service Motor </span>
+            <a href="{{route('operator.persediaan')}}" class="waves-effect">
+                <i class="mdi mdi-buffer"></i><span> Persediaan </span>
             </a>
         </li>
         <li>
-            <a href="{{route('operator.penjualan.index')}}" class="waves-effect">
-                <i class="mdi mdi-cart-plus"></i><span> Transaksi Penjualan </span>
-            </a>
+            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-database-search"></i><span> Manage Data <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+            <ul class="submenu">
+                <li>
+                    <a href="{{route('operator.servis.index')}}" class="waves-effect">
+                        <i class="mdi mdi-file-document-box"></i><span> Service </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('operator.penjualan.index')}}" class="waves-effect">
+                        <i class="mdi mdi-cart-plus"></i><span> Penjualan </span>
+                    </a>
+                </li>
+            </ul>
         </li>
+
     </ul>
 </div>
 <div class="clearfix"></div>

@@ -142,20 +142,31 @@
         </li>
         <li class="menu-title">Main Menu</li>
         <li>
-            <a href="{{route('admin.servis.index')}}" class="waves-effect">
-                <i class="mdi mdi-file-document-box"></i><span> Service Motor </span>
+            <a href="{{route('admin.persediaan')}}" class="waves-effect">
+                <i class="mdi mdi-buffer"></i><span> Persediaan </span>
             </a>
         </li>
         <li>
-            <a href="{{route('admin.pembelian.index')}}" class="waves-effect">
-                <i class="mdi mdi-cart-outline"></i><span> Transaksi Pembalian </span>
-            </a>
+            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-database-search"></i><span> Manage Data <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+            <ul class="submenu">
+                <li>
+                    <a href="{{route('admin.servis.index')}}" class="waves-effect">
+                        <i class="mdi mdi-file-document-box"></i><span> Service </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('admin.pembelian.index')}}" class="waves-effect">
+                        <i class="mdi mdi-cart-outline"></i><span> Pembalian </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('admin.penjualan.index')}}" class="waves-effect">
+                        <i class="mdi mdi-cart-plus"></i><span> Penjualan </span>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li>
-            <a href="{{route('admin.penjualan.index')}}" class="waves-effect">
-                <i class="mdi mdi-cart-plus"></i><span> Transaksi Penjualan </span>
-            </a>
-        </li>
+
         <li>
             <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> Repot <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
             <ul class="submenu">

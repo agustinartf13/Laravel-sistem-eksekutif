@@ -22,4 +22,8 @@ class BarangDetail extends Model
     public function pembelian() {
         return $this->belongsTo(Pembelian::class, 'id');
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class, 'categories_id', 'id');
+    }
 }
