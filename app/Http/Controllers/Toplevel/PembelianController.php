@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Toplevel;
 
 use App\Barang;
 use App\BarangDetail;
@@ -24,7 +24,7 @@ class PembelianController extends Controller
     public function index()
     {
         $pembelian = Pembelian::with('supplier')->with('barang')->get();
-        return view('pages.admin.pembelian.index', [
+        return view('pages.toplevel.pembelian.index', [
             'pembelians' => $pembelian
         ]);
     }
@@ -36,9 +36,9 @@ class PembelianController extends Controller
         return DataTables::of($pembelian)
             ->addColumn('action', function ($pembelian) {
                 return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.pembelian.show', ['pembelian' => $pembelian->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" Invoice Number #' . $pembelian->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.pembelian.show', ['pembelian' => $pembelian->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" Invoice Number #' . $pembelian->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.pembelian.edit', ['pembelian' => $pembelian->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.pembelian.invoice', ['id' => $pembelian->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $pembelian->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['pembelian' => $pembelian]);
@@ -55,7 +55,7 @@ class PembelianController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
         $barangs = Barang::all();
-        return view('pages.admin.pembelian.create', [
+        return view('pages.toplevel.pembelian.create', [
             'pembelians' => $pembelians, 'categories' => $categories, 'suppliers' => $suppliers, 'barangs' => $barangs
         ]);
     }
@@ -117,7 +117,7 @@ class PembelianController extends Controller
         // dd($pembelian_detail, $new_stock);
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.create')->with('status', 'Pembelian successfully created!');
+        return redirect()->route('toplevel.pembelian.create')->with('status', 'Pembelian successfully created!');
     }
 
     /**
@@ -132,7 +132,7 @@ class PembelianController extends Controller
             ->with('dtlpembelian.category')
                 ->with('dtlpembelian.barang')->findOrFail($id);
 
-        return view('pages.admin.pembelian.show')->with([
+        return view('pages.toplevel.pembelian.show')->with([
             'pembelian' => $pembelian
         ]);
     }
@@ -151,7 +151,7 @@ class PembelianController extends Controller
         $categories = Category::all();
 
         return view(
-            'pages.admin.pembelian.edit',
+            'pages.toplevel.pembelian.edit',
             [
                 'pembelians' => $pembelians, 'barangs' => $barangs,
                 'suppliers' => $suppliers, 'categories' => $categories
@@ -232,7 +232,7 @@ class PembelianController extends Controller
         $pembelian->total_harga = $total_harga;
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.edit', $id)
+        return redirect()->route('toplevel.pembelian.edit', $id)
             ->with('status', 'Data successfully Updated');
     }
 
@@ -245,7 +245,7 @@ class PembelianController extends Controller
         // join table pembelians->barangs->dtlpembelians
 
         // dd($pembelians);
-        return view('pages.admin.pembelian.invoice', [
+        return view('pages.toplevel.pembelian.invoice', [
             'pembelian' => $pembelian
         ]);
     }
@@ -275,7 +275,7 @@ class PembelianController extends Controller
 
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.index')
+        return redirect()->route('toplevel.pembelian.index')
             ->with('status', 'Status successfully updated');
     }
 }

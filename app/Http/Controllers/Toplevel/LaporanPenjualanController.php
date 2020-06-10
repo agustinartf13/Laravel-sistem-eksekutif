@@ -145,8 +145,8 @@ class LaporanPenjualanController extends Controller
             return DataTables::of($penjualan)
                 ->addColumn('action', function ($penjualan) {
                     return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #'. $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
-                    '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #'. $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
+                    '&nbsp;<a href="' . route('toplevel.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
                 })->rawColumns(['action'])->make(true);
 
         }

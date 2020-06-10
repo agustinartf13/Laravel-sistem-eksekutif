@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Toplevel;
 
 use App\Barang;
 use App\BarangDetail;
@@ -25,7 +25,7 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::with('dtlservice')->with('motor')->get();
-        return view('pages.admin.servis.index', [
+        return view('pages.toplevel.servis.index', [
             'service' => $service
         ]);
     }
@@ -37,9 +37,9 @@ class ServiceController extends Controller
         return DataTables::of($service)
             ->addColumn('action', function ($service) {
                 return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['service' => $service]);
@@ -56,7 +56,7 @@ class ServiceController extends Controller
         $users = User::all();
         $mekaniks = Mekanik::all();
         $motors = Motor::all();
-        return view('pages.admin.servis.create', [
+        return view('pages.toplevel.servis.create', [
             'barangs' => $barangs, 'users' => $users,
             'mekaniks' => $mekaniks, 'motors' => $motors
         ]);
@@ -141,13 +141,13 @@ class ServiceController extends Controller
         $new_service->profit = $profit;
         $new_service->save();
 
-        return redirect()->route('admin.servis.index', ['id' => $service_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('toplevel.servis.index', ['id' => $service_id])->with('status', 'penjualan successfully created');
     }
 
     public function invoice(Request $request, $id)
     {
         $service = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->findOrFail($id);
-        return view('pages.admin.servis.invoice', [
+        return view('pages.toplevel.servis.invoice', [
             'service' => $service
         ]);
     }
@@ -162,7 +162,7 @@ class ServiceController extends Controller
     {
         $service = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->findOrFail($id);
 
-        return view('pages.admin.servis.show')->with([
+        return view('pages.toplevel.servis.show')->with([
             'service' => $service
         ]);
     }
@@ -182,7 +182,7 @@ class ServiceController extends Controller
         $dtlservice = DetailService::all();
         $motors = Motor::all();
 
-        return view('pages.admin.servis.edit', [
+        return view('pages.toplevel.servis.edit', [
             'service' => $service, 'barangs' => $barangs,
             'mekaniks' => $mekaniks, 'dtlservice' => $dtlservice, 'motors' => $motors
         ]);
@@ -293,7 +293,7 @@ class ServiceController extends Controller
         $service->profit = $profit;
         $service->save();
 
-        return redirect()->route('admin.servis.index', $id)->with('status', 'Service successfully Updated');
+        return redirect()->route('toplevel.servis.index', $id)->with('status', 'Service successfully Updated');
     }
 
     /**
@@ -317,7 +317,7 @@ class ServiceController extends Controller
 
         $service->save();
 
-        return redirect()->route('admin.servis.index')
+        return redirect()->route('toplevel.servis.index')
             ->with('status', 'Status successfully updated');
     }
 }

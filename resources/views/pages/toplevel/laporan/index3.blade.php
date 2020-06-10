@@ -107,33 +107,6 @@
                     </div>
                 </div>
             </div> <!-- end col -->
-
-            {{-- <div class="col-xl">
-                <div class="card m-b-20">
-                    <div class="card-body">
-
-                        <h4 class="mt-0 header-title">Penjualan Spareart Motor {{ $year_today }} </h4>
-
-                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['service'] }}</h5>
-                                <p class="text-muted">Service</p>
-                            </li>
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['checking'] }}</h5>
-                                <p class="text-muted">Checking</p>
-                            </li>
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['finish'] }}</h5>
-                                <p class="text-muted">Finish</p>
-                            </li>
-                        </ul>
-
-                        <canvas id="flotPie1" height="215"></canvas>
-
-                    </div>
-                </div>
-            </div> <!-- end col --> --}}
         </div> <!-- end row -->
 
 
@@ -141,8 +114,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('toplevel.servis.create')}}" class="btn btn-danger btn-flat d-inline"
-                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
                     <h4>List Service</h4>
                     <hr>
                     <div class="row input-daterange mb-3">

@@ -112,8 +112,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{route('toplevel.penjualan.create')}}" class="btn btn-danger btn-flat d-inline"
-                        style="float: right"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
                     <h4>List Penjualan</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
@@ -159,11 +157,8 @@
                             </tr>
                         </tfoot>
                     </table>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>

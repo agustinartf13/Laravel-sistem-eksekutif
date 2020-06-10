@@ -50,6 +50,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('persediaan', "PersediaanController@index")->name('persediaan');
     Route::get("/api/persediaan", "PersediaanController@apipersediaan")->name("api.persediaan");
 
+    Route::get('peramalan', "PeramalanController@index")->name('peramalan');
+
     Route::get("/pembelian/{id}/set-status", "PembelianController@setStatus")->name("pembelian.status");
     Route::get("/pembelian/{id}/invoice", "PembelianController@invoice")->name("pembelian.invoice");
     Route::get("/pembelian/{id}/invoice-print", "PembelianController@invoicePrint")->name("pembelian.invoiceprint");

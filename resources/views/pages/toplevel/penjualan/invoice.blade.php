@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.toplevel')
 @section('title')
 
 @endsection
@@ -9,11 +9,11 @@
         <div class="page-title-box">
             <h4>
                 Invoice
-                <small>INV-{{$pembelian->invoice_number}}</small>
+                <small>INV-{{$penjualan->invoice_number}}</small>
             </h4>
             <ol class="breadcrumb">
                 <h6>
-                    <li class="breadcrumb-item">Tanggal Transaksi : {{$pembelian->tanggl_transaksi}}</li>
+                    <li class="breadcrumb-item">Tanggal Transaksi : {{$penjualan->tanggal_transaksi}}</li>
                 </h6>
             </ol>
         </div>
@@ -30,9 +30,9 @@
                         <div class="col-12">
                             <div class="invoice-title">
                                 <h4 class="float-right font-16">
-                                    <strong>{{$tanggl_transaksi =date('M/d/Y', strtotime($pembelian->tanggl_transaksi))}}
+                                    <strong>{{$tanggal_transaksi =date('M/d/Y', strtotime($penjualan->tanggal_transaksi))}}
                                         INV
-                                        #{{$pembelian->invoice_number}}</strong></h4>
+                                        #{{$penjualan->invoice_number}}</strong></h4>
                                 <h3 class="mt-0">
                                     {{-- <img src="assets/images/Honda_Logo.svg" alt="logo" height="24"/> --}}
                                     <i class="fa fa-globe"></i> Sari Indah Motor <span
@@ -59,11 +59,9 @@
                                 </div>
                                 <div class="col-6 text-right">
                                     <address class="text-justify" style="float: right">
-                                        Name Supplier: {{$pembelian->supplier->name_supplier}}<br>
-                                        Email: {{$pembelian->supplier->email}}<br>
-                                        Company: {{$pembelian->supplier->perusahaan}}<br>
-                                        Address: {{$pembelian->supplier->address}}<br>
-                                        Phone: {{$pembelian->supplier->no_telphone}}<br>
+                                        Name Customer: {{$penjualan->name_pembeli}}<br>
+                                        Address: {{$penjualan->alamat}}<br>
+                                        Phone: {{$penjualan->no_telphone}}<br>
                                     </address>
                                 </div>
                             </div>
@@ -81,8 +79,8 @@
                                             <thead>
                                                 @php
                                                 function rupiah($angka){
-                                                    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-                                                    return $hasil_rupiah;
+                                                $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                                                return $hasil_rupiah;
                                                 }
                                                 @endphp
                                                 <tr>
@@ -94,16 +92,16 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                    $no=1;
+                                                $no=1;
                                                 @endphp
-                                                 @foreach ($pembelian->dtlpembelian as $value)
-                                                 <tr>
-                                                  <td>{{$no++}}</td>
-                                                  <td class="text-center">{{$value->barang->name_barang}}</td>
-                                                  <td class="text-center">{{$value->harga_beli}}</td>
-                                                  <td class="text-center">{{$value->qty}}</td>
-                                                 </tr>
-                                               @endforeach
+                                                @foreach ($penjualan->dtlpenjualans as $value)
+                                                <tr>
+                                                    <td>{{$no++}}</td>
+                                                    <td class="text-center">{{$value->barangs->name_barang}}</td>
+                                                    <td class="text-center">{{$value->harga_jual}}</td>
+                                                    <td class="text-center">{{$value->qty}}</td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -116,7 +114,7 @@
 
                         <div class="col-6">
                             <address>
-                                <h6> <strong>Total Transaksi</strong>&nbsp;&nbsp;{{rupiah($pembelian->total_harga)}}
+                                <h6> <strong>Total Transaksi</strong>&nbsp;&nbsp;{{rupiah($penjualan->total_harga)}}
                                 </h6>
                             </address>
                         </div>
@@ -127,7 +125,7 @@
                             <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i
                                     class="fa fa-print"></i></a>
                             <a href="#" class="btn btn-danger waves-effect waves-light">Send</a>
-                            <a href="{{route('admin.pembelian.index')}}"
+                            <a href="{{route('admin.servis.index')}}"
                                 class="btn btn-secondary waves-effect waves-light">back</a>
                         </div>
                     </div>

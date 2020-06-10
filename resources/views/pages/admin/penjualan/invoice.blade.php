@@ -32,7 +32,7 @@
                                 <h4 class="float-right font-16">
                                     <strong>{{$tanggal_transaksi =date('M/d/Y', strtotime($penjualan->tanggal_transaksi))}}
                                         INV
-                                        #{{$penjualan->invocie_number}}</strong></h4>
+                                        #{{$penjualan->invoice_number}}</strong></h4>
                                 <h3 class="mt-0">
                                     {{-- <img src="assets/images/Honda_Logo.svg" alt="logo" height="24"/> --}}
                                     <i class="fa fa-globe"></i> Sari Indah Motor <span

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Toplevel;
 
 use App\Barang;
 use App\BarangDetail;
@@ -23,7 +23,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.penjualan.index');
+        return view('pages.toplevel.penjualan.index');
     }
 
     // api supplier get data
@@ -33,9 +33,9 @@ class PenjualanController extends Controller
         return DataTables::of($penjualan)
             ->addColumn('action', function ($penjualan) {
                 return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('admin.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #' . $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
-                    '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #' . $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
+                    '&nbsp;<a href="' . route('toplevel.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
                     '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $penjualan->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
     }
@@ -48,7 +48,7 @@ class PenjualanController extends Controller
     public function create()
     {
         $barangs = Barang::all();
-        return view('pages.admin.penjualan.create', [
+        return view('pages.toplevel.penjualan.create', [
             'barangs' => $barangs,
         ]);
     }
@@ -65,7 +65,7 @@ class PenjualanController extends Controller
             $stock = BarangDetail::find($request->get('barang')[$key]);
             $barangs = Barang::find($request->get('barang')[$key]);
             if ($request->get('qty')[$key] > $stock->stock) {
-                return redirect()->route('admin.penjualan.create')->with('status', 'Stock' . $barangs->name_barang . 'Tidak Mencukupi');
+                return redirect()->route('toplevel.penjualan.create')->with('status', 'Stock' . $barangs->name_barang . 'Tidak Mencukupi');
             }
         }
 
@@ -120,7 +120,7 @@ class PenjualanController extends Controller
         $new_penjualan->profit = $profit;
         $new_penjualan->save();
 
-        return redirect()->route('admin.penjualan.create', ['id' => $penjualan_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('toplevel.penjualan.create', ['id' => $penjualan_id])->with('status', 'penjualan successfully created');
     }
 
     /**
@@ -133,7 +133,7 @@ class PenjualanController extends Controller
     {
         $penjualan = Penjualan::with('dtlpenjualans.barangs')->findOrFail($id);
 
-        return view('pages.admin.penjualan.show')->with([
+        return view('pages.toplevel.penjualan.show')->with([
             'penjualan' => $penjualan
         ]);
     }
@@ -148,7 +148,7 @@ class PenjualanController extends Controller
     {
         $penjualan = Penjualan::findOrFail($id);
         $barangs = Barang::all();
-        return view('pages.admin.penjualan.edit', [
+        return view('pages.toplevel.penjualan.edit', [
             'penjualan' => $penjualan, 'barangs' => $barangs
         ]);
     }
@@ -233,7 +233,7 @@ class PenjualanController extends Controller
 
         $penjualan->save();
 
-        return redirect()->route('admin.penjualan.edit', $id)
+        return redirect()->route('toplevel.penjualan.edit', $id)
             ->with('status', 'Penjualan Sccessfully update');
     }
 
