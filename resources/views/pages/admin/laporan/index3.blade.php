@@ -6,6 +6,7 @@
 
 
 @section('content')
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -27,6 +28,7 @@
                         Laporan
                         Service</h4>
                     <hr>
+
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -63,13 +65,12 @@
                             </div>
                             </div>
                         </div>
-                        <hr>
                         <div class="row">
                             <div class="col-lg-4">
                                 <label for="">Pilih Tahun</label>
                                 <div class="input-group mb-3">
                                     <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
-                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                    <button id="data-year" type="submit" class="btn btn-primary btn-sm">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -107,33 +108,6 @@
                     </div>
                 </div>
             </div> <!-- end col -->
-
-            {{-- <div class="col-xl">
-                <div class="card m-b-20">
-                    <div class="card-body">
-
-                        <h4 class="mt-0 header-title">Penjualan Spareart Motor {{ $year_today }} </h4>
-
-                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['service'] }}</h5>
-                                <p class="text-muted">Service</p>
-                            </li>
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['checking'] }}</h5>
-                                <p class="text-muted">Checking</p>
-                            </li>
-                            <li class="list-inline-item">
-                                <h5 class="mb-0">{{ $status['finish'] }}</h5>
-                                <p class="text-muted">Finish</p>
-                            </li>
-                        </ul>
-
-                        <canvas id="flotPie1" height="215"></canvas>
-
-                    </div>
-                </div>
-            </div> <!-- end col --> --}}
         </div> <!-- end row -->
 
 
@@ -143,6 +117,18 @@
                 <div class="card-body">
                     <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
+                        <a
+                        href=""
+                        class="btn btn-success btn-flat d-inline mr-3"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Excel</a
+                        >
+                        <a
+                        href=""
+                        class="btn btn-primary btn-flat d-inline mr-1"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Pdf</a
+                        >
                     <h4>List Service</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
@@ -262,6 +248,11 @@
             autoclose:true
         });
 
+        $('#data-year').on('click', function(){
+            const data = $('#datepicker').val()
+            window.alert(data)
+        });
+
         load_data();
         function load_data(from_date = '', to_date = '') {
 
@@ -339,13 +330,7 @@
                     }
                 }
             }],
-            dom: 'lBfrtip',
-            lengthChange: true,
-            buttons: ['copy', 'excel', 'pdf', 'print'],
-
         });
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
         }
 
         $('#filter').click(function() {
@@ -450,6 +435,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

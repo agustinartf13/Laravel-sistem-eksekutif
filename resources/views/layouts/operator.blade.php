@@ -111,7 +111,7 @@
             <ul class="submenu">
                 <li>
                     <a href="{{route('operator.mekanik.index')}}">
-                        Mechanic </span>
+                        Mekanik </span>
                     </a>
                 </li>
                 <li>
@@ -143,7 +143,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-database-search"></i><span> Manage Data <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-database-search"></i><span> Transaksi <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
             <ul class="submenu">
                 <li>
                     <a href="{{route('operator.servis.index')}}" class="waves-effect">

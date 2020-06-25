@@ -4,6 +4,70 @@
 @endsection
 
 @section('content')
+
+{{-- @php
+//Sum x and y
+  $sumX = doSum($x);
+  $sumY = doSum($y);
+
+  //Mean x and mean y
+  $meanX = $sumX / count($x);
+  $meanY = $sumY / count($y);
+
+  //ori - mean
+  $minX = doMinMean($x,$meanX);
+  $minY = doMinMean($y,$meanY);
+
+  //pow min
+  $powX = doPower($minX);
+  $sumPowX = doSum($powX);
+
+  //minX by minY
+  $by = doBy($minX,$minY);
+  $sumBy = doSum($by);
+
+  //b1
+  $b1 = $sumBy / $sumPowX;
+  $b0 = $meanY - $b1 * $meanX;
+
+  //function
+  $function = "Y = ".number_format((float)$b0, 4, '.', '')." + ".number_format((float)$b1, 4, '.', '')." ( X )";
+  echo "<script type='text/javascript'> var b0 = ".number_format((float)$b0, 4, '.', '')."; var b1 = ".number_format((float)$b1, 4, '.', '')." </script>";
+
+  function doMinMean($ori,$mean) {
+    $array = array();
+    for ($i=0; $i < count($ori); $i++) {
+      $count = $ori[$i] - $mean;
+      array_push($array,$count);
+    }
+    return $array;
+  }
+
+  function doPower($min) {
+    $array = array();
+    for ($i=0; $i < count($min); $i++) {
+      array_push($array,pow($min[$i],2));
+    }
+    return $array;
+  }
+
+  function doBy($minX,$minY) {
+    $array = array();
+    for ($i=0; $i < count($minX); $i++) {
+      array_push($array,$minX[$i]*$minY[$i]);
+    }
+    return $array;
+  }
+
+  function doSum($arr) {
+    $sum = 0;
+    for ($i=0; $i < count($arr); $i++) {
+      $sum += $arr[$i];
+    }
+    return $sum;
+  }
+@endphp --}}
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">

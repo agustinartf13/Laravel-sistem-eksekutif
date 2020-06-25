@@ -37,22 +37,6 @@
                         <input type="hidden" value="PUT" name="_method">
                         <div class="row mt-4">
                             <div class="col">
-                                @php
-                                $tanggal_transaksi = date('m/d/Y', strtotime($penjualan->tanggal_transaksi));
-                                @endphp
-                                <label for="">Date:</label>
-                                <input type="text" id="datepicker" name="tanggl_transaksi"
-                                    class="form-control @error('tanggl_transaksi') is-invalid @enderror"
-                                    placeholder="Tanggal Transaksi" value="{{$penjualan->tanggal_transaksi}}">
-                                @error('tanggl_transaksi')
-                                <div class="help-block" style="color: red;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col">
                                 <label for="">Customer</label>
                                 <input type="text" class="form-control @error('name_pembeli') is-invalid @enderror"
                                     placeholder="Name Pembeli" name="name_pembeli" value="{{$penjualan->name_pembeli}}">
@@ -61,6 +45,20 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
+                            </div>
+                        </div>
+                        @php
+                        $tanggal_transaksi = date('m/d/Y', strtotime($penjualan->tanggal_transaksi));
+                        @endphp
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">Date:</label>
+                                <input type="text" id="datepicker" name="tanggal_transaksi"
+                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
+                                    placeholder="Tanggal Transaksi" value="{{$tanggal_transaksi}}">
+                                <div class="invalid-feedback">
+                                    {{$errors->first('tanggal_transaksi')}}
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-4">

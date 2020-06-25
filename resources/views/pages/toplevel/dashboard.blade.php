@@ -111,11 +111,7 @@
     </div>
     <!-- end row -->
 
-
-
-
     <div class="row">
-
         <div class="col-xl-6">
             <div class="card m-b-20">
                 <div class="card-body">
@@ -238,17 +234,11 @@
                     </tr>
                 </tfoot>
             </table>
-
-
         </div>
     </div>
-
 </div>
-
 </div>
-
 <div class="row">
-
 </div>
 
 @endsection

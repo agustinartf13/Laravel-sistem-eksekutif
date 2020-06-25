@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Users</h4>
+            <h4 class="page-title">Data User</h4>
             <ol class="breadcrumb">
                <li>{{ Breadcrumbs::render('user') }}</li>
             </ol>
@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data Users</h4>
+                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data User</h4>
                     <hr>
                     @if(session('status'))
                     <div class="alert alert-success alert-dismissible">
@@ -32,7 +32,7 @@
                     @endif
                     <button id="btn_addmekanik" name="btn_addmekanik" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Users</button>
+                            class="fa fa-plus mr-2"></i>Add User</button>
                     <br><br><br>
                     <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap  mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">

@@ -113,6 +113,18 @@
                 <div class="card-body">
                     <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Pembelian</a>
+                        <a
+                        href="{{ route('admin.laporan.exportexcel') }}"
+                        class="btn btn-success btn-flat d-inline mr-3"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Excel</a
+                        >
+                        <a
+                        href="{{ route('admin.laporan.exportpdf') }}"
+                        class="btn btn-primary btn-flat d-inline mr-1"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Pdf</a
+                        >
                     <h4>List Pembelian</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
@@ -179,7 +191,7 @@
             labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "Pembelian Analytics",
                     backgroundColor: "#f16c69",
                     borderColor: "#f16c69",
                     borderWidth: 1,
@@ -283,13 +295,7 @@ $(document).ready(function() {
                         }
                     }
                 }],
-            dom: 'lBfrtip',
-            lengthChange: true,
-            buttons: ['copy', 'excel', 'pdf', 'print'],
         });
-
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
     }
 
     $('#filter').click(function() {

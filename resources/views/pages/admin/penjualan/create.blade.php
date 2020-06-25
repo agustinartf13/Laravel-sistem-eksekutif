@@ -37,11 +37,10 @@
                         @csrf
                         <div class="row mt-4">
                             <div class="col">
-                                <label for="">Date:</label>
-                                <input type="text" id="datepicker" name="tanggal_transaksi"
-                                    class="form-control @error('tanggal_transaksi') is-invalid @enderror"
-                                    placeholder="Tanggal Transaksi">
-                                @error('tanggal_transaksi')
+                                <label for="">Customer</label>
+                                <input type="text" class="form-control @error('name_pembeli') is-invalid @enderror"
+                                    placeholder="Name Pembeli" name="name_pembeli" value="{{old('name_pembeli')}}">
+                                @error('name_pembeli')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
                                 </div>
@@ -50,10 +49,11 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col">
-                                <label for="">Customer</label>
-                                <input type="text" class="form-control @error('name_pembeli') is-invalid @enderror"
-                                    placeholder="Name Pembeli" name="name_pembeli" value="{{old('name_pembeli')}}">
-                                @error('name_pembeli')
+                                <label for="">Date:</label>
+                                <input type="text" id="datepicker" name="tanggal_transaksi"
+                                    class="form-control @error('tanggal_transaksi') is-invalid @enderror"
+                                    placeholder="Tanggal Transaksi">
+                                @error('tanggal_transaksi')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
                                 </div>

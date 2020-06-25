@@ -115,17 +115,17 @@
             <ul class="submenu">
                 <li>
                     <a href="{{route('admin.mekanik.index')}}">
-                        Mechanic </span>
+                        Mekanik </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('admin.supplier.index')}}">
-                        Suppliers </span>
+                        Supplier </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('admin.categories.index')}}">
-                        Category </span>
+                        Categories </span>
                     </a>
                 </li>
                 <li>

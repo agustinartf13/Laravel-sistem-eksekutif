@@ -167,8 +167,9 @@ class PenjualanController extends Controller
         $penjualan->alamat = $request->get('alamat');
         $penjualan->no_telphone = $request->get('no_telphone');
         $penjualan->updated_by = Auth::user()->id;
-        $penjualan->tanggal_transaksi =
-            date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
+
+        $penjualan->tanggal_transaksi = date('Y-m-d', strtotime($request->get('tanggal_transaksi')));
+
 
         $penjualan->total_harga = 0;
         $penjualan->profit = 0;

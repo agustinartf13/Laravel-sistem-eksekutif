@@ -122,7 +122,8 @@
                                     </div>
                                 </div>
                                 {{-- <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
-                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button> --}}
+                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i>
+                                </button> --}}
                             </div>
 
                             @endforeach

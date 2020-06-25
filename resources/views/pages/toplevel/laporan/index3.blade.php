@@ -310,13 +310,7 @@
                     }
                 }
             }],
-            dom: 'lBfrtip',
-            lengthChange: true,
-            buttons: ['copy', 'excel', 'pdf', 'print'],
-
         });
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
         }
 
         $('#filter').click(function() {

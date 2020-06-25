@@ -110,7 +110,7 @@
             <ul class="submenu">
                 <li>
                     <a href="{{route('toplevel.mekanik.index')}}">
-                        Mechanic </span>
+                        Mekanik </span>
                     </a>
                 </li>
                 <li>
@@ -148,6 +148,11 @@
                 <li><a href="{{route('toplevel.laporan.beli')}}">Laporan Pembelian</a></li>
                 <li><a href="{{route('toplevel.laporan.jual')}}">Laporan Penjualan</a></li>
             </ul>
+        </li>
+        <li>
+            <a href="{{route('toplevel.peramalan')}}" class="waves-effect">
+                <i class="mdi mdi-google-analytics"></i><span> Peramalan </span>
+            </a>
         </li>
     </ul>
 </div>

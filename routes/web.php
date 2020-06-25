@@ -12,7 +12,6 @@
 */
 
 
-
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -69,6 +68,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
+    Route::get("/laporan/pembelian/exportexcel", "LaporanPembelianController@exportExcel")->name("laporan.exportexcel");
+    Route::get("/laporan/pembelian/exportpdf", "LaporanPembelianController@exportPdf")->name("laporan.exportpdf");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
@@ -122,9 +123,13 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/api/servis", "ServiceController@apiservis")->name("api.servis");
     Route::resource('servis', 'ServiceController');
 
+    Route::get('peramalan', "PeramalanController@index")->name('peramalan');
+
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
+    Route::get("/laporan/pembelian/export", "LaporanPembelianController@exportExcel")->name("laporan.export");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
+    Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
     Route::get("/api/jual", "LaporanPenjualanController@apijual")->name("api.jual");
 
