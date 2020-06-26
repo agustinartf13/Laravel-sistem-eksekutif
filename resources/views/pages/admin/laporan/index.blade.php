@@ -132,13 +132,13 @@
                     ><i class="fa fa-plus mr-2"></i>Add Penjualan</a
                     >
                     <a
-                    href=""
+                    href="{{ route('admin.laporan.exportexcel') }}"
                     class="btn btn-success btn-flat d-inline mr-3"
                     style="float: right"
                     ><i class="fa fa-print"></i> Excel</a
                     >
                     <a
-                    href=""
+                    href="{{ route('admin.laporan.exportpdfpenjualan') }}"
                     class="btn btn-primary btn-flat d-inline mr-1"
                     style="float: right"
                     ><i class="fa fa-print"></i> Pdf</a
@@ -295,6 +295,7 @@
                         name: "name_pembeli"
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: "total_harga",
                         name: "total_harga"
                     },

@@ -118,13 +118,13 @@
                     <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
                         <a
-                        href=""
+                        href="{{ route('admin.laporan.exportexcel') }}"
                         class="btn btn-success btn-flat d-inline mr-3"
                         style="float: right"
                         ><i class="fa fa-print"></i> Excel</a
                         >
                         <a
-                        href=""
+                        href="{{ route('admin.laporan.exportpdfservice') }}"
                         class="btn btn-primary btn-flat d-inline mr-1"
                         style="float: right"
                         ><i class="fa fa-print"></i> Pdf</a

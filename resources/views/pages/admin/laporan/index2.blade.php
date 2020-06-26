@@ -120,7 +120,7 @@
                         ><i class="fa fa-print"></i> Excel</a
                         >
                         <a
-                        href="{{ route('admin.laporan.exportpdf') }}"
+                        href="{{ route('admin.laporan.exportpdfpembelian') }}"
                         class="btn btn-primary btn-flat d-inline mr-1"
                         style="float: right"
                         ><i class="fa fa-print"></i> Pdf</a
@@ -256,6 +256,7 @@ $(document).ready(function() {
                         name: 'supplier'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'total_harga',
                         name: 'total_harga'
                     },

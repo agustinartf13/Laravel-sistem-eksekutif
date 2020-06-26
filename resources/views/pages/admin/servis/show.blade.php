@@ -1,3 +1,10 @@
+@php
+function rupiah($angka){
+$hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+return $hasil_rupiah;
+}
+@endphp
+
 <table class="table table-bordered">
     <tr>
         <th>Tanggal Transaksi</th>
@@ -25,7 +32,7 @@
     </tr>
     <tr>
         <th>Tipe Motor</th>
-        <td>{{$service->motor->name}} | {{$service->motor->tipe_motor}}</td>
+        <td>{{$service->motor->name}} || {{$service->motor->tipe_motor}}</td>
     </tr>
     <tr>
         <th>KM Datang</th>
@@ -45,15 +52,15 @@
     </tr>
     <tr>
         <th>Harga Jasa</th>
-        <td>{{$service->dtlservice[0]->harga_jasa}}</td>
+        <td>{{rupiah($service->dtlservice[0]->harga_jasa)}}</td>
     </tr>
     <tr>
         <th>Total Transaksi</th>
-        <td>{{$service->sub_total}}</td>
+        <td>{{rupiah($service->sub_total)}}</td>
     </tr>
     <tr>
         <th>Profit</th>
-        <td>{{$service->profit}}</td>
+        <td>{{rupiah($service->profit)}}</td>
     </tr>
     <tr>
         <th>Status</th>
@@ -84,8 +91,8 @@
             @foreach ($service->dtlservice as $value)
               <tr>
                 <td>{{$value->barang->name_barang}}</td>
-                <td>{{$value->harga_beli}}</td>
-                <td>{{$value->harga_jual}}</td>
+                <td>{{rupiah($value->harga_beli)}}</td>
+                <td>{{rupiah($value->harga_jual)}}</td>
                 <td>{{$value->qty}}</td>
               </tr>
             @endforeach

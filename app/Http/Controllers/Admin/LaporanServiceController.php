@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\ServiceExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class LaporanServiceController extends Controller
 {
@@ -181,4 +184,17 @@ class LaporanServiceController extends Controller
 
         }
    }
+
+   public function exportExcel()
+    {
+        return Excel::download(new ServiceExport, 'service.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $services = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->get();
+        $pdf = PDF::loadView('pages.admin.export_data.service_pdf', ['services' => $services] );
+        return $pdf->download('service.pdf');
+    }
+
 }

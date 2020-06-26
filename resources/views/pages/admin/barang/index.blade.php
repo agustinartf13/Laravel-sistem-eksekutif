@@ -15,6 +15,10 @@
     </div>
 </div>
 
+@php function rupiah($angka){ $hasil_rupiah = "Rp" .
+number_format($angka,0,',','.'); return $hasil_rupiah; }
+@endphp
+
 <div class="page-content-wrapper">
     <div class="row">
         <div class="col-12">
@@ -174,6 +178,7 @@
 
             // load data view supplier server side
             $('#datatable').DataTable({
+
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -200,10 +205,12 @@
                         name: 'name_barang'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'details_barang.harga_dasar',
                         name: 'details_barang.harga_dasar'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'details_barang.harga_jual',
                         name: 'details_barang.harga_jual'
                     },
@@ -220,12 +227,13 @@
                     }
                 ],
                 // columnDefs: [{
-                // targets: 6,
+                // targets: 5,
                 // render: function (data, type, row) {
-                //         var css1 = 'badge badge-success';
-                //         if (data == 'details_barang.stock') {
-                //             css1 = 'badge badge-success';
-                //             return '<span class="' + css1 + '">' + data + '</span>';
+                //             var formatter = new Intl.NumberFormat('id-ID', {
+                //                 style: 'currency',
+                //                 currency: 'IDR',
+                //             })
+                //             return formatter.format(dat: );
                 //         }
                 //     }
                 // }];

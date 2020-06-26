@@ -1,3 +1,10 @@
+@php
+function rupiah($angka){
+    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+    return $hasil_rupiah;
+}
+@endphp
+
 <table class="table table-bordered">
     <tr>
         <th>Tanggal Transaksi</th>

@@ -39,9 +39,10 @@
     background-color: #dddddd;
     }
 </style>
+
 <html>
 <head>
-	<title>repot pembelian</title>
+	<title>repot service</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -49,31 +50,25 @@
     <p class="alamat">JL. RAYA PERANG NO. 9 LUKLUK, BADUNG BALI</p>
     <p class="phone">Telp: 03614422338</p>
     <br>
-    <p class="repot">Repot Pembelian</p>
+    <p class="repot">Repot Service</p>
     <table>
         <thead>
             <tr>
                 <th>Nomor Invoice</th>
-                <th>Tanggal Transaksi</th>
-                <th>Name Supplier</th>
-                {{-- <th>Qty</th> --}}
-                <th>Total Harga</th>
+                <th>Tanggal Service</th>
+                <th>Customer Service</th>
+                <th>No Polis</th>
+                <th>Tipe Motor</th>
             </tr>
         </thead>
         <tbody>
-            @php function rupiah($angka){ $hasil_rupiah = "Rp"  .
-                        number_format($angka,0,',','.'); return $hasil_rupiah; }
-            @endphp
-            @php
-                $totalqty = 0;
-            @endphp
-            @foreach ($pembelians as $pembelian)
+            @foreach ($services as $service)
             <tr>
-                <td>{{ $pembelian->invoice_number }}</td>
-                <td>{{ $pembelian->tanggl_transaksi }}</td>
-                <td>{{ $pembelian->supplier->name_supplier }}</td>
-                {{-- <td>{{ $pembelian->qty }}</td> --}}
-                <td>{{ rupiah($pembelian->total_harga) }}</td>
+                <td>{{ $service->invocie_number }}</td>
+                <td>{{ $service->tanggal_servis }}</td>
+                <td>{{ $service->customer_servis }}</td>
+                <td>{{ $service->no_polis }}</td>
+                <td>{{ $service->motor->tipe_motor }}</td>
             </tr>
             @endforeach
         </tbody>

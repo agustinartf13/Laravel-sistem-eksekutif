@@ -40,6 +40,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('categories', 'CategoryController');
 
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
+    Route::get("/barang/exportpdfbarang", "BarangController@exportPdf")->name("barang.exportpdfbarang");
+    Route::get("/barang/exportexcelbarang", "BarangController@exportExcel")->name("barang.exportexcelbarang");
     Route::resource('barang', 'BarangController');
 
     Route::get("/supplier/{id}/set-status", "SupplierController@setStatus")->name("supplier.status");
@@ -69,13 +71,17 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
     Route::get("/laporan/pembelian/exportexcel", "LaporanPembelianController@exportExcel")->name("laporan.exportexcel");
-    Route::get("/laporan/pembelian/exportpdf", "LaporanPembelianController@exportPdf")->name("laporan.exportpdf");
+    Route::get("/laporan/pembelian/exportpdfpembelian", "LaporanPembelianController@exportPdf")->name("laporan.exportpdfpembelian");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
+    Route::get("/laporan/penjualan/exportexcel", "LaporanPenjualanController@exportExcel")->name("laporan.exportexcel");
+    Route::get("/laporan/penjualan/exportpdfpenjualan", "LaporanPenjualanController@exportPdf")->name("laporan.exportpdfpenjualan");
     Route::get("/api/jual", "LaporanPenjualanController@apijual")->name("api.jual");
 
     Route::get("/laporan/service", "LaporanServiceController@laporanService")->name("laporan.service");
+    Route::get("/laporan/service/exportexcel", "LaporanServiceController@exportExcel")->name("laporan.exportexcel");
+    Route::get("/laporan/service/exportpdfservice", "LaporanServiceController@exportPdf")->name("laporan.exportpdfservice");
     Route::get("/api/service", "LaporanServiceController@apiservice")->name("api.service");
 
 });

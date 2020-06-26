@@ -9,7 +9,7 @@ class Pembelian extends Model
     protected $table = 'pembelians';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'supplier_id', 'tanggal_transaksi', 'invoice_number', 'total_harga', 'status'
+        'pembelian_id', 'supplier_id', 'tanggal_transaksi', 'invoice_number', 'total_harga', 'status'
     ];
 
     public function supplier() {

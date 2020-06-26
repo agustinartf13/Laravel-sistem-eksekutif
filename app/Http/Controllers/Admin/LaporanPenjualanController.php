@@ -9,6 +9,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class LaporanPenjualanController extends Controller
 {
@@ -136,5 +139,17 @@ class LaporanPenjualanController extends Controller
                     '&nbsp;<a href="' . route('admin.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
                 })->rawColumns(['action'])->make(true);
         }
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PenjualanExport, 'penjualan.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
+        $pdf = PDF::loadView('pages.admin.export_data.penjualan_pdf', ['penjualans' => $penjualans] );
+        return $pdf->download('penjualan.pdf');
     }
 }

@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Barang;
 use App\BarangDetail;
 use App\Category;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BarangValidRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use App\Exports\BarangExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class BarangController extends Controller
 {
@@ -200,5 +202,20 @@ class BarangController extends Controller
         $barang->delete();
 
         return response()->json(['status' => 'Barang deleted successfully']);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BarangExport, 'persediaan.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $barangs = Barang::with('category', 'details_barang')->get();
+        $pdf = PDF::loadView('pages.admin.export_data.barang_pdf', [
+            'barangs' => $barangs, 'year_today'=> $year_today
+        ]);
+        return $pdf->download('barang.pdf');
     }
 }

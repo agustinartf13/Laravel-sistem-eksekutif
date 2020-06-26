@@ -99,7 +99,8 @@ class LaporanPembelianController extends Controller
 
     public function exportPdf()
     {
-        $pembelians = Pembelian::with('supplier')->get();
+        $pembelians = Pembelian::with('supplier')->with('dtlpembelian.barang')->get();
+      
         $pdf = PDF::loadView('pages.admin.export_data.pembelian_pdf', ['pembelians' => $pembelians] );
         return $pdf->download('pembelian.pdf');
     }

@@ -38,10 +38,15 @@
     tr:nth-child(even) {
     background-color: #dddddd;
     }
+    .priode {
+        font-family: arial, sans-serif;
+        margin-top: -10px;
+    }
 </style>
+
 <html>
 <head>
-	<title>repot pembelian</title>
+	<title>repot persediaan</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -49,31 +54,22 @@
     <p class="alamat">JL. RAYA PERANG NO. 9 LUKLUK, BADUNG BALI</p>
     <p class="phone">Telp: 03614422338</p>
     <br>
-    <p class="repot">Repot Pembelian</p>
+    <p class="repot">Repot Persediaan Barang</p>
+    <p class="priode">Priode Tahun: {{ $year_today }}</p>
     <table>
         <thead>
             <tr>
-                <th>Nomor Invoice</th>
-                <th>Tanggal Transaksi</th>
-                <th>Name Supplier</th>
-                {{-- <th>Qty</th> --}}
-                <th>Total Harga</th>
+                <th>Category Barang</th>
+                <th>Name Barang</th>
+                <th>Stock</th>
             </tr>
         </thead>
         <tbody>
-            @php function rupiah($angka){ $hasil_rupiah = "Rp"  .
-                        number_format($angka,0,',','.'); return $hasil_rupiah; }
-            @endphp
-            @php
-                $totalqty = 0;
-            @endphp
-            @foreach ($pembelians as $pembelian)
+            @foreach ($barangs as $barang)
             <tr>
-                <td>{{ $pembelian->invoice_number }}</td>
-                <td>{{ $pembelian->tanggl_transaksi }}</td>
-                <td>{{ $pembelian->supplier->name_supplier }}</td>
-                {{-- <td>{{ $pembelian->qty }}</td> --}}
-                <td>{{ rupiah($pembelian->total_harga) }}</td>
+                <td>{{ $barang->category->name }}</td>
+                <td>{{ $barang->name_barang }}</td>
+                <td>{{ $barang->details_barang->stock }}</td>
             </tr>
             @endforeach
         </tbody>
