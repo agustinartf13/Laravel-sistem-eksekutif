@@ -1,43 +1,53 @@
-<h5>Name :</h5>
-<h6>{{$mekanik->name}}</h6>
 
-
-<h5 class="mt-4">Avatar :</h5>
-@if($mekanik->image)
-<img src="{{asset('storage/'. $mekanik->image)}}" width="128px" />
-@else
-<h6>No avatar</h6>
-@endif
-
-<h5 class="mt-4">Email :</h5>
-<h6>{{$mekanik->email}}</h6>
-
-
-<h5 class="mt-4">Phone number :</h5>
-<h6>{{$mekanik->no_telphone}}</h6>
-
-
-
-<h5 class="mt-4">Address</h5>
-<h6>{{$mekanik->address}}</h6>
-
-<h5 class="mt-4">Status:</h5>
-<h6>
-    @if($mekanik->status=="ACTIVE")
-    <span class="badge badge-success">{{$mekanik->status}}</span> @else
-    <span class="badge badge-primary">{{$mekanik->status}}</span> @endif
-</h6>
-</div>
-
-<div class="row mt-4">
-    <div class="col">
-        <a href="{{route('admin.mekanik.status', $mekanik->id)}}?status=ACTIVE" class="btn btn-success btn-block">
-            <i class="fa fa-check"></i> Set Active
-        </a>
+<style>
+    .img-user{
+        height: 155px;
+        width: 155px;
+    }
+</style>
+<!-- Profile Image -->
+<div class="card-body box-profile">
+    <div class="text-center">
+        <div class="">
+            <img class="rounded-circle shadow img-user" src="{{ url('assets/images/admin.png') }}" data-holder-rendered="true">
+        </div>
     </div>
-    <div class="col">
-        <a href="{{route('admin.mekanik.status', $mekanik->id)}}?status=INACTIVE" class="btn btn-primary btn-block">
-            <i class="fa fa-times"></i> Set Inactive
-        </a>
+
+    <h3 class="profile-username text-center">{{$mekanik->name}}</h3>
+
+    <p class="text-muted text-center">Mekanik</p>
+
+    <ul class="list-group list-group-unbordered mb-3">
+    <li class="list-group-item">
+        <b>Email</b> <a class="float-right">{{ $mekanik->email }}</a>
+    </li>
+    <li class="list-group-item">
+        <b>Address</b> <a class="float-right">{{ $mekanik->address }}</a>
+    </li>
+    <li class="list-group-item">
+        <b>Status</b> <a class="float-right"> @if($mekanik->status=="ACTIVE")
+            <span class="badge badge-success">{{$mekanik->status}}</span> @else
+            <span class="badge badge-primary">{{$mekanik->status}}</span> @endif</a>
+    </li>
+    <li class="list-group-item">
+        <b>Phone Number</b> <a class="float-right">{{ $mekanik->no_telphone }}</a>
+    </li>
+    </ul>
+
+    <a href="{{ route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) }}" class="btn btn-info btn-block"><b>Edit Mekanik</b></a>
+
+    <div class="row mt-4">
+        <div class="col">
+            <a href="{{route('admin.mekanik.status', $mekanik->id)}}?status=ACTIVE" class="btn btn-success btn-block">
+                <i class="fa fa-check"></i> Set Active
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{route('admin.mekanik.status', $mekanik->id)}}?status=INACTIVE" class="btn btn-primary btn-block">
+                <i class="fa fa-times"></i> Set Inactive
+            </a>
+        </div>
     </div>
-</div>
+
+    </div>
+

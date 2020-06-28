@@ -25,6 +25,7 @@
                         Laporan
                         Penjualan</h4>
                     <hr>
+
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -47,9 +48,9 @@
                                         <p style="margin-top: -10px;">Name Barang: <u>{{$rbrg->name_barang}}</u></p>
                                         <p  style="margin-top: -18px;"> total terjual sebanyak: <u>{{$rbrg->jumlah}}</u></p>
                                     @endforeach
-
                                 </div>
                             </div>
+
                            <div class="col-lg-2">
                             <div class="form-group">
                                 <label for=""><h6>Omset</h6></label>
@@ -83,7 +84,7 @@
                     <div class="card m-b-20">
                         <div class="card-body">
 
-                            <h4 class="mt-0 header-title">Statistic Service Motor {{$year_today}}</h4>
+                            <h4 class="mt-0 header-title">Statistic Penjualan {{$year_today}}</h4>
 
                             <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
                                 <li class="list-inline-item">
@@ -112,6 +113,18 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    <a
+                    href="{{ route('toplevel.laporan.exportexcelpenjualan') }}"
+                    class="btn btn-success btn-flat d-inline"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Excel</a
+                    >
+                    <a
+                    href="{{ route('toplevel.laporan.exportpdfpenjualan') }}"
+                    class="btn btn-primary btn-flat d-inline mr-1"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Pdf</a
+                    >
                     <h4>List Penjualan</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
@@ -240,6 +253,7 @@ $(document).ready(function() {
                         name: 'name_pembeli'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'total_harga',
                         name: 'total_harga'
                     },

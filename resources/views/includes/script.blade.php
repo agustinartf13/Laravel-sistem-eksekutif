@@ -34,6 +34,7 @@
 <script src="{{url('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 
 <script src="{{url('assets/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{url('assets/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>
 
  <!-- Chart JS -->
  <script src="{{url('assets/plugins/chart.js/chart.min.js')}}"></script>

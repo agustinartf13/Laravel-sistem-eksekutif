@@ -12,6 +12,11 @@ use App\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
+use App\Exports\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+
 
 
 class PenjualanController extends Controller
@@ -33,7 +38,9 @@ class PenjualanController extends Controller
         return DataTables::of($penjualan)
             ->addColumn('action', function ($penjualan) {
                 return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('operator.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #' . $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
+                    '&nbsp;<a href="#mymodal" data-remote="' . route('operator.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #' .
+                    $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
+                    '&nbsp;<a href="' . route('operator.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
                     '&nbsp;<a href="' . route('operator.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
 
             })->rawColumns(['action'])->make(true);
@@ -262,5 +269,18 @@ class PenjualanController extends Controller
         $penjualan->delete();
 
         return response()->json(['status' => 'Penjualan deleted successfully']);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PenjualanExport, 'penjualan.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
+        $pdf = PDF::loadView('pages.operator.export_data.penjualan_pdf', ['penjualans' => $penjualans, 'year_today' => $year_today] );
+        return $pdf->download('penjualan.pdf');
     }
 }

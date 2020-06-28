@@ -11,9 +11,13 @@ use App\Mekanik;
 use App\Motor;
 use App\Service;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\ServiceExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ServiceController extends Controller
 {
@@ -39,8 +43,8 @@ class ServiceController extends Controller
                 return '' .
                     '&nbsp;<a href="#mymodal" data-remote="' . route('operator.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
                     '&nbsp;<a href="' . route('operator.servis.edit', $service->id) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
-                    '&nbsp;<a href="' . route('operator.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>' .
-                    '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                    '&nbsp;<a href="' . route('operator.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
+                    // '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $service->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['service' => $service]);
     }
@@ -319,5 +323,18 @@ class ServiceController extends Controller
 
         return redirect()->route('operator.servis.index')
             ->with('status', 'Status successfully updated');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ServiceExport, 'service.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $services = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->get();
+        $pdf = PDF::loadView('pages.operator.export_data.service_pdf', ['services' => $services, 'year_today' => $year_today] );
+        return $pdf->download('service.pdf');
     }
 }

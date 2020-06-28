@@ -20,7 +20,7 @@
 
 <div class="page-content-wrapper">
     <div class="row">
-        <div class="col-lg">
+        <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
                     <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i>Edit Data User</h4>

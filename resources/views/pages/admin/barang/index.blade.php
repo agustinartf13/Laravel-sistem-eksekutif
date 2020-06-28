@@ -226,17 +226,6 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
                         width: '115px'
                     }
                 ],
-                // columnDefs: [{
-                // targets: 5,
-                // render: function (data, type, row) {
-                //             var formatter = new Intl.NumberFormat('id-ID', {
-                //                 style: 'currency',
-                //                 currency: 'IDR',
-                //             })
-                //             return formatter.format(dat: );
-                //         }
-                //     }
-                // }];
             });
 
             // action modal Barang
@@ -342,10 +331,12 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
                         if ($.isEmptyObject(data.errors)) {
                             $('#barangForm')[0].reset();
                             swal({
-                                title: "Data Suucessfully Created!",
-                                text: data.success,
-                                icon: "success",
-                                button: "Close",
+                                title: 'Good job!',
+                                text: 'You clicked the button!',
+                                type: 'success',
+                                showCancelButton: true,
+                                confirmButtonClass: 'btn btn-success',
+                                cancelButtonClass: 'btn btn-danger m-l-10'
                             });
                             $('input').removeClass('is-invalid');
                             $('#datatable').DataTable().ajax.reload();
@@ -395,13 +386,14 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
-                text: 'it will be deleted permanently!',
+                text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
-                confrimButtonColor: '#3058d0',
-                cancelButtonColor: '#d33',
-                confrimButtonText: 'Yes, delete it!',
-                showLoaderOnConfrim: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-info',
+                cancelButtonClass: 'btn btn-primary m-l-10',
+                buttonsStyling: false,
 
                 preConfirm: function () {
                     return new Promise(function (resolve) {
@@ -414,7 +406,11 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
                                 },
                             })
                             .done(function (response) {
-                                swal('Deleted!', response.message, response.status);
+                                swal(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
                                 readBarang();
                             })
                             .fail(function () {
@@ -459,4 +455,4 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
     </div>
 </div>
 
-    @endsection
+@endsection

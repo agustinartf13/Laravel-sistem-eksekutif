@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use App\Exports\PembelianExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class LaporanPembelianController extends Controller
 {
@@ -87,5 +90,18 @@ class LaporanPembelianController extends Controller
             })->rawColumns(['action'])->make(true);
             return response()->toJson(['pembelian' => $pembelian]);
         }
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PembelianExport, 'pembelian.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $pembelians = Pembelian::with('supplier')->with('dtlpembelian.barang')->get();
+        $pdf = PDF::loadView('pages.admin.export_data.pembelian_pdf', ['pembelians' => $pembelians, 'year_today' => $year_today] );
+        return $pdf->download('pembelian.pdf');
     }
 }

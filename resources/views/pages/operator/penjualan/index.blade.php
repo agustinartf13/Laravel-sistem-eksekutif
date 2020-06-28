@@ -32,6 +32,18 @@
                     @endif
                     <a href="{{route('operator.penjualan.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
+                        <a
+                        href="{{ route('operator.penjualan.exportexcelpenjualan') }}"
+                        class="btn btn-success btn-flat d-inline mr-3"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Excel</a
+                        >
+                        <a
+                            href="{{ route('operator.penjualan.exportpdfpenjualan') }}"
+                            class="btn btn-primary btn-flat d-inline mr-1"
+                            style="float: right"
+                            ><i class="fa fa-print"></i> Pdf</a
+                        >
                     <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -98,6 +110,7 @@
                         name: 'name_pembeli'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'total_harga',
                         name: 'total_harga'
                     },

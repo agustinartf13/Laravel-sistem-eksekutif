@@ -148,8 +148,9 @@ class LaporanPenjualanController extends Controller
 
     public function exportPdf()
     {
+        $year_today = Carbon::now()->format('Y');
         $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
-        $pdf = PDF::loadView('pages.admin.export_data.penjualan_pdf', ['penjualans' => $penjualans] );
+        $pdf = PDF::loadView('pages.admin.export_data.penjualan_pdf', ['penjualans' => $penjualans, 'year_today' => $year_today] );
         return $pdf->download('penjualan.pdf');
     }
 }

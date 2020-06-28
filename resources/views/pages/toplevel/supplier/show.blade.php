@@ -1,33 +1,40 @@
-<h5>Name :</h5>
-<h6>{{$supplier->name_supplier}}</h6>
 
+<style>
+    .img-user{
+        height: 155px;
+        width: 155px;
+    }
+</style>
+<!-- Profile Image -->
+<div class="card-body box-profile">
+    <div class="text-center">
+        <div class="">
+            <img class="rounded-circle shadow img-user" src="{{ url('assets/images/admin.png') }}" data-holder-rendered="true">
+        </div>
+    </div>
 
-<h5 class="mt-4">Avatar :</h5>
-@if($supplier->image)
-<img src="{{asset('storage/'. $supplier->image)}}" width="128px" />
-@else
-<h6>No avatar</h6>
-@endif
+<h3 class="profile-username text-center">{{$supplier->perusahaan}}</h3>
 
-<h5 class="mt-4">Email :</h5>
-<h6>{{$supplier->email}}</h6>
+<p class="text-muted text-center">{{$supplier->name_supplier}}</p>
 
+<ul class="list-group list-group-unbordered mb-3">
+<li class="list-group-item">
+    <b>Email</b> <a class="float-right">{{ $supplier->email }}</a>
+</li>
+<li class="list-group-item">
+    <b>Address</b> <a class="float-right">{{ $supplier->address }}</a>
+</li>
+<li class="list-group-item">
+    <b>Status</b> <a class="float-right"> @if($supplier->status=="ACTIVE")
+        <span class="badge badge-success">{{$supplier->status}}</span> @else
+        <span class="badge badge-primary">{{$supplier->status}}</span> @endif</a>
+</li>
+<li class="list-group-item">
+    <b>Phone Number</b> <a class="float-right">{{ $supplier->no_telphone }}</a>
+</li>
+</ul>
 
-<h5 class="mt-4">Phone number :</h5>
-<h6>{{$supplier->no_telphone}}</h6>
-
-
-
-<h5 class="mt-4">Address</h5>
-<h6>{{$supplier->address}}</h6>
-
-<h5 class="mt-4">Status:</h5>
-<h6>
-    @if($supplier->status=="ACTIVE")
-    <span class="badge badge-success">{{$supplier->status}}</span> @else
-    <span class="badge badge-primary">{{$supplier->status}}</span> @endif
-</h6>
-</div>
+<a href="{{ route('toplevel.supplier.edit', ['supplier' => $supplier->id]) }}" class="btn btn-info btn-block"><b>Edit Supplier</b></a>
 
 <div class="row mt-4">
     <div class="col">
@@ -41,3 +48,6 @@
         </a>
     </div>
 </div>
+
+</div>
+

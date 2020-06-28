@@ -98,7 +98,7 @@
                                                 <tr>
                                                     <td>{{$no++}}</td>
                                                     <td class="text-center">{{$value->barangs->name_barang}}</td>
-                                                    <td class="text-center">{{$value->harga_jual}}</td>
+                                                    <td class="text-center">{{rupiah($value->harga_jual)}}</td>
                                                     <td class="text-center">{{$value->qty}}</td>
                                                 </tr>
                                                 @endforeach

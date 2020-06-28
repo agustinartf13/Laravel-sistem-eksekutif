@@ -111,6 +111,18 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    <a
+                        href="{{ route('toplevel.laporan.exportexcelpembelian') }}"
+                        class="btn btn-success btn-flat d-inline mr-3"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Excel</a
+                        >
+                        <a
+                        href="{{ route('toplevel.laporan.exportpdfpembelian') }}"
+                        class="btn btn-primary btn-flat d-inline mr-1"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Pdf</a
+                        >
                     <h4>List Pembelian</h4>
                     <hr>
                     <div class="row input-daterange mb-3">
@@ -239,6 +251,7 @@ $(document).ready(function() {
                         name: 'supplier'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'total_harga',
                         name: 'total_harga'
                     },

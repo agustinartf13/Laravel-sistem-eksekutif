@@ -1,3 +1,10 @@
+@php
+function rupiah($angka){
+    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+    return $hasil_rupiah;
+}
+@endphp
+
 <table class="table table-bordered">
     <tr>
         <th>Tanggal Transaksi</th>
@@ -17,11 +24,11 @@
     </tr>
     <tr>
         <th>Total Transaksi</th>
-        <td>{{$penjualan->total_harga}}</td>
+        <td>{{rupiah($penjualan->total_harga)}}</td>
     </tr>
     <tr>
         <th>Profit</th>
-        <td>{{$penjualan->profit}}</td>
+        <td>{{rupiah($penjualan->profit)}}</td>
     </tr>
 
     <tr>
@@ -37,8 +44,8 @@
             @foreach ($penjualan->dtlpenjualans as $value)
               <tr>
                <td>{{$value->barangs->name_barang}}</td>
-               <td>{{$value->harga_beli}}</td>
-               <td>{{$value->harga_jual}}</td>
+               <td>{{rupiah($value->harga_beli)}}</td>
+               <td>{{rupiah($value->harga_jual)}}</td>
                <td>{{$value->qty}}</td>
               </tr>
             @endforeach

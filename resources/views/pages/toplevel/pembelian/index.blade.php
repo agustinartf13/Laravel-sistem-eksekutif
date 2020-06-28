@@ -101,6 +101,7 @@
                         name: 'supplier'
                     },
                     {
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                         data: 'total_harga',
                         name: 'total_harga'
                     },
@@ -141,7 +142,6 @@
                     }
                 }]
             });
-
 
                 // load id motor for delete
                 $(document).on('click', '#delete', function (event) {

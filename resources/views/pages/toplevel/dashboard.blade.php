@@ -375,6 +375,7 @@
                     width: '80px'
                 },
                 {
+                    render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                     data: 'total_harga',
                     name: 'total_harga',
                     width: '80px'
@@ -434,6 +435,7 @@
                             width: '80px'
                         },
                         {
+                            render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                             data: 'total_harga',
                             name: 'total_harga',
                             width: '80px'

@@ -158,13 +158,14 @@
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
-                text: 'it will be deleted permanently!',
+                text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
-                confrimButtonColor: '#3058d0',
-                cancelButtonColor: '#d33',
-                confrimButtonText: 'Yes, delete it!',
-                showLoaderOnConfrim: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-info',
+                cancelButtonClass: 'btn btn-primary m-l-10',
+                buttonsStyling: false,
 
                 preConfirm: function () {
                     return new Promise(function (resolve) {
@@ -177,7 +178,11 @@
                                 },
                             })
                             .done(function (response) {
-                                swal('Deleted!', response.message, response.status);
+                                swal(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
                                 readMotor();
                             })
                             .fail(function () {

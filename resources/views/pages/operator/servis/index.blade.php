@@ -31,9 +31,21 @@
                         {{session('status')}}
                     </div>
                     @endif
-
                     <a href="{{route('operator.servis.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Service</a>
+
+                    <a
+                    href="{{ route('operator.servis.exportexcelservis') }}"
+                    class="btn btn-success btn-flat d-inline mr-3"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Excel</a
+                    >
+                    <a
+                        href="{{ route('operator.servis.exportpdfservis') }}"
+                        class="btn btn-primary btn-flat d-inline mr-1"
+                        style="float: right"
+                        ><i class="fa fa-print"></i> Pdf</a
+                    >
                     <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">

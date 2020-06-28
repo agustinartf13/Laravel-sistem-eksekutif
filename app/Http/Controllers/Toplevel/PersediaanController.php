@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Toplevel;
 
 use App\Barang;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\BarangExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+
 
 class PersediaanController extends Controller
 {
@@ -26,4 +30,19 @@ class PersediaanController extends Controller
             })->rawColumns(['action'])->make(true);
         return response()->toJson(['persediaan' => $persediaan]);
      }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BarangExport, 'persediaan.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $barangs = Barang::with('category', 'details_barang')->get();
+        $pdf = PDF::loadView('pages.toplevel.export_data.barang_pdf', [
+            'barangs' => $barangs, 'year_today'=> $year_today
+        ]);
+        return $pdf->download('barang.pdf');
+    }
 }

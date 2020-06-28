@@ -1,3 +1,10 @@
+@php
+function rupiah($angka){
+    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+    return $hasil_rupiah;
+}
+@endphp
+
 <table class="table table-bordered">
     <tr>
       <th>Kode Barang</th>
@@ -34,8 +41,8 @@
             <th>Stock</th>
           </tr>
               <tr>
-                <td>{{ $barang->details_barang->harga_dasar }}</td>
-                <td>{{ $barang->details_barang->harga_jual }}</td>
+                <td>{{ rupiah($barang->details_barang->harga_dasar) }}</td>
+                <td>{{ rupiah($barang->details_barang->harga_jual) }}</td>
                 <td>{{ $barang->details_barang->stock }}</td>
               </tr>
         </table>

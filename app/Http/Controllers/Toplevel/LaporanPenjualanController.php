@@ -9,6 +9,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class LaporanPenjualanController extends Controller
 {
@@ -129,26 +132,38 @@ class LaporanPenjualanController extends Controller
         ]);
     }
 
-      // api supplier get data
-      public function apijual(Request $request)
-      {
-        //datatabels
-        if (request()->ajax()) {
-            if (!empty($request->from_date)) {
-                $penjualan = Penjualan::with('barangs')
-                ->whereBetween('tanggal_transaksi', array($request->from_date, $request->to_date))
-                ->get();
-            } else {
-                $penjualan = Penjualan::with('barangs')->get();
-            }
-
-            return DataTables::of($penjualan)
-                ->addColumn('action', function ($penjualan) {
-                    return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #'. $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
-                    '&nbsp;<a href="' . route('toplevel.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
-                })->rawColumns(['action'])->make(true);
-
+    // api supplier get data
+    public function apijual(Request $request)
+    {
+    //datatabels
+    if (request()->ajax()) {
+        if (!empty($request->from_date)) {
+            $penjualan = Penjualan::with('barangs')
+            ->whereBetween('tanggal_transaksi', array($request->from_date, $request->to_date))
+            ->get();
+        } else {
+            $penjualan = Penjualan::with('barangs')->get();
         }
-      }
+
+        return DataTables::of($penjualan)
+            ->addColumn('action', function ($penjualan) {
+                return '' .
+                '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.penjualan.show', ['penjualan' => $penjualan->id]) . '" data-toggle="modal" data-target="#mymodal" data-target="#mymodal" data-title=" Invoice Number #'. $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
+                '&nbsp;<a href="' . route('toplevel.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
+            })->rawColumns(['action'])->make(true);
+        }
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PenjualanExport, 'penjualan.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
+        $pdf = PDF::loadView('pages.toplevel.export_data.penjualan_pdf', ['penjualans' => $penjualans, 'year_today' => $year_today] );
+        return $pdf->download('penjualan.pdf');
+    }
 }
