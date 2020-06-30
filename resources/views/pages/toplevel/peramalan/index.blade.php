@@ -47,6 +47,16 @@
                             <label for="">Priode Akhir</label>
                             <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" />
                         </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Tahun Penerimaan</label>
+                            <div class="col-sm-10">
+                              <select name="tahun" class="form-control" required>
+                                <?php for ($i=2000; $i < 2100 ; $i++) { ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?>/<?php echo $i + 1; ?></option>
+                                <?php  } ?>
+                              </select>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group">
                         <button type="button" id="btn_peramalan" href="#"

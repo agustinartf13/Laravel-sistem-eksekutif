@@ -21,7 +21,7 @@
 
 <!-- Sweet-Alert  -->
 <script src="{{url('assets/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>
-<script src="{{url('assets/pages/sweet-alert.init.js')}}"></script>
+
 
 
 @yield('css')

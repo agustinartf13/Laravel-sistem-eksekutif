@@ -50,7 +50,7 @@
     <!-- item-->
     <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> Profile</a>
     <a class="dropdown-item d-block" href="#"><i class="mdi mdi-settings m-r-5"></i> Settings</a>
-    <button class="dropdown-item text-danger" type="submit"><i class="mdi mdi-power text-danger"></i> Logout</button>
+    <button class="dropdown-item text-danger" type="submit" id="logout"><i class="mdi mdi-power text-danger"></i> Logout</button>
 </div>
 </form>
 </div>
@@ -194,7 +194,8 @@
     <!-- Start content -->
     <div class="content">
         <div class="container-fluid">
-			@yield('content')
+            @yield('content')
+            @include('includes.toastr-alert');
         </div>
     </div>
 	<!-- content -->
@@ -215,6 +216,34 @@
 <!-- END wrapper -->
 
 @include('includes.script');
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#logout').on('click', function() {
+            $.ajax
+        ({
+        type: 'POST',
+        url: '/login',
+        dataType: 'json',
+        data: 'LOGOUT',
+        success: function(response)
+        {
+                $.ajax
+                ({
+                    type: 'POST',
+                    url: '/logout',
+                    success: function()
+                    {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    });
+        });
+    });
+</script>
+@endsection
 
 </body>
 

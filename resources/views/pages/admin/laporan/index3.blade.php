@@ -193,38 +193,43 @@
 <script>
     var ctx = document.getElementById('bar').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
+            datasets:  [
                 {
-                    label: "Total Omset",
-                    backgroundColor: "#f5b225",
-                    borderColor: "#f5b225",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#f5b225",
-                    hoverBorderColor: "#f5b225",
+                    label: "Omset",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2,
                     data: {!!json_encode($omset)!!}
                 },
                 {
-                    label: "Sales Jasa",
-                    backgroundColor: "#f16c69",
-                    borderColor: "#f16c69",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#f16c69",
-                    hoverBorderColor: "#f16c69",
+                    label: "Jasa",
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 2,
                     data: {!!json_encode($jasa)!!}
                 },
                 {
-                    label: "Sales Profit",
-                    backgroundColor: "#28bbe3",
-                    borderColor: "#28bbe3",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#28bbe3",
-                    hoverBorderColor: "#28bbe3",
+                    label: "Profit",
+                    backgroundColor: [
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2,
                     data: {!!json_encode($profit)!!}
                 }
-
             ]
         },
         options: {

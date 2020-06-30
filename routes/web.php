@@ -75,6 +75,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
+    Route::get('/laporan/salepermonth', 'LaporanPenjualanController@totalSalePerMonth')->name("laporan.salepermonth");
     Route::get("/laporan/penjualan/exportexcel", "LaporanPenjualanController@exportExcel")->name("laporan.exportexcel");
     Route::get("/laporan/penjualan/exportpdfpenjualan", "LaporanPenjualanController@exportPdf")->name("laporan.exportpdfpenjualan");
     Route::get("/api/jual", "LaporanPenjualanController@apijual")->name("api.jual");

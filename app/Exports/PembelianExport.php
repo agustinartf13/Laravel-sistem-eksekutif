@@ -9,9 +9,10 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 
-class PembelianExport implements FromCollection, WithMapping, WithHeadings
+class PembelianExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

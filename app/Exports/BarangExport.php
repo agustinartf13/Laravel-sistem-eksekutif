@@ -6,8 +6,9 @@ use App\Barang;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BarangExport implements FromCollection, WithMapping, WithHeadings
+class BarangExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

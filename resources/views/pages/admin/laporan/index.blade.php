@@ -113,7 +113,7 @@
                         </li>
                     </ul>
 
-                    <canvas id="bar" height="90"></canvas>
+                    <canvas id="myChart" height="90"></canvas>
                 </div>
             </div>
         </div>
@@ -224,13 +224,41 @@
 @endsection @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<script>
-    var ctx = document.getElementById('bar').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        loadChart(year)
+
+    $.ajaxSetup({
+    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function loadChart(year) {
+    $.ajax({
+        url: "{{route('admin.laporan.salepermonth')}}",
         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
+            year: year
+        },
+        method: "GET",
+        success: function (data) {
+            let sale = [];
+            let month = [];
+
+
+            for (var i in data[0]) {
+                sale.push(data[0][i].sale)
+                month.push(convertMonth(data[0][i].month))
+            }
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+                datasets: [
                 {
                     label: "Sales Analytics",
                     backgroundColor: "#28bbe3",
@@ -238,25 +266,58 @@
                     borderWidth: 1,
                     hoverBackgroundColor: "#28bbe3",
                     hoverBorderColor: "#28bbe3",
-                    data: {!!json_encode($profit)!!}
-                }
-
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
+                    data: sale
                 }]
-            }
-        }
-    });
-</script>
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (value, index, values) {
+                                    // Convert the number to a string and splite the string every 3 charaters from the end
+                                    value = value.toString();
+                                    value = value.split(/(?=(?:...)*$)/);
 
-<script type="text/javascript">
-    $(document).ready(function() {
+                                    // Convert the array to a string and format the output
+                                    value = value.join('.');
+                                    return 'Rp. ' + value;
+                                }
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: data.title,
+                        fontSize: 18
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        callbacks: {
+                            label: function (t, d) {
+                                var xLabel = d.datasets[t.datasetIndex].label;
+                                var yLabel = t.yLabel >= 1000 ?
+                                    'Rp. ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") :
+                                    'Rp. ' + t.yLabel;
+                                return yLabel;
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    })
+}
+
         $(".input-daterange").datepicker({
             todayBtn: "likend",
             format: "yyyy-mm-dd",

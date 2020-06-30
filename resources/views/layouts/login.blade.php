@@ -24,6 +24,7 @@
   <!-- Begin page -->
   <div class="wrapper-page">
     @yield('content')
+    @include('includes.toastr-alert');
   </div>
   <!-- END wrapper -->
 

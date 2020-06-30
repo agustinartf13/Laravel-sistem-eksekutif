@@ -15,6 +15,44 @@ use PDF;
 
 class LaporanPenjualanController extends Controller
 {
+    public function totalSalePerMonth(Request $request){
+
+        if ($request->get('year') != '') {
+            $year_today = $request->get('year');
+        } else {
+            $year_today = Carbon::now()->format('Y');
+        }
+        $month_today = Carbon::now()->format('m');
+
+        $data = DB::table('penjualans')->select(DB::raw('sum(profit) as `total_sale`'), DB::raw('MONTH(tanggal_transaksi) month'))
+        ->whereYear('tanggal_transaksi', $year_today)->groupby('month')->get();
+
+        $data2 = $data->groupBy('month');
+        $res = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data2[$i])){
+                $res[] = [
+                    'total_sale' => $data2[$i][0]->total_sale,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res[] = [
+                    'total_sale' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        // return response()->json([
+        //     $res,
+        //     "title" => "Grafik Penjualan Tahun ". $year_today
+        // ]);
+
+        dd($res);
+    }
+
     public function laporanJual(Request $request)
     {
         if ($request->get('year') != '') {

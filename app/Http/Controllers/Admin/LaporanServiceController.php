@@ -195,7 +195,7 @@ class LaporanServiceController extends Controller
         $year_today = Carbon::now()->format('Y');
         $services = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->get();
         $pdf = PDF::loadView('pages.admin.export_data.service_pdf', ['services' => $services, 'year_today' => $year_today] );
-        return $pdf->download('service.pdf');
+        return $pdf->stream('service.pdf');
     }
 
 }
