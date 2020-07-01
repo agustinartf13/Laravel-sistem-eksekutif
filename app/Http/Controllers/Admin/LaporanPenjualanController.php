@@ -24,6 +24,7 @@ class LaporanPenjualanController extends Controller
         }
         $month_today = Carbon::now()->format('m');
 
+        // salePerMonth Penjualan Barang
         $data = DB::table('penjualans')->select(DB::raw('sum(profit) as `total_sale`'), DB::raw('MONTH(tanggal_transaksi) month'))
         ->whereYear('tanggal_transaksi', $year_today)->groupby('month')->get();
 
@@ -45,12 +46,10 @@ class LaporanPenjualanController extends Controller
             }
         }
 
-        // return response()->json([
-        //     $res,
-        //     "title" => "Grafik Penjualan Tahun ". $year_today
-        // ]);
-
-        dd($res);
+        return response()->json([
+            $res, $month_today,
+            "title" => "Grafik Penjualan Tahun ". $year_today
+        ]);
     }
 
     public function laporanJual(Request $request)
@@ -189,6 +188,6 @@ class LaporanPenjualanController extends Controller
         $year_today = Carbon::now()->format('Y');
         $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
         $pdf = PDF::loadView('pages.admin.export_data.penjualan_pdf', ['penjualans' => $penjualans, 'year_today' => $year_today] );
-        return $pdf->download('penjualan.pdf');
+        return $pdf->stream('penjualan.pdf');
     }
 }

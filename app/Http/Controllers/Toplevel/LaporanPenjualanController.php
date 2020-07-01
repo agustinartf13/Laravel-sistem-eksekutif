@@ -15,6 +15,43 @@ use PDF;
 
 class LaporanPenjualanController extends Controller
 {
+    public function totalSalePerMonth(Request $request){
+
+        if ($request->get('year') != '') {
+            $year_today = $request->get('year');
+        } else {
+            $year_today = Carbon::now()->format('Y');
+        }
+        $month_today = Carbon::now()->format('m');
+
+        // salePerMonth Penjualan Barang
+        $data = DB::table('penjualans')->select(DB::raw('sum(profit) as `total_sale`'), DB::raw('MONTH(tanggal_transaksi) month'))
+        ->whereYear('tanggal_transaksi', $year_today)->groupby('month')->get();
+
+        $data2 = $data->groupBy('month');
+        $res = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data2[$i])){
+                $res[] = [
+                    'total_sale' => $data2[$i][0]->total_sale,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res[] = [
+                    'total_sale' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        return response()->json([
+            $res, $month_today,
+            "title" => "Grafik Penjualan Tahun ". $year_today
+        ]);
+    }
+
     public function laporanJual(Request $request)
     {
         if ($request->get('year') != '') {
@@ -42,19 +79,6 @@ class LaporanPenjualanController extends Controller
                 $profit[$key] = 0;
             }
         }
-
-        // chart barang laku bulanan
-        // $penjualan2 = DB::table('penjualans')
-        //     ->join('penjualan_barangs', 'penjualans.id', 'penjualan_barangs.penjualan_id')
-        //     ->join('barangs', 'barangs.id', '=', 'penjualan_barangs.barang_id')
-        //     ->join('categories', 'barangs.categories_id', '=', 'categories.id')
-        //     ->select('categories.name as name')
-        //     ->selectRaw('cast(sum(penjualan_barangs.qty)as UNSIGNED)as y')
-        //     ->whereYear('penjualans.tanggal_transaksi', $year_today)
-        //     ->groupBy('categories.name')
-        //     ->orderBy('barangs.name_barang','asc')
-        //     ->get();
-        // dd($penjualan2);
 
         // query omset tahun ini
         $cari_omset = DB::table('penjualans')->selectRaw('sum(total_harga)as omset')
@@ -164,6 +188,6 @@ class LaporanPenjualanController extends Controller
         $year_today = Carbon::now()->format('Y');
         $penjualans = Penjualan::with('dtlpenjualans.barangs')->get();
         $pdf = PDF::loadView('pages.toplevel.export_data.penjualan_pdf', ['penjualans' => $penjualans, 'year_today' => $year_today] );
-        return $pdf->download('penjualan.pdf');
+        return $pdf->stream('penjualan.pdf');
     }
 }

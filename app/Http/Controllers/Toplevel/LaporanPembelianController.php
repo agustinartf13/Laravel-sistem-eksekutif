@@ -14,7 +14,43 @@ use PDF;
 
 class LaporanPembelianController extends Controller
 {
-    // index
+    public function totalSalePerMonth(Request $request){
+
+        if ($request->get('year') != '') {
+            $year_today = $request->get('year');
+        } else {
+            $year_today = Carbon::now()->format('Y');
+        }
+        $month_today = Carbon::now()->format('m');
+
+        // salePerMonth Penjualan Barang
+        $data = DB::table('pembelians')->select(DB::raw('sum(total_harga) as `total_sale`'), DB::raw('MONTH(tanggl_transaksi) month'))
+        ->whereYear('tanggl_transaksi', $year_today)->groupby('month')->get();
+
+        $data2 = $data->groupBy('month');
+        $res = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data2[$i])){
+                $res[] = [
+                    'total_sale' => $data2[$i][0]->total_sale,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res[] = [
+                    'total_sale' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        return response()->json([
+            $res, $month_today,
+            "title" => "Grafik Penjualan Tahun ". $year_today
+        ]);
+    }
+
     public function laporanBeli(Request $request)
     {
         if ($request->get('year') != '') {
@@ -102,6 +138,6 @@ class LaporanPembelianController extends Controller
         $year_today = Carbon::now()->format('Y');
         $pembelians = Pembelian::with('supplier')->with('dtlpembelian.barang')->get();
         $pdf = PDF::loadView('pages.admin.export_data.pembelian_pdf', ['pembelians' => $pembelians, 'year_today' => $year_today] );
-        return $pdf->download('pembelian.pdf');
+        return $pdf->stream('pembelian.pdf');
     }
 }

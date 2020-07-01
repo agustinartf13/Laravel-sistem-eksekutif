@@ -14,6 +14,91 @@ use PDF;
 
 class LaporanServiceController extends Controller
 {
+    public function totalSalePerMonth(Request $request){
+
+        if ($request->get('year') != '') {
+            $year_today = $request->get('year');
+        } else {
+            $year_today = Carbon::now()->format('Y');
+        }
+        $month_today = Carbon::now()->format('m');
+
+        // salePerMonth Profit Service
+        $data_service_profit = DB::table('services')->select(DB::raw('sum(profit) as `total_sale_profit`'), DB::raw('MONTH(tanggal_servis) month'))
+        ->whereYear('tanggal_servis', $year_today)->groupby('month')->get();
+
+        $data_profit = $data_service_profit->groupBy('month');
+        $res_service_profit = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data_profit[$i])){
+                $res_service_profit[] = [
+                    'total_sale_profit' => $data_profit[$i][0]->total_sale_profit,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res_service_profit[] = [
+                    'total_sale_profit' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        // salePerMonth Profit Jasa
+        $data_service_jasa = DB::table('services')
+        ->join('details_service', 'services.id', '=', 'details_service.service_id')
+        ->select(DB::raw('sum(details_service.harga_jasa) as `total_sale_jasa`'), DB::raw('MONTH(tanggal_servis) month'))
+        ->whereYear('tanggal_servis', $year_today)->groupby('month')->get();
+
+        $data_jasa = $data_service_jasa->groupBy('month');
+        $res_service_jasa = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data_jasa[$i])){
+                $res_service_jasa[] = [
+                    'total_sale_jasa' => $data_jasa[$i][0]->total_sale_jasa,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res_service_jasa[] = [
+                    'total_sale_jasa' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        // salePerMonth Profit Subtotal
+        $data_service_subtotal = DB::table('services')->select(DB::raw('sum(sub_total) as `total_sale_subtotal`'), DB::raw('MONTH(tanggal_servis) month'))
+        ->whereYear('tanggal_servis', $year_today)->groupby('month')->get();
+
+        $data_subtotal = $data_service_subtotal->groupBy('month');
+        $res_service_subtotal = [];
+
+        for($i = 1; $i<=12; $i++){
+            if(isset($data_subtotal[$i])){
+                $res_service_subtotal[] = [
+                    'total_sale_subtotal' => $data_subtotal[$i][0]->total_sale_subtotal,
+                    'month' => $i,
+                ];
+            }
+            else{
+                $res_service_subtotal[] = [
+                    'total_sale_subtotal' => 0,
+                    'month' => $i,
+                ];
+            }
+        }
+
+        return response()->json([
+            $res_service_profit, $res_service_jasa, $res_service_subtotal, $month_today,
+            "title" => "Grafik Penjualan Tahun ". $year_today
+        ]);
+
+        // dd($res_service_profit, $month_today, $res_service_jasa, $res_service_subtotal);
+    }
+
     public function laporanService(Request $request)
     {
         if ($request->get('year') != '') {
@@ -80,18 +165,6 @@ class LaporanServiceController extends Controller
                 $omset[$key] = 0;
             }
         }
-
-        //chart service bulanan
-        //    $services = DB::table('services')
-        //         ->join('details_service', 'services.id', '=', 'details_service.service_id')
-        //         ->join('barangs', 'barangs.id', '=', 'details_service.barang_id')
-        //         ->select('barangs.name_barang as name_barang')
-        //         ->selectRaw('cast(sum(details_service.qty) as UNSIGNED) as y')
-        //         ->whereYear('services.tanggal_servis', $year_today)
-        //         ->groupBy('barangs.name_barang')
-        //         ->orderBy('services.sub_total', 'asc')
-        //         ->get();
-        // dd($services);
 
         // query pendapatan jasa
         $cari_jasa = DB::table('services')

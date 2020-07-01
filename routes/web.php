@@ -70,6 +70,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
+    Route::get('/laporan/salepermonthbeli', 'LaporanPembelianController@totalSalePerMonth')->name("laporan.salepermonthbeli");
     Route::get("/laporan/pembelian/exportexcel", "LaporanPembelianController@exportExcel")->name("laporan.exportexcel");
     Route::get("/laporan/pembelian/exportpdfpembelian", "LaporanPembelianController@exportPdf")->name("laporan.exportpdfpembelian");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
@@ -82,6 +83,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::get("/laporan/service", "LaporanServiceController@laporanService")->name("laporan.service");
     Route::get("/laporan/service/exportexcel", "LaporanServiceController@exportExcel")->name("laporan.exportexcel");
+    Route::get('/laporan/salepermonthservice', 'LaporanServiceController@totalSalePerMonth')->name("laporan.salepermonthservice");
     Route::get("/laporan/service/exportpdfservice", "LaporanServiceController@exportPdf")->name("laporan.exportpdfservice");
     Route::get("/api/service", "LaporanServiceController@apiservice")->name("api.service");
 
@@ -135,16 +137,19 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get('peramalan', "PeramalanController@index")->name('peramalan');
 
     Route::get("/laporan/pembelian", "LaporanPembelianController@laporanBeli")->name("laporan.beli");
+    Route::get('/laporan/salepermonthbeli', 'LaporanPembelianController@totalSalePerMonth')->name("laporan.salepermonthbeli");
     Route::get("/laporan/pembelian/exportexcelpembelian", "LaporanPembelianController@exportExcel")->name("laporan.exportexcelpembelian");
     Route::get("/laporan/pembelian/exportpdfpembelian", "LaporanPembelianController@exportPdf")->name("laporan.exportpdfpembelian");
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
+    Route::get('/laporan/salepermonthjual', 'LaporanPenjualanController@totalSalePerMonth')->name("laporan.salepermonthjual");
     Route::get("/laporan/penjualan/exportexcelpenjualan", "LaporanPenjualanController@exportExcel")->name("laporan.exportexcelpenjualan");
     Route::get("/laporan/penjualan/exportpdfpenjualan", "LaporanPenjualanController@exportPdf")->name("laporan.exportpdfpenjualan");
     Route::get("/api/jual", "LaporanPenjualanController@apijual")->name("api.jual");
 
     Route::get("/laporan/service", "LaporanServiceController@laporanService")->name("laporan.service");
+    Route::get('/laporan/salepermonthservice', 'LaporanServiceController@totalSalePerMonth')->name("laporan.salepermonthservice");
     Route::get("/laporan/service/exportexcelservice", "LaporanServiceController@exportExcel")->name("laporan.exportexcelservice");
     Route::get("/laporan/service/exportpdfservice", "LaporanServiceController@exportPdf")->name("laporan.exportpdfservice");
     Route::get("/api/service", "LaporanServiceController@apiservice")->name("api.service");

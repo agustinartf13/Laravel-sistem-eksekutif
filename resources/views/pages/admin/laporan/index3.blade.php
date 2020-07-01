@@ -103,7 +103,7 @@
                             </li>
                         </ul>
 
-                        <canvas id="bar" height="80"></canvas>
+                        <canvas id="myChart" height="80"></canvas>
 
                     </div>
                 </div>
@@ -190,7 +190,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<script>
+{{-- <script>
     var ctx = document.getElementById('bar').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -242,10 +242,161 @@
             }
         }
     });
-</script>
+</script> --}}
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function convertMonth(month) {
+        switch (month) {
+            case 1:
+                return "Januari"
+                break;
+            case 2:
+                return "Februari"
+                break;
+            case 3:
+                return "Maret"
+                break;
+            case 4:
+                return "April"
+                break;
+            case 5:
+                return "Mei"
+                break;
+            case 6:
+                return "Juni"
+                break;
+            case 7:
+                return "Juli"
+                break;
+            case 8:
+                return "Agustus"
+                break;
+            case 9:
+                return "September"
+                break;
+            case 10:
+                return "Oktober"
+                break;
+            case 11:
+                return "November"
+                break;
+            case 12:
+                return "Desember"
+                break;
+            default:
+                break;
+        }
+    }
+
+    $.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    loadChart("2020")
+
+    function loadChart(year) {
+    $.ajax({
+        url: "{{route('admin.laporan.salepermonthservice')}}",
+        data: {
+            year: year
+        },
+        method: "GET",
+        success: function (data) {
+            let sale1 = [];
+            let sale2 = [];
+            let sale3 = [];
+            let month = [];
+
+
+        for (var i in data[0]) {
+            sale1.push(data[0][i].total_sale_profit)
+            sale2.push(data[1][i].total_sale_jasa)
+            sale3.push(data[2][i].total_sale_subtotal)
+            month.push(convertMonth(data[0, 1, 2][i].month))
+        }
+
+        console.log(sale1)
+        console.log(sale2)
+        console.log(sale3)
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: month,
+            datasets:  [
+                {
+                    label: "Omset",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2,
+                    data: sale3
+                },
+                {
+                    label: "Jasa",
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 2,
+                    data: sale2
+                },
+                {
+                    label: "Profit",
+                    backgroundColor: [
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2,
+                    data: sale1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function (value, index, values) {
+                            // Convert the number to a string and splite the string every 3 charaters from the end
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+
+                            // Convert the array to a string and format the output
+                            value = value.join('.');
+                            return 'Rp. ' + value;
+                        }
+                    }
+                }]
+            },
+        }
+        });
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    })
+}
 
         $('.input-daterange').datepicker({
             todayBtn:'linked',

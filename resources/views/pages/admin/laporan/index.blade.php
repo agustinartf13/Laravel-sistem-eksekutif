@@ -227,13 +227,57 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        loadChart(year)
+    function convertMonth(month) {
+    switch (month) {
+        case 1:
+            return "Januari"
+            break;
+        case 2:
+            return "Februari"
+            break;
+        case 3:
+            return "Maret"
+            break;
+        case 4:
+            return "April"
+            break;
+        case 5:
+            return "Mei"
+            break;
+        case 6:
+            return "Juni"
+            break;
+        case 7:
+            return "Juli"
+            break;
+        case 8:
+            return "Agustus"
+            break;
+        case 9:
+            return "September"
+            break;
+        case 10:
+            return "Oktober"
+            break;
+        case 11:
+            return "November"
+            break;
+        case 12:
+            return "Desember"
+            break;
+        default:
+            break;
+    }
+}
+
 
     $.ajaxSetup({
-    headers: {
+        headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    loadChart("2020")
 
     function loadChart(year) {
     $.ajax({
@@ -248,31 +292,31 @@
 
 
             for (var i in data[0]) {
-                sale.push(data[0][i].sale)
+                sale.push(data[0][i].total_sale)
                 month.push(convertMonth(data[0][i].month))
             }
 
+            console.log(data)
 
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-                datasets: [
-                {
-                    label: "Sales Analytics",
-                    backgroundColor: "#28bbe3",
-                    borderColor: "#28bbe3",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#28bbe3",
-                    hoverBorderColor: "#28bbe3",
-                    data: sale
-                }]
+                    labels: month,
+                    datasets: [
+                        {
+                            label: "Sales Analytics",
+                            backgroundColor: "#28bbe3",
+                            borderColor: "#28bbe3",
+                            borderWidth: 1,
+                            hoverBackgroundColor: "#28bbe3",
+                            hoverBorderColor: "#28bbe3",
+                            data: sale
+                        }
+
+                    ]
                 },
                 options: {
-                    legend: {
-                        display: false
-                    },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -289,24 +333,6 @@
                             }
                         }]
                     },
-                    title: {
-                        display: true,
-                        text: data.title,
-                        fontSize: 18
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    tooltips: {
-                        callbacks: {
-                            label: function (t, d) {
-                                var xLabel = d.datasets[t.datasetIndex].label;
-                                var yLabel = t.yLabel >= 1000 ?
-                                    'Rp. ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") :
-                                    'Rp. ' + t.yLabel;
-                                return yLabel;
-                            }
-                        }
-                    }
                 }
             });
         },
@@ -317,6 +343,7 @@
         }
     })
 }
+
 
         $(".input-daterange").datepicker({
             todayBtn: "likend",

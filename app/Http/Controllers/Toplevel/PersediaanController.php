@@ -43,6 +43,6 @@ class PersediaanController extends Controller
         $pdf = PDF::loadView('pages.toplevel.export_data.barang_pdf', [
             'barangs' => $barangs, 'year_today'=> $year_today
         ]);
-        return $pdf->download('barang.pdf');
+        return $pdf->stream('barang.pdf');
     }
 }
