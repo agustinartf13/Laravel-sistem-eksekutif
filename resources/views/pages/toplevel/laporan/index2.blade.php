@@ -60,17 +60,6 @@
                                </div>
                             </div>
                            </div>
-
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <label for="">Pilih Tahun</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
-                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                                </div>
-                            </div>
                         </div>
                         </div>
                     </div>
@@ -83,12 +72,22 @@
                     <div class="card m-b-20">
                         <div class="card-body">
 
-                            <h4 class="mt-0 header-title">Pembelian Sparepart {{ $year_today }} </h4>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label for="">Pilih Tahun</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
 
-                            <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                            <h4 class="mt-4 text-center">Statistic Pembelian {{ $year_today }} </h4>
+
+                            <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                                 <li class="list-inline-item">
                                     <h5 class="mb-0"> </h5>
-
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="mb-0">{{rupiah($total_pengeluaran)}}</h5>
@@ -99,13 +98,11 @@
 
                                 </li>
                             </ul>
-
                             <canvas id="myChart" height="80"></canvas>
-
                         </div>
                     </div>
-                </div> <!-- end col -->
-            </div> <!-- end row -->
+                </div>
+            </div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -288,7 +285,7 @@ $.ajax({
                 labels: month,
                 datasets: [
                     {
-                        label: "Pembelian Sparepart " + {{ $year_today }},
+                        label: "Pembelian " + {{ $year_today }},
                         backgroundColor: "#f16c69",
                         borderColor: "#f16c69",
                         borderWidth: 1,

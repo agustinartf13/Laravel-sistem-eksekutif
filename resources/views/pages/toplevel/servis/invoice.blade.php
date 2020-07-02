@@ -23,7 +23,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-12">
                             <div class="invoice-title">
                                 <h4 class="float-right font-16">

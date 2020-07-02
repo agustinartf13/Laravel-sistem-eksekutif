@@ -5,69 +5,6 @@
 
 @section('content')
 
-{{-- @php
-//Sum x and y
-  $sumX = doSum($x);
-  $sumY = doSum($y);
-
-  //Mean x and mean y
-  $meanX = $sumX / count($x);
-  $meanY = $sumY / count($y);
-
-  //ori - mean
-  $minX = doMinMean($x,$meanX);
-  $minY = doMinMean($y,$meanY);
-
-  //pow min
-  $powX = doPower($minX);
-  $sumPowX = doSum($powX);
-
-  //minX by minY
-  $by = doBy($minX,$minY);
-  $sumBy = doSum($by);
-
-  //b1
-  $b1 = $sumBy / $sumPowX;
-  $b0 = $meanY - $b1 * $meanX;
-
-  //function
-  $function = "Y = ".number_format((float)$b0, 4, '.', '')." + ".number_format((float)$b1, 4, '.', '')." ( X )";
-  echo "<script type='text/javascript'> var b0 = ".number_format((float)$b0, 4, '.', '')."; var b1 = ".number_format((float)$b1, 4, '.', '')." </script>";
-
-  function doMinMean($ori,$mean) {
-    $array = array();
-    for ($i=0; $i < count($ori); $i++) {
-      $count = $ori[$i] - $mean;
-      array_push($array,$count);
-    }
-    return $array;
-  }
-
-  function doPower($min) {
-    $array = array();
-    for ($i=0; $i < count($min); $i++) {
-      array_push($array,pow($min[$i],2));
-    }
-    return $array;
-  }
-
-  function doBy($minX,$minY) {
-    $array = array();
-    for ($i=0; $i < count($minX); $i++) {
-      array_push($array,$minX[$i]*$minY[$i]);
-    }
-    return $array;
-  }
-
-  function doSum($arr) {
-    $sum = 0;
-    for ($i=0; $i < count($arr); $i++) {
-      $sum += $arr[$i];
-    }
-    return $sum;
-  }
-@endphp --}}
-
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -102,6 +39,9 @@
                             </select>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col input-daterange">
                             <label for="">Priode Awal</label>
                             <input type="text" name="from_date" id="from_date" class="form-control"
@@ -112,113 +52,97 @@
                             <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="button" id="btn_peramalan" href="#"
+                    <div class="form-group mt-3">
+                        <button type="button" id="btn_hitung" href="#"
                         class="btn btn-danger btn-xs d-inline mr-3">Hitung Peramalan</button>
                     </div>
                 </div>
                 </div>
+
+                <div class="card m-b-20 mt-4">
+                    <div class="">
+                        <div id="card_chart"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
      </div>
 </div>
 @endsection
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+{{-- <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+});
+</script> --}}
+
 
 <script>
-    var ctx = document.getElementById('bar').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
-                {
-                    label: "Sales Analytics",
-                    backgroundColor: "#28bbe3",
-                    borderColor: "#28bbe3",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#28bbe3",
-                    hoverBorderColor: "#28bbe3",
-
+	function loadChart(){
+	var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
                 }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+            }]
         }
-    });
+    }
+});
+}
 </script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 
     $('.select2').select2();
-    $('.input-daterange').datepicker({
-        todayBtn: 'likend',
-        format: 'yyyy-mm-dd',
-        autoclose: true
+
+    $('#btn_hitung').on('click', function() {
+        const month = $('.input-daterange').val();
+        // if (month === null || month === "" || year === undefined) {
+        //     window.alert('pick tanggal')
+        // } else {
+            const bodyChart =`<div class="card-body">
+                <canvas id="myChart" height="80"></canvas>
+                              </div>`;
+            $('#card_chart').html("")
+            $('#card_chart').append(bodyChart)
+	    loadChart()
+        // }
     })
-
-    load_data();
-    function load_data(from_date = '', to_date = '') {
-        var table = $('#datatable-buttons').DataTable({
-        aaSorting: [
-                    [0, "DESC"]
-                ],
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{route('admin.api.jual')}}",
-                    data: {from_date:from_date, to_date:to_date}
-                },
-                columns: [{
-                        data: 'id',
-                        sortable: true,
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: '20'
-                    },
-                    {
-                        data: 'invoice_number',
-                        name: 'invoice_number'
-                    },
-                    {
-                        data: 'tanggal_transaksi',
-                        name: 'tanggal_transaksi'
-                    },
-                    {
-                        data: 'name_pembeli',
-                        name: 'name_pembeli'
-                    },
-                    {
-                        data: 'total_harga',
-                        name: 'total_harga'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '120px'
-                    }
-                ],
-                dom: 'lBfrtip',
-            lengthChange: true,
-            buttons: ['copy', 'excel', 'pdf', 'print'],
-        });
-
-        table.buttons().container()
-            .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-
-        }
 
         $('#filter').click(function() {
             var from_date = $('#from_date').val();
@@ -239,6 +163,12 @@ $(document).ready(function() {
         });
     });
 
+
+    $('.input-daterange').datepicker({
+        todayBtn: 'likend',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    })
         $("#datepicker").datepicker({
             format: "yyyy",
             viewMode: "years",
@@ -246,5 +176,5 @@ $(document).ready(function() {
         });
 
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 @endsection

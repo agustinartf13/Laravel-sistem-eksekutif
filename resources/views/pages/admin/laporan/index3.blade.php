@@ -65,8 +65,17 @@
                             </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="col-xl">
+                <div class="card m-b-20">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <label for="">Pilih Tahun</label>
                                 <div class="input-group mb-3">
                                     <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
@@ -74,21 +83,10 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <hr>
+                        <h4 class="mt-4 text-center">Statistic Service Motor {{$year_today}}</h4>
 
-
-
-        <div class="row">
-            <div class="col-xl">
-                <div class="card m-b-20">
-                    <div class="card-body">
-
-                        <h4 class="mt-0 header-title">Statistic Service Motor {{$year_today}}</h4>
-
-                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                             <li class="list-inline-item">
                                 <h5 class="mb-0"> {{rupiah($total_omset)}}</h5>
                                 <p class="text-muted">Omset</p>
