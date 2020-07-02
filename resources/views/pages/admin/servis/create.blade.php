@@ -93,7 +93,8 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="Email">Alamat</label>
-                                <textarea name="alamat" id="" cols="30" rows="5" class="ckeditor form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
+                                <textarea name="alamat" id="" cols="30" rows="5"
+                                    class="ckeditor form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
                                 @error('alamat')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -103,8 +104,8 @@
                             <div class="col">
                                 <label for="NoTelphone">No Telphone</label>
                                 <input type="text" name="no_telphone"
-                                    class="form-control @error('no_telphone') is-invalid @enderror" placeholder="No Telphone"
-                                    value="{{ old('no_telphone') }}" />
+                                    class="form-control @error('no_telphone') is-invalid @enderror"
+                                    placeholder="No Telphone" value="{{ old('no_telphone') }}" />
                                 @error('no_telphone')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -146,7 +147,8 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="Email">Keluhan</label>
-                                <textarea name="keluhan" id="" cols="30" rows="8" class="ckkeluhan form-control @error('keluhan') is-invalid @enderror">{{old('keluhan')}}</textarea>
+                                <textarea name="keluhan" id="" cols="30" rows="8"
+                                    class="ckkeluhan form-control @error('keluhan') is-invalid @enderror">{{old('keluhan')}}</textarea>
                                 @error('keluhan')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -240,18 +242,18 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control @error('qty.*') is-invalid @enderror"
-                                        placeholder="Jumlah">
+                                        class="form-control @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
                                     @error('qty.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
                                     </div>
                                     @enderror
                                 </div>
-                               <div class="form-group">
+                                <div class="form-group">
                                     <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
-                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
-                               </div>
+                                        class="btn btn-primary btn-xs d-inline mr-3"><i
+                                            class="fa fa-times"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
@@ -342,24 +344,24 @@
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-            .create( document.querySelector( '.ckeditor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+        .create(document.querySelector('.ckeditor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 <script>
     ClassicEditor
-            .create( document.querySelector( '.ckkeluhan' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+        .create(document.querySelector('.ckkeluhan'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script> --}}
 
 @endsection

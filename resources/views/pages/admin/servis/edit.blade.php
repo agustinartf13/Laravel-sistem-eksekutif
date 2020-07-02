@@ -90,7 +90,8 @@
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="Email">Alamat</label>
-                                <textarea name="alamat" id="" cols="30" rows="5" class="ckeditor form-control @error('alamat') is-invalid @enderror">{{$service->alamat}}</textarea>
+                                <textarea name="alamat" id="" cols="30" rows="5"
+                                    class="ckeditor form-control @error('alamat') is-invalid @enderror">{{$service->alamat}}</textarea>
                                 @error('alamat')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -100,13 +101,13 @@
                             <div class="col">
                                 <label>No Telphone</label>
                                 <input type="text" name="no_telphone"
-                                    class="form-control @error('no_telphone') is-invalid @enderror" placeholder="No Telphone"
-                                    value="{{$service->no_telphone}}" />
-                                    @error('no_telphone')
-                                    <div class="help-block" style="color: red;">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                    @enderror
+                                    class="form-control @error('no_telphone') is-invalid @enderror"
+                                    placeholder="No Telphone" value="{{$service->no_telphone}}" />
+                                @error('no_telphone')
+                                <div class="help-block" style="color: red;">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
@@ -317,24 +318,24 @@
 {{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-            .create( document.querySelector( '.ckeditor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+        .create(document.querySelector('.ckeditor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 <script>
     ClassicEditor
-            .create( document.querySelector( '.ckkeluhan' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+        .create(document.querySelector('.ckkeluhan'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script> --}}
 
 @endsection

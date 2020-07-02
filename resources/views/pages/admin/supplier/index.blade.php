@@ -141,40 +141,40 @@
                     url: "{{route('admin.api.supplier')}}"
                 },
                 columns: [{
-                        data: 'id',
-                        sortable: true,
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: '20'
+                    data: 'id',
+                    sortable: true,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     },
-                    {
-                        data: 'name_supplier',
-                        name: 'name_supplier'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'address',
-                        name: 'address'
-                    },
-                    {
-                        data: 'no_telphone',
-                        name: 'no_telphone'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '115px'
-                    }
+                    width: '20'
+                },
+                {
+                    data: 'name_supplier',
+                    name: 'name_supplier'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'address',
+                    name: 'address'
+                },
+                {
+                    data: 'no_telphone',
+                    name: 'no_telphone'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    width: '115px'
+                }
                 ],
                 columnDefs: [{
                     targets: 5,
@@ -346,13 +346,13 @@
                 preConfirm: function () {
                     return new Promise(function (resolve) {
                         $.ajax({
-                                url: "{{ url('admin/supplier') }}" + '/' + supplierId,
-                                type: "DELETE",
-                                data: {
-                                    '_method': 'DELETE',
-                                    '_token': csrf_token
-                                },
-                            })
+                            url: "{{ url('admin/supplier') }}" + '/' + supplierId,
+                            type: "DELETE",
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': csrf_token
+                            },
+                        })
                             .done(function (response) {
                                 swal(
                                     'Deleted!',
@@ -375,33 +375,33 @@
         }
     </script>
 
-<script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
-            var button = $(e.relatedTarget);
-            var modal = $(this);
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#mymodal').on('show.bs.modal', function (e) {
+                var button = $(e.relatedTarget);
+                var modal = $(this);
 
-            modal.find('.modal-body').load(button.data("remote"));
-            modal.find('.modal-title').html(button.data("title"));
+                modal.find('.modal-body').load(button.data("remote"));
+                modal.find('.modal-title').html(button.data("title"));
+            });
         });
-    });
-</script>
+    </script>
 
-<div class="row">
-    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <i class="fa fa-spinner fa-spin"></i>
+    <div class="row">
+        <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
     @endsection

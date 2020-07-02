@@ -67,41 +67,41 @@ return $hasil_rupiah;
         <td>
             @if($service->status == 'SERVICE')
             <span class="badge badge-danger">
-          @elseif($service->status == 'FINISH')
-            <span class="badge badge-success">
-          @elseif($service->status == 'CHECKING')
-            <span class="badge badge-warning">
-          @else
-            <span>
-          @endif
-            {{ $service->status }}
-            </span>
+                @elseif($service->status == 'FINISH')
+                <span class="badge badge-success">
+                    @elseif($service->status == 'CHECKING')
+                    <span class="badge badge-warning">
+                        @else
+                        <span>
+                            @endif
+                            {{ $service->status }}
+                        </span>
         </td>
     </tr>
     <tr>
-      <th class="text-center">Service</th>
-      <td>
-        <table class="tabble table-bordered w-100">
-          <tr>
-            <th>Name Barang</th>
-            <th>Harga beli</th>
-            <th>Harga Jual</th>
-            <th>Quantity</th>
-          </tr>
-            @foreach ($service->dtlservice as $value)
-              <tr>
-                <td>{{$value->barang->name_barang}}</td>
-                <td>{{rupiah($value->harga_beli)}}</td>
-                <td>{{rupiah($value->harga_jual)}}</td>
-                <td>{{$value->qty}}</td>
-              </tr>
-            @endforeach
-        </table>
-      </td>
+        <th class="text-center">Service</th>
+        <td>
+            <table class="tabble table-bordered w-100">
+                <tr>
+                    <th>Name Barang</th>
+                    <th>Harga beli</th>
+                    <th>Harga Jual</th>
+                    <th>Quantity</th>
+                </tr>
+                @foreach ($service->dtlservice as $value)
+                <tr>
+                    <td>{{$value->barang->name_barang}}</td>
+                    <td>{{rupiah($value->harga_beli)}}</td>
+                    <td>{{rupiah($value->harga_jual)}}</td>
+                    <td>{{$value->qty}}</td>
+                </tr>
+                @endforeach
+            </table>
+        </td>
     </tr>
-  </table>
+</table>
 
-  <div class="row mt-4">
+<div class="row mt-4">
     <div class="col">
         <a href="{{route('admin.servis.status', $service->id)}}?status=FINISH" class="btn btn-success btn-block">
             <i class="fa fa-check mr-2"></i> Set Finish
@@ -118,6 +118,3 @@ return $hasil_rupiah;
         </a>
     </div>
 </div>
-
-
-

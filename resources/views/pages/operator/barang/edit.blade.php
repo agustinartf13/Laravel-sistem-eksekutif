@@ -30,8 +30,8 @@
                     </div>
                     @endif
                     <h4 class="mt-0 header-title">Add Data</h4>
-                    <a href="{{route('operator.barang.index')}}" class="btn btn-primary btn-flat" style="float: right"><i
-                            class="fas fa-reply mr-2"></i>Back</a>
+                    <a href="{{route('operator.barang.index')}}" class="btn btn-primary btn-flat"
+                        style="float: right"><i class="fas fa-reply mr-2"></i>Back</a>
                     <br>
                     <form action="{{route('operator.barang.update', $barang->id)}}" method="POST"
                         enctype="multipart/form-data">

@@ -27,7 +27,8 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>
+                        Data
                         Pembelian</h4>
                     <a href="{{route('admin.laporan.beli')}}" class="btn btn-secondary btn-flat d-inline"
                         style="float: right"><i class="fa fa-print"></i></a>
@@ -81,42 +82,42 @@
                 serverSide: true,
                 ajax: "{{route('admin.api.pembelian')}}",
                 columns: [{
-                        data: 'id',
-                        sortable: true,
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: '20'
+                    data: 'id',
+                    sortable: true,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     },
-                    {
-                        data: 'invoice_number',
-                        name: 'invoice_number'
-                    },
-                    {
-                        data: 'tanggl_transaksi',
-                        name: 'tanggl_transaksi'
-                    },
-                    {
-                        data: 'supplier.name_supplier',
-                        name: 'supplier'
-                    },
-                    {
-                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
-                        data: 'total_harga',
-                        name: 'total_harga'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        width: '80'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '120px'
-                    }
+                    width: '20'
+                },
+                {
+                    data: 'invoice_number',
+                    name: 'invoice_number'
+                },
+                {
+                    data: 'tanggl_transaksi',
+                    name: 'tanggl_transaksi'
+                },
+                {
+                    data: 'supplier.name_supplier',
+                    name: 'supplier'
+                },
+                {
+                    render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
+                    data: 'total_harga',
+                    name: 'total_harga'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    width: '80'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    width: '120px'
+                }
                 ],
                 columnDefs: [{
                     targets: 5,
@@ -127,25 +128,25 @@
                         if (data == 'FINISH') {
                             css1 = 'badge badge-success';
                             return '<h6><span class="' + css1 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                         if (data == 'PROCESS') {
                             css2 = 'badge badge-danger';
                             return '<h6><span class="' + css2 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                         if (data == 'CANCEL') {
                             css3 = 'badge badge-warning';
                             return '<h6><span class="' + css3 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                     }
                 }]
             });
 
 
-                // load id motor for delete
-                $(document).on('click', '#delete', function (event) {
+            // load id motor for delete
+            $(document).on('click', '#delete', function (event) {
                 var pembelianId = $(this).data('id');
                 SwalDelete(pembelianId);
                 event.preventDefault();
@@ -153,8 +154,8 @@
 
         });
 
-          // delete action
-          function SwalDelete(pembelianId) {
+        // delete action
+        function SwalDelete(pembelianId) {
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
@@ -170,13 +171,13 @@
                 preConfirm: function () {
                     return new Promise(function (resolve) {
                         $.ajax({
-                                url: "{{ url('admin/pembelian') }}" + '/' + pembelianId,
-                                type: "DELETE",
-                                data: {
-                                    '_method': 'DELETE',
-                                    '_token': csrf_token
-                                },
-                            })
+                            url: "{{ url('admin/pembelian') }}" + '/' + pembelianId,
+                            type: "DELETE",
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': csrf_token
+                            },
+                        })
                             .done(function (response) {
                                 swal(
                                     'Deleted!',
@@ -200,32 +201,32 @@
     </script>
 
 
-<script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
-            var button = $(e.relatedTarget);
-            var modal = $(this);
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#mymodal').on('show.bs.modal', function (e) {
+                var button = $(e.relatedTarget);
+                var modal = $(this);
 
-            modal.find('.modal-body').load(button.data("remote"));
-            modal.find('.modal-title').html(button.data("title"));
+                modal.find('.modal-body').load(button.data("remote"));
+                modal.find('.modal-title').html(button.data("title"));
+            });
         });
-    });
-</script>
+    </script>
 
-<div class="row">
-    <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <i class="fa fa-spinner fa-spin"></i>
+    <div class="row">
+        <div id="mymodal" class="modal fade bs-example-modal-lg" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     @endsection

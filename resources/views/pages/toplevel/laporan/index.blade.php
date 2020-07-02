@@ -98,7 +98,7 @@
                                 </li>
                             </ul>
 
-                            <canvas id="myChart" height="90"></canvas>
+                            <canvas id="myChart" height="80"></canvas>
 
                         </div>
                     </div>

@@ -34,8 +34,8 @@
                                         INV
                                         #{{$pembelian->invoice_number}}</strong></h4>
                                 <h3 class="mt-0">
-                                    {{-- <img src="assets/images/Honda_Logo.svg" alt="logo" height="24"/> --}}
-                                    <i class="fa fa-globe"></i> Sari Indah Motor <span
+                                    <img src="{{ url('assets/images/Honda_Logo.svg') }}" alt="logo" height="54" class="pb-2"/>
+                                    Sari Indah Motor <span
                                         class="text-primary">Lukluk</span>
                                 </h3>
                             </div>
@@ -81,8 +81,8 @@
                                             <thead>
                                                 @php
                                                 function rupiah($angka){
-                                                    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-                                                    return $hasil_rupiah;
+                                                $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+                                                return $hasil_rupiah;
                                                 }
                                                 @endphp
                                                 <tr>
@@ -94,16 +94,16 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                    $no=1;
+                                                $no=1;
                                                 @endphp
-                                                 @foreach ($pembelian->dtlpembelian as $value)
-                                                 <tr>
-                                                  <td>{{$no++}}</td>
-                                                  <td class="text-center">{{$value->barang->name_barang}}</td>
-                                                  <td class="text-center">{{$value->harga_beli}}</td>
-                                                  <td class="text-center">{{$value->qty}}</td>
-                                                 </tr>
-                                               @endforeach
+                                                @foreach ($pembelian->dtlpembelian as $value)
+                                                <tr>
+                                                    <td>{{$no++}}</td>
+                                                    <td class="text-center">{{$value->barang->name_barang}}</td>
+                                                    <td class="text-center">{{$value->harga_beli}}</td>
+                                                    <td class="text-center">{{$value->qty}}</td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

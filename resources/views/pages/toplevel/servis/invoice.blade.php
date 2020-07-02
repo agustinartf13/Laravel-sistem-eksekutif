@@ -27,20 +27,12 @@
                         <div class="col-12">
                             <div class="invoice-title">
                                 <h4 class="float-right font-16">
-                                    <strong
-                                        >{{$tanggal_servis =date('M/d/Y', strtotime($service->tanggal_servis))}}
-                                        INV #{{$service->invocie_number}}</strong
-                                    >
+                                    <strong>{{$tanggal_servis =date('M/d/Y', strtotime($service->tanggal_servis))}}
+                                        INV #{{$service->invocie_number}}</strong>
                                 </h4>
                                 <h3 class="mt-0">
-                                    {{--
-                                    <img
-                                        src="assets/images/Honda_Logo.svg"
-                                        alt="logo"
-                                        height="24"
-                                    />
-                                    --}} <i class="fa fa-globe"></i> Sari Indah
-                                    Motor
+                                    <img src="{{ url('assets/images/Honda_Logo.svg') }}" alt="logo" height="54"
+                                        class="pb-2" />Sari Indah Motor
                                     <span class="text-primary">Lukluk</span>
                                 </h3>
                             </div>
@@ -54,18 +46,14 @@
                             <div class="row">
                                 <div class="col-6">
                                     <address>
-                                        <strong>Sari Indah Motor Lukluk:</strong
-                                        ><br />
+                                        <strong>Sari Indah Motor Lukluk:</strong><br />
                                         Address: Jalan Raya Perang IXI<br />
                                         Phone: (+62) 082146640882<br />
                                         Email: agung21@gmail.com<br />
                                     </address>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <address
-                                        class="text-justify"
-                                        style="float: right"
-                                    >
+                                    <address class="text-justify" style="float: right">
                                         Name Customer:
                                         {{$service->customer_servis}}<br />
                                         Address: {{$service->alamat}}<br />
@@ -81,9 +69,7 @@
 
                     <div class="row">
                         <div class="col-4 " style="margin-top: -110px;">
-                            <div
-                                class="table table-responsive table-borderless"
-                            >
+                            <div class="table table-responsive table-borderless">
                                 <table class="table">
                                     @php function rupiah($angka){ $hasil_rupiah
                                     = "Rp " . number_format($angka,0,',','.');
@@ -172,29 +158,18 @@
                         <div class="col-6">
                             <address>
                                 <h6>
-                                    <strong>Total Transaksi</strong
-                                    >&nbsp;&nbsp;{{rupiah($service->sub_total)}}
+                                    <strong>Total Transaksi</strong>&nbsp;&nbsp;{{rupiah($service->sub_total)}}
                                 </h6>
                             </address>
                         </div>
                     </div>
                     <div class="d-print-none">
                         <div class="float-right">
-                            <a
-                                href="javascript:window.print()"
-                                class="btn btn-success waves-effect waves-light"
-                                ><i class="fa fa-print"></i
-                            ></a>
-                            <a
-                                href="#"
-                                class="btn btn-danger waves-effect waves-light"
-                                >Send</a
-                            >
-                            <a
-                                href="{{ route('admin.servis.index') }}"
-                                class="btn btn-secondary waves-effect waves-light"
-                                >back</a
-                            >
+                            <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i
+                                    class="fa fa-print"></i></a>
+                            <a href="#" class="btn btn-danger waves-effect waves-light">Send</a>
+                            <a href="{{ route('admin.servis.index') }}"
+                                class="btn btn-secondary waves-effect waves-light">back</a>
                         </div>
                     </div>
                 </div>

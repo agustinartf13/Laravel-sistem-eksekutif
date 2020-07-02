@@ -9,7 +9,7 @@
         <div class="page-title-box">
             <h4 class="page-title">Data User</h4>
             <ol class="breadcrumb">
-               <li>{{ Breadcrumbs::render('user') }}</li>
+                <li>{{ Breadcrumbs::render('user') }}</li>
             </ol>
         </div>
     </div>
@@ -96,13 +96,13 @@
                                     <label for="Email">Email Address</label>
                                     <input type="email" name="email" id="semail" class="form-control"
                                         placeholder="Email Address">
-                                        <div id="valid-email" style="display:none; color: red;"></div>
+                                    <div id="valid-email" style="display:none; color: red;"></div>
                                 </div>
                                 <div class="col">
                                     <label for="NoTelphone">No Telphone</label>
-                                    <input type="text" name="no_telphone" id="sno_telphone"
-                                        class="form-control" placeholder="No Telphone">
-                                        <div id="valid-no_telphone" style="display:none; color: red;"></div>
+                                    <input type="text" name="no_telphone" id="sno_telphone" class="form-control"
+                                        placeholder="No Telphone">
+                                    <div id="valid-no_telphone" style="display:none; color: red;"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -121,11 +121,12 @@
                                     <label for="Password">Password</label>
                                     <input type="password" name="password" id="spassword" class="form-control"
                                         placeholder="Password">
-                                        <div id="valid-password" style="display:none; color: red;"></div>
+                                    <div id="valid-password" style="display:none; color: red;"></div>
                                 </div>
                                 <div class="col">
                                     <label for="NoTelphone">Confrime Password</label>
-                                    <input type="password" name="confrime_password" class="form-control" id="sconfrime_password" placeholder="Confrime Password">
+                                    <input type="password" name="confrime_password" class="form-control"
+                                        id="sconfrime_password" placeholder="Confrime Password">
                                     <div id="valid-confrime_password" style="display:none; color: red;"></div>
                                 </div>
 
@@ -134,9 +135,8 @@
                                 <div class="col">
                                     <label>Address</label>
                                     <div>
-                                        <textarea name="address" id="saddress" class="form-control"
-                                            rows="5"></textarea>
-                                            <div id="valid-address" style="display:none; color: red;"></div>
+                                        <textarea name="address" id="saddress" class="form-control" rows="5"></textarea>
+                                        <div id="valid-address" style="display:none; color: red;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -192,51 +192,51 @@
                 url: "{{route('admin.api.user')}}"
             },
             columns: [{
-                    data: 'id',
-                    sortable: true,
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    },
-                    width: '20'
+                data: 'id',
+                sortable: true,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'no_telphone',
-                    name: 'no_telphone'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    width: '115px'
-                }
+                width: '20'
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'no_telphone',
+                name: 'no_telphone'
+            },
+            {
+                data: 'status',
+                name: 'status'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false,
+                width: '115px'
+            }
             ],
             columnDefs: [{
                 targets: 4,
                 render: function (data, type, row) {
-                        var css1 = 'badge badge-success';
-                        var css2 = 'badge badge-primary';
-                        if (data == 'ACTIVE') {
-                            css1 = 'badge badge-success';
-                            return '<span class="' + css1 + '">' + data + '</span>';
-                        }
-                        if (data == 'INACTIVE') {
-                            css2 = 'badge badge-primary';
-                            return '<span class="' + css2 + '">' + data + '</span>';
-                        }
+                    var css1 = 'badge badge-success';
+                    var css2 = 'badge badge-primary';
+                    if (data == 'ACTIVE') {
+                        css1 = 'badge badge-success';
+                        return '<span class="' + css1 + '">' + data + '</span>';
                     }
+                    if (data == 'INACTIVE') {
+                        css2 = 'badge badge-primary';
+                        return '<span class="' + css2 + '">' + data + '</span>';
+                    }
+                }
             }]
         });
 
@@ -418,13 +418,13 @@
             preConfirm: function () {
                 return new Promise(function (resolve) {
                     $.ajax({
-                            url: "{{ url('admin/user') }}" + '/' + usersId,
-                            type: "DELETE",
-                            data: {
-                                '_method': 'DELETE',
-                                '_token': csrf_token
-                            },
-                        })
+                        url: "{{ url('admin/user') }}" + '/' + usersId,
+                        type: "DELETE",
+                        data: {
+                            '_method': 'DELETE',
+                            '_token': csrf_token
+                        },
+                    })
                         .done(function (response) {
                             swal(
                                 'Deleted!',
@@ -449,8 +449,8 @@
 </script>
 
 <script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
+    jQuery(document).ready(function ($) {
+        $('#mymodal').on('show.bs.modal', function (e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
 

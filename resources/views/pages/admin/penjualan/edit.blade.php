@@ -76,7 +76,8 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Address</label>
-                                <textarea name="alamat" id="" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{$penjualan->alamat}}</textarea>
+                                <textarea name="alamat" id="" cols="30" rows="5"
+                                    class="form-control @error('alamat') is-invalid @enderror">{{$penjualan->alamat}}</textarea>
                                 @error('alamat')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -88,7 +89,7 @@
                         <div class="row" id="barang">
                             <div class="col mt-4">
                                 <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                    class="fa fa-plus mr-2"></i> Add Barang</a>
+                                        class="fa fa-plus mr-2"></i> Add Barang</a>
                             </div>
                         </div>
 

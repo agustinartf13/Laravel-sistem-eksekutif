@@ -1,6 +1,5 @@
-
 <style>
-    .img-user{
+    .img-user {
         height: 155px;
         width: 155px;
     }
@@ -9,7 +8,8 @@
 <div class="card-body box-profile">
     <div class="text-center">
         <div class="">
-            <img class="rounded-circle shadow img-user" src="{{ url('assets/images/admin.png') }}" data-holder-rendered="true">
+            <img class="rounded-circle shadow img-user" src="{{ url('assets/images/admin.png') }}"
+                data-holder-rendered="true">
         </div>
     </div>
 
@@ -18,23 +18,24 @@
     <p class="text-muted text-center">Mekanik</p>
 
     <ul class="list-group list-group-unbordered mb-3">
-    <li class="list-group-item">
-        <b>Email</b> <a class="float-right">{{ $mekanik->email }}</a>
-    </li>
-    <li class="list-group-item">
-        <b>Address</b> <a class="float-right">{{ $mekanik->address }}</a>
-    </li>
-    <li class="list-group-item">
-        <b>Status</b> <a class="float-right"> @if($mekanik->status=="ACTIVE")
-            <span class="badge badge-success">{{$mekanik->status}}</span> @else
-            <span class="badge badge-primary">{{$mekanik->status}}</span> @endif</a>
-    </li>
-    <li class="list-group-item">
-        <b>Phone Number</b> <a class="float-right">{{ $mekanik->no_telphone }}</a>
-    </li>
+        <li class="list-group-item">
+            <b>Email</b> <a class="float-right">{{ $mekanik->email }}</a>
+        </li>
+        <li class="list-group-item">
+            <b>Address</b> <a class="float-right">{{ $mekanik->address }}</a>
+        </li>
+        <li class="list-group-item">
+            <b>Status</b> <a class="float-right"> @if($mekanik->status=="ACTIVE")
+                <span class="badge badge-success">{{$mekanik->status}}</span> @else
+                <span class="badge badge-primary">{{$mekanik->status}}</span> @endif</a>
+        </li>
+        <li class="list-group-item">
+            <b>Phone Number</b> <a class="float-right">{{ $mekanik->no_telphone }}</a>
+        </li>
     </ul>
 
-    <a href="{{ route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) }}" class="btn btn-info btn-block"><b>Edit Mekanik</b></a>
+    <a href="{{ route('admin.mekanik.edit', ['mekanik' => $mekanik->id]) }}" class="btn btn-info btn-block"><b>Edit
+            Mekanik</b></a>
 
     <div class="row mt-4">
         <div class="col">
@@ -49,5 +50,4 @@
         </div>
     </div>
 
-    </div>
-
+</div>

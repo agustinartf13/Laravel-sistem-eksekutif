@@ -20,8 +20,8 @@
 
             @php
             function rupiah($angka){
-                $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-                return $hasil_rupiah;
+            $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+            return $hasil_rupiah;
             }
             @endphp
 
@@ -40,7 +40,8 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Jasa Service</h6>
                             <h3 class="mb-3 mt-0">{{ rupiah($total_jasa) }}</h3>
                             <div class="">
-                                <span class="badge badge-light text-danger"> +11% </span> <span class="ml-2">From previous
+                                <span class="badge badge-light text-danger"> +11% </span> <span class="ml-2">From
+                                    previous
                                     period</span>
                             </div>
                         </div>
@@ -111,9 +112,6 @@
     </div>
     <!-- end row -->
 
-
-
-
     <div class="row">
 
         <div class="col-xl-6">
@@ -174,82 +172,83 @@
             <div class="card m-b-20">
                 <div class="card-body">
 
-        <h5>List Penjualan</h5>
-        <br>
+                    <h5>List Penjualan</h5>
+                    <br>
 
-        <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
-        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Customer</th>
-                <th>Invoice Number</th>
-                <th>Tanggal Transaksi</th>
-                <th>Total</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <th>No</th>
-            <th>Customer</th>
-            <th>Invoice Number</th>
-            <th>Tanggal Transaksi</th>
-            <th>Total</th>
-            <th>Total</th>
-        </tfoot>
-        <tbody>
-            {{-- server Side --}}
-        </tbody>
-        </form>
-    </table>
-    </div>
-</div>
-</div>
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Customer</th>
+                                <th>Invoice Number</th>
+                                <th>Tanggal Transaksi</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <th>No</th>
+                            <th>Customer</th>
+                            <th>Invoice Number</th>
+                            <th>Tanggal Transaksi</th>
+                            <th>Total</th>
+                            <th>Total</th>
+                        </tfoot>
+                        <tbody>
+                            {{-- server Side --}}
+                        </tbody>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-<div class="col-6">
-    <div class="card">
-        <div class="card-body">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
 
-            <h4>List Pembelian</h4>
-            <br />
-            <table id="datatable_a" class="table table-striped table-bordered dt-responsive nowrap datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Invoice Number</th>
-                        <th>Tanggal pesan</th>
-                        <th>Suppliers</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Invoice Number</th>
-                        <th>Tanggal pesan</th>
-                        <th>Suppliers</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
+                    <h4>List Pembelian</h4>
+                    <br />
+                    <table id="datatable_a" class="table table-striped table-bordered dt-responsive nowrap datatable"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Invoice Number</th>
+                                <th>Tanggal pesan</th>
+                                <th>Suppliers</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Invoice Number</th>
+                                <th>Tanggal pesan</th>
+                                <th>Suppliers</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
 
+
+                </div>
+            </div>
 
         </div>
+
     </div>
 
-</div>
+    <div class="row">
 
-</div>
-
-<div class="row">
-
-</div>
+    </div>
 
 @endsection
 @section('js')
@@ -404,7 +403,6 @@
     });
 
 </script>
-
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -489,7 +487,6 @@
                 });
             }
         });
-
         </script>
 
 
@@ -522,3 +519,4 @@
         </div>
 
 @endsection
+

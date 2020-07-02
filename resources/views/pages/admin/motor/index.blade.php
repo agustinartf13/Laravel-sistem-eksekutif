@@ -124,33 +124,33 @@
                     url: "{{route('admin.api.motor')}}"
                 },
                 columns: [{
-                        data: 'id',
-                        sortable: true,
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: '20'
+                    data: 'id',
+                    sortable: true,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     },
+                    width: '20'
+                },
 
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'tipe_motor',
-                        name: 'tipe_motor'
-                    },
-                    {
-                        data: 'jenis',
-                        name: 'jenis'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '115px'
-                    }
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'tipe_motor',
+                    name: 'tipe_motor'
+                },
+                {
+                    data: 'jenis',
+                    name: 'jenis'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    width: '115px'
+                }
                 ],
                 columnDefs: [{
                     targets: 3,
@@ -160,12 +160,12 @@
                         if (data == 'AUTOMATIC') {
                             css1 = 'badge badge-success';
                             return '<h6><span class="' + css1 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                         if (data == 'MANUAL') {
                             css2 = 'badge badge-danger';
                             return '<h6><span class="' + css2 + '">' + data +
-                            '</span></h6>';
+                                '</span></h6>';
                         }
                     }
                 }]
@@ -328,13 +328,13 @@
                 preConfirm: function () {
                     return new Promise(function (resolve) {
                         $.ajax({
-                                url: "{{ url('admin/motor') }}" + '/' + motorId,
-                                type: "DELETE",
-                                data: {
-                                    '_method': 'DELETE',
-                                    '_token': csrf_token
-                                },
-                            })
+                            url: "{{ url('admin/motor') }}" + '/' + motorId,
+                            type: "DELETE",
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': csrf_token
+                            },
+                        })
                             .done(function (response) {
                                 swal(
                                     'Deleted!',

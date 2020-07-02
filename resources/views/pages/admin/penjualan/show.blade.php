@@ -1,7 +1,7 @@
 @php
 function rupiah($angka){
-    $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-    return $hasil_rupiah;
+$hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+return $hasil_rupiah;
 }
 @endphp
 
@@ -9,7 +9,7 @@ function rupiah($angka){
     <tr>
         <th>Tanggal Transaksi</th>
         <td>{{$penjualan->tanggal_transaksi}}</td>
-      </tr>
+    </tr>
     <tr>
         <th>Nama Pembeli</th>
         <td>{{$penjualan->name_pembeli}}</td>
@@ -32,26 +32,24 @@ function rupiah($angka){
     </tr>
 
     <tr>
-      <th>Pembelian Barang</th>
-      <td>
-        <table class="tabble table-bordered w-100">
-          <tr>
-            <th>Name Barang</th>
-            <th>Harga Pokok</th>
-            <th>Harga Jual</th>
-            <th>Quantity</th>
-          </tr>
-            @foreach ($penjualan->dtlpenjualans as $value)
-              <tr>
-               <td>{{$value->barangs->name_barang}}</td>
-               <td>{{$value->harga_beli}}</td>
-               <td>{{$value->harga_jual}}</td>
-               <td>{{$value->qty}}</td>
-              </tr>
-            @endforeach
-        </table>
-      </td>
+        <th>Pembelian Barang</th>
+        <td>
+            <table class="tabble table-bordered w-100">
+                <tr>
+                    <th>Name Barang</th>
+                    <th>Harga Pokok</th>
+                    <th>Harga Jual</th>
+                    <th>Quantity</th>
+                </tr>
+                @foreach ($penjualan->dtlpenjualans as $value)
+                <tr>
+                    <td>{{$value->barangs->name_barang}}</td>
+                    <td>{{$value->harga_beli}}</td>
+                    <td>{{$value->harga_jual}}</td>
+                    <td>{{$value->qty}}</td>
+                </tr>
+                @endforeach
+            </table>
+        </td>
     </tr>
-  </table>
-
-
+</table>

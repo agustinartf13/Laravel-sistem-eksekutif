@@ -32,14 +32,16 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="Username">Username</label>
-                                <input type="text" name="username" id="susername" class="form-control {{$errors->first('username') ? "is-invalid" : ""}}""
-                                    placeholder="Username" value="{{old('username') ? old('username') : $user->username}}">
+                                <input type="text" name="username" id="susername"
+                                    class="form-control {{$errors->first('username') ? "is-invalid" : ""}}""
+                                    placeholder=" Username"
+                                    value="{{old('username') ? old('username') : $user->username}}">
                                 <div id="valid-username" style="display:none; color: red;"></div>
                             </div>
                             <div class="col">
                                 <label for="Name">Full Name</label>
-                                <input type="text" name="name" id="sname" class="form-control"
-                                    placeholder="Full Name" value="{{old('name') ? old('name') : $user->name}}">
+                                <input type="text" name="name" id="sname" class="form-control" placeholder="Full Name"
+                                    value="{{old('name') ? old('name') : $user->name}}">
                                 <div id="valid-name" style="display:none; color: red;"></div>
                             </div>
                         </div>
@@ -48,20 +50,21 @@
                                 <label for="Email">Email Address</label>
                                 <input type="email" name="email" id="semail" class="form-control"
                                     placeholder="Email Address" value="{{old('email') ? old('email') : $user->email}}">
-                                    <div id="valid-email" style="display:none; color: red;"></div>
+                                <div id="valid-email" style="display:none; color: red;"></div>
                             </div>
                             <div class="col">
                                 <label for="NoTelphone">No Telphone</label>
-                                <input type="number" name="no_telphone" id="sno_telphone"
-                                    class="form-control" placeholder="No Telphone" value="{{old('no_telphone') ? old('no_telphone') : $user->no_telphone}}">
-                                    <div id="valid-no_telphone" style="display:none; color: red;"></div>
+                                <input type="number" name="no_telphone" id="sno_telphone" class="form-control"
+                                    placeholder="No Telphone"
+                                    value="{{old('no_telphone') ? old('no_telphone') : $user->no_telphone}}">
+                                <div id="valid-no_telphone" style="display:none; color: red;"></div>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
                                 <label class="control-label">Role</label>
-                                <select class="form-control select2 {{$errors->first('role') ? "is-invalid" : ""}}" name="role"
-                                    value="">
+                                <select class="form-control select2 {{$errors->first('role') ? "is-invalid" : ""}}"
+                                    name="role" value="">
                                     <option {{($user->role->name == "Administrator") ? "selected" : ""}}>Administator
                                     </option>
                                     <option {{($user->role->name == "TopLevelManagemen") ? "selected" : ""}}>Top level
@@ -76,11 +79,12 @@
                                 <label for="Password">Password</label>
                                 <input type="password" name="password" id="spassword" class="form-control"
                                     placeholder="Password" value="{{old('password')}}" disabled>
-                                    <div id="valid-password" style="display:none; color: red;"></div>
+                                <div id="valid-password" style="display:none; color: red;"></div>
                             </div>
                             <div class="col">
                                 <label for="NoTelphone">Confrime Password</label>
-                                <input type="password" name="confrime_password" class="form-control" id="sconfrime_password" placeholder="Confrime Password">
+                                <input type="password" name="confrime_password" class="form-control"
+                                    id="sconfrime_password" placeholder="Confrime Password">
                                 <div id="valid-confrime_password" style="display:none; color: red;"></div>
                             </div>
 
@@ -91,7 +95,7 @@
                                 <div>
                                     <textarea name="address" id="saddress" class="form-control"
                                         rows="5">{{old('address') ? old('address') : $user->address}}</textarea>
-                                        <div id="valid-address" style="display:none; color: red;"></div>
+                                    <div id="valid-address" style="display:none; color: red;"></div>
                                 </div>
                             </div>
                         </div>
@@ -99,18 +103,18 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="image">Image</label>
-                                <br>
-                                Current Image:
-                                <br> @if ($user->image)
-                                <img src="{{asset('storage/' . $user->image)}}" width="150px" alt="">
-                                <br> @else No Image
-                                @endif
-                                <div class="form-group">
-                                    <label>Input Image</label>
-                                    <input type="file" name="image" id="filestyle" class="filestyle"
-                                        data-buttonname="btn-secondary">
-                                </div>
-                                <span class="text-muted">Kosongkan jika tidak mengubah Image</span>
+                                    <br>
+                                    Current Image:
+                                    <br> @if ($user->image)
+                                    <img src="{{asset('storage/' . $user->image)}}" width="150px" alt="">
+                                    <br> @else No Image
+                                    @endif
+                                    <div class="form-group">
+                                        <label>Input Image</label>
+                                        <input type="file" name="image" id="filestyle" class="filestyle"
+                                            data-buttonname="btn-secondary">
+                                    </div>
+                                    <span class="text-muted">Kosongkan jika tidak mengubah Image</span>
                                 </div>
                             </div>
                             <div class="col">

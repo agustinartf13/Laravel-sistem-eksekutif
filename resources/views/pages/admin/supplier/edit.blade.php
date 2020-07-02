@@ -50,8 +50,8 @@
                             <div class="col">
                                 <label>Email</label>
                                 <input type="text" name="email"
-                                    class="form-control {{$errors->first("email") ? "is-invalid" : ""}}" placeholder="Email"
-                                    value="{{old("email") ? old("email") : $supplier->email}}" />
+                                    class="form-control {{$errors->first("email") ? "is-invalid" : ""}}"
+                                    placeholder="Email" value="{{old("email") ? old("email") : $supplier->email}}" />
                                 <div class="invalid-feedback">
                                     {{$errors->first("email")}}
                                 </div>
@@ -61,13 +61,13 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label>Perusahaan</label>
-                            <input type="text" name="perusahaan"
-                                class="form-control {{$errors->first("perusahaan") ? "is-invalid" : ""}}"
-                                placeholder="Perusahaan"
-                                value="{{old("perusahaan") ? old("perusahaan") : $supplier->perusahaan}}" />
-                            <div class="invalid-feedback">
-                                {{$errors->first("perusahaan")}}
-                            </div>
+                                <input type="text" name="perusahaan"
+                                    class="form-control {{$errors->first("perusahaan") ? "is-invalid" : ""}}"
+                                    placeholder="Perusahaan"
+                                    value="{{old("perusahaan") ? old("perusahaan") : $supplier->perusahaan}}" />
+                                <div class="invalid-feedback">
+                                    {{$errors->first("perusahaan")}}
+                                </div>
                             </div>
                             <div class="col">
                                 <label>Phone Number</label>

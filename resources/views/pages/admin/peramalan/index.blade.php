@@ -31,12 +31,12 @@
                             <label for="">Pilih Barang</label>
                             <div class="input-group mb-3">
                                 <select class="form-control select2 @error('barang.*') is-invalid @enderror"
-                                name="barang[]" id="barang[]">
-                                <option value="">Select Barang</option>
-                                @foreach ($barangs as $barang)
-                                <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
-                                @endforeach
-                            </select>
+                                    name="barang[]" id="barang[]">
+                                    <option value="">Select Barang</option>
+                                    @foreach ($barangs as $barang)
+                                    <option value="{{$barang->id}}">{{$barang->name_barang}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -54,20 +54,20 @@
                     </div>
                     <div class="form-group mt-3">
                         <button type="button" id="btn_hitung" href="#"
-                        class="btn btn-danger btn-xs d-inline mr-3">Hitung Peramalan</button>
+                            class="btn btn-danger btn-xs d-inline mr-3">Hitung Peramalan</button>
                     </div>
                 </div>
-                </div>
-
-                <div class="card m-b-20 mt-4">
-                    <div class="">
-                        <div id="card_chart"></div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="card m-b-20 mt-4">
+                <div class="">
+                    <div id="card_chart"></div>
+                </div>
+            </div>
+
         </div>
-     </div>
+    </div>
+</div>
 </div>
 @endsection
 @section('js')
@@ -76,78 +76,78 @@
 {{-- <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: options
-});
+        type: 'line',
+        data: data,
+        options: options
+    });
 </script> --}}
 
 
 <script>
-	function loadChart(){
-	var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
+    function loadChart() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
-            }]
-        }
+            }
+        });
     }
-});
-}
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {
+    $(document).ready(function () {
 
-    $('.select2').select2();
+        $('.select2').select2();
 
-    $('#btn_hitung').on('click', function() {
-        const month = $('.input-daterange').val();
-        // if (month === null || month === "" || year === undefined) {
-        //     window.alert('pick tanggal')
-        // } else {
-            const bodyChart =`<div class="card-body">
+        $('#btn_hitung').on('click', function () {
+            const month = $('.input-daterange').val();
+            // if (month === null || month === "" || year === undefined) {
+            //     window.alert('pick tanggal')
+            // } else {
+            const bodyChart = `<div class="card-body">
                 <canvas id="myChart" height="80"></canvas>
                               </div>`;
             $('#card_chart').html("")
             $('#card_chart').append(bodyChart)
-	    loadChart()
-        // }
-    })
+            loadChart()
+            // }
+        })
 
-        $('#filter').click(function() {
+        $('#filter').click(function () {
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
-            if (from_date != '' && to_date !='') {
+            if (from_date != '' && to_date != '') {
                 $('#datatable-buttons').DataTable().destroy();
                 load_data(from_date, to_date);
             } else {
@@ -155,7 +155,7 @@ $(document).ready(function() {
             }
         });
 
-        $('#refresh').click(function(){
+        $('#refresh').click(function () {
             $('#from_date').val('');
             $('#to_date').val('');
             $('#datatable-buttons').DataTable().destroy();
@@ -169,11 +169,11 @@ $(document).ready(function() {
         format: 'yyyy-mm-dd',
         autoclose: true
     })
-        $("#datepicker").datepicker({
-            format: "yyyy",
-            viewMode: "years",
-            minViewMode: "years"
-        });
+    $("#datepicker").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>

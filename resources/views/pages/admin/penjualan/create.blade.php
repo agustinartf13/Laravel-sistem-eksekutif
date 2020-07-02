@@ -75,7 +75,8 @@
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Address</label>
-                                <textarea name="alamat" id="" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
+                                <textarea name="alamat" id="" cols="30" rows="5"
+                                    class="form-control @error('alamat') is-invalid @enderror">{{old('alamat')}}</textarea>
                                 @error('alamat')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
@@ -108,8 +109,7 @@
                                 </div>
                                 <div class="col">
                                     <input type="text" name="qty[]" id="qty_b"
-                                        class="form-control @error('qty.*') is-invalid @enderror"
-                                        placeholder="Jumlah">
+                                        class="form-control @error('qty.*') is-invalid @enderror" placeholder="Jumlah">
                                     @error('qty.*')
                                     <div class="help-block" style="color: red;">
                                         <strong>{{ $message }}</strong>
@@ -119,7 +119,8 @@
 
                                 <div class="form-group">
                                     <button type="button" onclick="removeData(this)" id="btn_remove" href="#"
-                                    class="btn btn-primary btn-xs d-inline mr-3"><i class="fa fa-times"></i></button>
+                                        class="btn btn-primary btn-xs d-inline mr-3"><i
+                                            class="fa fa-times"></i></button>
                                 </div>
 
                             </div>

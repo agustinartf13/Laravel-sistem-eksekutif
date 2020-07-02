@@ -20,7 +20,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title" style="font-size: 22px">
+                    <h4 class="mt-0 header-title" style="font-size: 22px;">
                         <i class="mdi mdi-file-document-box mr-2"></i> Laporan
                         Penjualan
                     </h4>
@@ -32,13 +32,15 @@
                             </div>
                         </div>
 
-                        @php function rupiah($angka){ $hasil_rupiah = "Rp" .
+                        @php function rupiah($angka){ $hasil_rupiah = "Rp " .
                         number_format($angka,0,',','.'); return $hasil_rupiah; }
                         @endphp
                         <div class="col-lg-4">
                             <div class="form-group">
                                 @foreach ($rank_barang as $rbrg)
-                                <label for=""><h6>Peringkat Barang</h6></label>
+                                <label for="">
+                                    <h6>Peringkat Barang</h6>
+                                </label>
                                 <p style="margin-top: -10px;">
                                     Name Barang: <u>{{$rbrg->name_barang}}</u>
                                 </p>
@@ -51,13 +53,17 @@
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
-                                <label for=""><h6>Omset</h6></label>
+                                <label for="">
+                                    <h6>Omset</h6>
+                                </label>
                                 {{ rupiah($total_omset) }}
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="form-group">
-                                <label for=""><h6>Profit</h6></label>
+                                <label for="">
+                                    <h6>Profit</h6>
+                                </label>
                                 {{ rupiah($total_profit) }}
                             </div>
                         </div>
@@ -75,30 +81,20 @@
                         <div class="col-lg-3">
                             <label for="">Pilih Tahun</label>
                             <div class="input-group mb-3">
-                                <input
-                                    type="text"
-                                    id="datepicker"
-                                    name="year"
-                                    class="form-control"
-                                    value="{{Request::get('year')}}"
-                                />
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary btn-sm"
-                                >
+                                <input type="text" id="datepicker" name="year" class="form-control"
+                                    value="{{Request::get('year')}}" />
+                                <button type="submit" class="btn btn-primary btn-sm">
                                     Submit
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <hr />
                     <h4 class="mt-4 text-center">
                         Statistic Penjualan {{ $year_today }}
                     </h4>
 
-                    <ul
-                        class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4"
-                    >
+                    <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                         <li class="list-inline-item">
                             <h5 class="mb-0">{{ rupiah($total_omset) }}</h5>
                             <p class="text-muted">Omset</p>
@@ -106,10 +102,10 @@
                         <li class="list-inline-item">
                             <h5 class="mb-0">{{ rupiah($total_profit) }}</h5>
                             <p class="text-muted">Profit</p>
-                        </>
+                        </li>
                     </ul>
 
-                    <canvas id="myChart" height="90"></canvas>
+                    <canvas id="myChart" height="80"></canvas>
                 </div>
             </div>
         </div>
@@ -121,62 +117,29 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a
-                    href="{{ route('admin.penjualan.create') }}"
-                    class="btn btn-danger btn-flat d-inline"
-                    style="float: right"
-                    ><i class="fa fa-plus mr-2"></i>Add Penjualan</a
-                    >
-                    <a
-                    href="{{ route('admin.laporan.exportexcel') }}"
-                    class="btn btn-success btn-flat d-inline mr-3"
-                    style="float: right"
-                    ><i class="fa fa-print"></i> Excel</a
-                    >
-                    <a
-                    href="{{ route('admin.laporan.exportpdfpenjualan') }}"
-                    class="btn btn-primary btn-flat d-inline mr-1"
-                    style="float: right"
-                    ><i class="fa fa-print"></i> Pdf</a
-                    >
+                    <a href="{{ route('admin.penjualan.create') }}" class="btn btn-danger btn-flat d-inline"
+                        style="float: right;"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
+                    <a href="{{ route('admin.laporan.exportexcel') }}" class="btn btn-success btn-flat d-inline mr-3"
+                        style="float: right;"><i class="fa fa-print"></i> Excel</a>
+                    <a href="{{ route('admin.laporan.exportpdfpenjualan') }}"
+                        class="btn btn-primary btn-flat d-inline mr-1" style="float: right;"><i class="fa fa-print"></i>
+                        Pdf</a>
                     <h4>List Penjualan</h4>
                     <hr />
                     <div class="row input-daterange mb-3">
                         <div class="col-md-4">
-                            <input
-                                type="text"
-                                name="from_date"
-                                id="from_date"
-                                class="form-control"
-                                placeholder="From Date"
-                                readonly
-                            />
+                            <input type="text" name="from_date" id="from_date" class="form-control"
+                                placeholder="From Date" readonly />
                         </div>
                         <div class="col-md-4">
-                            <input
-                                type="text"
-                                name="to_date"
-                                id="to_date"
-                                class="form-control"
-                                placeholder="To Date"
-                                readonly
-                            />
+                            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date"
+                                readonly />
                         </div>
                         <div class="col-md-4">
-                            <button
-                                type="button"
-                                name="filter"
-                                id="filter"
-                                class="btn btn-primary"
-                            >
+                            <button type="button" name="filter" id="filter" class="btn btn-primary">
                                 Filter
                             </button>
-                            <button
-                                type="button"
-                                name="refresh"
-                                id="refresh"
-                                class="btn btn-default"
-                            >
+                            <button type="button" name="refresh" id="refresh" class="btn btn-default">
                                 Refresh
                             </button>
                         </div>
@@ -185,11 +148,12 @@
 
                     <!-- /.box-header -->
 
-                    <table
-                        id="datatable-buttons"
-                        class="table table-striped table-bordered dt-responsive nowrap datatable"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                    >
+                    <table id="datatable-buttons"
+                        class="table table-striped table-bordered dt-responsive nowrap datatable" style="
+                            border-collapse: collapse;
+                            border-spacing: 0;
+                            width: 100%;
+                        ">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -221,96 +185,96 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-    function convertMonth(month) {
-    switch (month) {
-        case 1:
-            return "Januari"
-            break;
-        case 2:
-            return "Februari"
-            break;
-        case 3:
-            return "Maret"
-            break;
-        case 4:
-            return "April"
-            break;
-        case 5:
-            return "Mei"
-            break;
-        case 6:
-            return "Juni"
-            break;
-        case 7:
-            return "Juli"
-            break;
-        case 8:
-            return "Agustus"
-            break;
-        case 9:
-            return "September"
-            break;
-        case 10:
-            return "Oktober"
-            break;
-        case 11:
-            return "November"
-            break;
-        case 12:
-            return "Desember"
-            break;
-        default:
-            break;
-    }
-}
-
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    loadChart("2020")
-
-    function loadChart(year) {
-    $.ajax({
-        url: "{{route('admin.laporan.salepermonth')}}",
-        data: {
-            year: year
-        },
-        method: "GET",
-        success: function (data) {
-            let sale = [];
-            let month = [];
-
-
-            for (var i in data[0]) {
-                sale.push(data[0][i].total_sale)
-                month.push(convertMonth(data[0][i].month))
+        function convertMonth(month) {
+            switch (month) {
+                case 1:
+                    return "Januari"
+                    break;
+                case 2:
+                    return "Februari"
+                    break;
+                case 3:
+                    return "Maret"
+                    break;
+                case 4:
+                    return "April"
+                    break;
+                case 5:
+                    return "Mei"
+                    break;
+                case 6:
+                    return "Juni"
+                    break;
+                case 7:
+                    return "Juli"
+                    break;
+                case 8:
+                    return "Agustus"
+                    break;
+                case 9:
+                    return "September"
+                    break;
+                case 10:
+                    return "Oktober"
+                    break;
+                case 11:
+                    return "November"
+                    break;
+                case 12:
+                    return "Desember"
+                    break;
+                default:
+                    break;
             }
+        }
 
-            console.log(data)
 
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        loadChart("2020")
+
+        function loadChart(year) {
+            $.ajax({
+                url: "{{route('admin.laporan.salepermonth')}}",
                 data: {
-                    labels: month,
-                    datasets: [
-                        {
-                            label: "Penjualan " + {{ $year_today }},
-                            backgroundColor: "#28bbe3",
-                            borderColor: "#28bbe3",
-                            borderWidth: 1,
-                            hoverBackgroundColor: "#28bbe3",
-                            hoverBorderColor: "#28bbe3",
-                            data: sale
-                        }
+                    year: year
+                },
+                method: "GET",
+                success: function (data) {
+                    let sale = [];
+                    let month = [];
 
-                    ]
+
+                    for (var i in data[0]) {
+                        sale.push(data[0][i].total_sale)
+                        month.push(convertMonth(data[0][i].month))
+                    }
+
+                    console.log(data)
+
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: month,
+                            datasets: [
+                                {
+                                    label: "Penjualan " + {{ $year_today }},
+                        backgroundColor: "#28bbe3",
+                        borderColor: "#28bbe3",
+                        borderWidth: 1,
+                        hoverBackgroundColor: "#28bbe3",
+                        hoverBorderColor: "#28bbe3",
+                        data: sale
+                    }
+
+                        ]
                 },
                 options: {
                     scales: {
@@ -338,91 +302,91 @@
             console.log(error);
         }
     })
-}
+    }
 
-        $(".input-daterange").datepicker({
-            todayBtn: "likend",
-            format: "yyyy-mm-dd",
-            autoclose: true
-        });
+    $(".input-daterange").datepicker({
+        todayBtn: "likend",
+        format: "yyyy-mm-dd",
+        autoclose: true
+    });
 
-        load_data();
-        function load_data(from_date = "", to_date = "") {
-            var table = $("#datatable-buttons").DataTable({
-                aaSorting: [[0, "DESC"]],
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{route('admin.api.jual')}}",
-                    data: { from_date: from_date, to_date: to_date }
+    load_data();
+    function load_data(from_date = "", to_date = "") {
+        var table = $("#datatable-buttons").DataTable({
+            aaSorting: [[0, "DESC"]],
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{route('admin.api.jual')}}",
+                data: { from_date: from_date, to_date: to_date }
+            },
+            columns: [
+                {
+                    data: "id",
+                    sortable: true,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    },
+                    width: "20"
                 },
-                columns: [
-                    {
-                        data: "id",
-                        sortable: true,
-                        render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: "20"
-                    },
-                    {
-                        data: "invoice_number",
-                        name: "invoice_number"
-                    },
-                    {
-                        data: "tanggal_transaksi",
-                        name: "tanggal_transaksi"
-                    },
-                    {
-                        data: "name_pembeli",
-                        name: "name_pembeli"
-                    },
-                    {
-                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
-                        data: "total_harga",
-                        name: "total_harga"
-                    },
-                    {
-                        data: "action",
-                        name: "action",
-                        orderable: false,
-                        searchable: false,
-                        width: "120px"
-                    }
-                ],
-            });
-
-        }
-
-        $("#filter").click(function() {
-            var from_date = $("#from_date").val();
-            var to_date = $("#to_date").val();
-            if (from_date != "" && to_date != "") {
-                $("#datatable-buttons")
-                    .DataTable()
-                    .destroy();
-                load_data(from_date, to_date);
-            } else {
-                alert("Both Data is Required");
-            }
+                {
+                    data: "invoice_number",
+                    name: "invoice_number"
+                },
+                {
+                    data: "tanggal_transaksi",
+                    name: "tanggal_transaksi"
+                },
+                {
+                    data: "name_pembeli",
+                    name: "name_pembeli"
+                },
+                {
+                    render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
+                    data: "total_harga",
+                    name: "total_harga"
+                },
+                {
+                    data: "action",
+                    name: "action",
+                    orderable: false,
+                    searchable: false,
+                    width: "120px"
+                }
+            ],
         });
 
-        $("#refresh").click(function() {
-            $("#from_date").val("");
-            $("#to_date").val("");
+    }
+
+    $("#filter").click(function () {
+        var from_date = $("#from_date").val();
+        var to_date = $("#to_date").val();
+        if (from_date != "" && to_date != "") {
             $("#datatable-buttons")
                 .DataTable()
                 .destroy();
-            load_data();
-        });
-
-        // load id motor for delete
-        $(document).on("click", "#delete", function(event) {
-            var penjualanId = $(this).data("id");
-            SwalDelete(penjualanId);
-            event.preventDefault();
-        });
+            load_data(from_date, to_date);
+        } else {
+            alert("Both Data is Required");
+        }
     });
+
+    $("#refresh").click(function () {
+        $("#from_date").val("");
+        $("#to_date").val("");
+        $("#datatable-buttons")
+            .DataTable()
+            .destroy();
+        load_data();
+    });
+
+    // load id motor for delete
+    $(document).on("click", "#delete", function (event) {
+        var penjualanId = $(this).data("id");
+        SwalDelete(penjualanId);
+        event.preventDefault();
+    });
+        });
 
     // delete action
     function SwalDelete(penjualanId) {
@@ -437,8 +401,8 @@
             confrimButtonText: "Yes, delete it!",
             showLoaderOnConfrim: true,
 
-            preConfirm: function() {
-                return new Promise(function(resolve) {
+            preConfirm: function () {
+                return new Promise(function (resolve) {
                     $.ajax({
                         url: "{{ url('admin/penjualan') }}" + "/" + penjualanId,
                         type: "DELETE",
@@ -447,11 +411,11 @@
                             _token: csrf_token
                         }
                     })
-                        .done(function(response) {
+                        .done(function (response) {
                             swal("Deleted!", response.message, response.status);
                             readMotor();
                         })
-                        .fail(function() {
+                        .fail(function () {
                             swal(
                                 "Oops...",
                                 "Something want worng with ajax!",
@@ -478,13 +442,13 @@
 </script>
 
 <script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
+    jQuery(document).ready(function ($) {
+        $("#mymodal").on("show.bs.modal", function (e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
 
-            modal.find('.modal-body').load(button.data("remote"));
-            modal.find('.modal-title').html(button.data("title"));
+            modal.find(".modal-body").load(button.data("remote"));
+            modal.find(".modal-title").html(button.data("title"));
         });
     });
 </script>
@@ -495,7 +459,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
                 </div>
                 <div class="modal-body">
                     <i class="fa fa-spinner fa-spin"></i>

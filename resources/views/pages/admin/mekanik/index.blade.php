@@ -155,55 +155,55 @@
                 url: "{{route('admin.api.mekanik')}}"
             },
             columns: [{
-                    data: 'id',
-                    sortable: true,
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    },
-                    width: '20'
+                data: 'id',
+                sortable: true,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
                 },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'address',
-                    name: 'address'
-                },
-                {
-                    data: 'no_telphone',
-                    name: 'no_telphone'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    width: '115px'
-                }
+                width: '20'
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'address',
+                name: 'address'
+            },
+            {
+                data: 'no_telphone',
+                name: 'no_telphone'
+            },
+            {
+                data: 'status',
+                name: 'status'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false,
+                width: '115px'
+            }
             ],
             columnDefs: [{
                 targets: 5,
                 render: function (data, type, row) {
-                        var css1 = 'badge badge-success';
-                        var css2 = 'badge badge-primary';
-                        if (data == 'ACTIVE') {
-                            css1 = 'badge badge-success';
-                            return '<span class="' + css1 + '">' + data + '</span>';
-                        }
-                        if (data == 'INACTIVE') {
-                            css2 = 'badge badge-primary';
-                            return '<span class="' + css2 + '">' + data + '</span>';
-                        }
+                    var css1 = 'badge badge-success';
+                    var css2 = 'badge badge-primary';
+                    if (data == 'ACTIVE') {
+                        css1 = 'badge badge-success';
+                        return '<span class="' + css1 + '">' + data + '</span>';
                     }
+                    if (data == 'INACTIVE') {
+                        css2 = 'badge badge-primary';
+                        return '<span class="' + css2 + '">' + data + '</span>';
+                    }
+                }
             }]
         });
 
@@ -349,13 +349,13 @@
             preConfirm: function () {
                 return new Promise(function (resolve) {
                     $.ajax({
-                            url: "{{ url('admin/mekanik') }}" + '/' + mekanikId,
-                            type: "DELETE",
-                            data: {
-                                '_method': 'DELETE',
-                                '_token': csrf_token
-                            },
-                        })
+                        url: "{{ url('admin/mekanik') }}" + '/' + mekanikId,
+                        type: "DELETE",
+                        data: {
+                            '_method': 'DELETE',
+                            '_token': csrf_token
+                        },
+                    })
                         .done(function (response) {
                             swal(
                                 'Deleted!',
@@ -380,8 +380,8 @@
 </script>
 
 <script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
+    jQuery(document).ready(function ($) {
+        $('#mymodal').on('show.bs.modal', function (e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
 

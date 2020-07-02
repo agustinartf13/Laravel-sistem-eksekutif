@@ -80,42 +80,42 @@
                 serverSide: true,
                 ajax: "{{route('admin.api.penjualan')}}",
                 columns: [{
-                        data: 'id',
-                        sortable: true,
-                        render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        width: '20'
+                    data: 'id',
+                    sortable: true,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     },
-                    {
-                        data: 'invoice_number',
-                        name: 'invoice_number'
-                    },
-                    {
-                        data: 'tanggal_transaksi',
-                        name: 'tanggal_transaksi'
-                    },
-                    {
-                        data: 'name_pembeli',
-                        name: 'name_pembeli'
-                    },
-                    {
-                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
-                        data: 'total_harga',
-                        name: 'total_harga'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '120px'
-                    }
+                    width: '20'
+                },
+                {
+                    data: 'invoice_number',
+                    name: 'invoice_number'
+                },
+                {
+                    data: 'tanggal_transaksi',
+                    name: 'tanggal_transaksi'
+                },
+                {
+                    data: 'name_pembeli',
+                    name: 'name_pembeli'
+                },
+                {
+                    render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
+                    data: 'total_harga',
+                    name: 'total_harga'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    width: '120px'
+                }
                 ]
             });
 
-             // load id motor for delete
-             $(document).on('click', '#delete', function (event) {
+            // load id motor for delete
+            $(document).on('click', '#delete', function (event) {
                 var penjualanId = $(this).data('id');
                 SwalDelete(penjualanId);
                 event.preventDefault();
@@ -123,8 +123,8 @@
 
         });
 
-         // delete action
-         function SwalDelete(penjualanId) {
+        // delete action
+        function SwalDelete(penjualanId) {
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
@@ -140,13 +140,13 @@
                 preConfirm: function () {
                     return new Promise(function (resolve) {
                         $.ajax({
-                                url: "{{ url('admin/penjualan') }}" + '/' + penjualanId,
-                                type: "DELETE",
-                                data: {
-                                    '_method': 'DELETE',
-                                    '_token': csrf_token
-                                },
-                            })
+                            url: "{{ url('admin/penjualan') }}" + '/' + penjualanId,
+                            type: "DELETE",
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': csrf_token
+                            },
+                        })
                             .done(function (response) {
                                 swal(
                                     'Deleted!',
@@ -170,8 +170,8 @@
     </script>
 
     <script>
-        jQuery(document).ready(function($){
-            $('#mymodal').on('show.bs.modal', function(e){
+        jQuery(document).ready(function ($) {
+            $('#mymodal').on('show.bs.modal', function (e) {
                 var button = $(e.relatedTarget);
                 var modal = $(this);
 
@@ -198,4 +198,3 @@
     </div>
 
     @endsection
-

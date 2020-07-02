@@ -36,7 +36,7 @@
                         @csrf
                         @method('PUT')
                         @php
-                            $tanggal_transaksi = date('m/d/Y', strtotime($pembelians->tanggl_transaksi));
+                        $tanggal_transaksi = date('m/d/Y', strtotime($pembelians->tanggl_transaksi));
                         @endphp
                         <div class="row mt-4">
                             <div class="col">
@@ -45,7 +45,9 @@
                                     name="supplier" value="{{old("supplier")}}">
                                     <option value="">Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
-                                        <option value="{{$supplier->id}}" {{$pembelians->supplier_id == $supplier->id ? "selected" : ""}}>{{$supplier->name_supplier}}</option>
+                                    <option value="{{$supplier->id}}"
+                                        {{$pembelians->supplier_id == $supplier->id ? "selected" : ""}}>
+                                        {{$supplier->name_supplier}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -68,9 +70,12 @@
                             <div class="col">
                                 <label for="Status">Status</label>
                                 <select class="form-control select2" name="status" id="Status" style="width: 100%;">
-                                    <option {{$pembelians->status == "PROCESS" ? "selected" : ""}} value="PROCESS">PROCESS</option>
-                                    <option {{$pembelians->status == "FINISH" ? "selected" : ""}} value="FINISH">FINISH</option>
-                                    <option {{$pembelians->status == "CENCEL" ? "selected" : ""}} value="CANCEL">CANCEL</option>
+                                    <option {{$pembelians->status == "PROCESS" ? "selected" : ""}} value="PROCESS">
+                                        PROCESS</option>
+                                    <option {{$pembelians->status == "FINISH" ? "selected" : ""}} value="FINISH">FINISH
+                                    </option>
+                                    <option {{$pembelians->status == "CENCEL" ? "selected" : ""}} value="CANCEL">CANCEL
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -78,7 +83,7 @@
                         <div class="row" id="barang">
                             <div class="col mt-4">
                                 <a id="add_form" href="#" class="btn btn-flat btn-danger"><i
-                                class="fa fa-plus mr-2"></i> Add Barang</a>
+                                        class="fa fa-plus mr-2"></i> Add Barang</a>
                             </div>
                         </div>
 
@@ -92,7 +97,9 @@
                                         name="categories[]" id="categories" value="{{old("categories")}}">
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
-                                        <option value="{{$category->id}}" {{$category->id == $value->categories_id ? "selected" : ""}} >{{$category->name}}</option>
+                                        <option value="{{$category->id}}"
+                                            {{$category->id == $value->categories_id ? "selected" : ""}}>
+                                            {{$category->name}}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
@@ -105,7 +112,9 @@
                                         class="form-control select2 {{$errors->first("barang") ? "is-invalid" : ""}}"
                                         name="barang[]" id="barang[]" value="{{old("barang")}}">
                                         @foreach ($barangs as $barang)
-                                            <option value="{{$barang->id}}" {{$barang->id == $value->barang_id ? "selected" : ""}}>{{$barang->name_barang}}</option>
+                                        <option value="{{$barang->id}}"
+                                            {{$barang->id == $value->barang_id ? "selected" : ""}}>
+                                            {{$barang->name_barang}}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
@@ -116,7 +125,7 @@
                                     <label for="">Qty</label>
                                     <input type="text" name="qty[]" id="qty_b"
                                         class="form-control {{$errors->first("harga_jual") ? "is-invalid" : ""}}"
-                                        placeholder="Jumlah"  value="{{$value->qty}}">
+                                        placeholder="Jumlah" value="{{$value->qty}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first("qty")}}
                                     </div>

@@ -10,9 +10,9 @@
 <script src="{{url('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
- <!-- Responsive examples -->
- <script src="{{url('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
- <script src="{{url('assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
+<!-- Responsive examples -->
+<script src="{{url('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
 
 <script src="{{url('assets/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{url('assets/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js')}}"></script>
@@ -24,8 +24,10 @@
 <script src="{{url('assets/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{url('assets/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>
 
- <!-- Chart JS -->
- <script src="{{url('assets/plugins/chart.js/chart.min.js')}}"></script>
+<script src="{{url('assets/plugins/toastr/toastr.min.js')}}"></script>
+
+<!-- Chart JS -->
+<script src="{{url('assets/plugins/chart.js/chart.min.js')}}"></script>
 
 <!-- Peity JS -->
 <script src="{{url('assets/plugins/peity/jquery.peity.min.js')}}"></script>
