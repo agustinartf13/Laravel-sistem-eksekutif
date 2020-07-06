@@ -24,12 +24,12 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <h6>DATA TAHUN {{ $year_today }}</h6>
+                                <h6 >DATA TAHUN {{ $year_today }}</h6>
                             </div>
                         </div>
 
                         @php function rupiah($angka){ $hasil_rupiah = "Rp " .
-                        number_format($angka,0,',','.'); return $hasil_rupiah; }
+                        number_format($angka,2,',','.'); return $hasil_rupiah; }
                         @endphp
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <hr />
-                    <h4 class="mt-4 text-center">
+                    <h4 class="mt-4 text-center"id="dt_tahun">
                         Statistic Service Motor {{ $year_today }}
                     </h4>
 
@@ -298,12 +298,6 @@
             }
         }
 
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-
         loadChart("2020");
 
         function loadChart(year) {
@@ -410,12 +404,18 @@
         });
 
         $("#data-year").on("click", function () {
-            const data = $("#datepicker").val();
+            const data2 = $("#datepicker").val();
+
+            var formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            });
+
             // window.alert(data);
             let ajax_get = $.ajax({
                 url: "{{route('admin.laporan.salepermonthservice')}}",
                 data: {
-                    year: data,
+                    year: data2,
                     type: "GET"
                 },
                 success: function(data){
@@ -432,11 +432,17 @@
                     }
 
                     actChart.data.labels=month;
-                    actChart.data.datasets[0].data =sale1;
+                    actChart.data.datasets[0].data =sale3;
                     actChart.data.datasets[1].data =sale2;
-                    actChart.data.datasets[2].data = sale3;
+                    actChart.data.datasets[2].data = sale1;
 
                     actChart.update();
+
+                    $('#total_omset').text(formatter.format(data.total_omset));
+                    $('#total_jasa').text(formatter.format(data.total_jasa));
+                    $('#total_profit').text(formatter.format(data.total_profit));
+                    $('#dt_tahun').text(`Statistic Service Motor ${data2}`);
+                    console.log(data);
                 }
             });
 

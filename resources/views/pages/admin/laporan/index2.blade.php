@@ -30,7 +30,7 @@
                         </div>
 
                         @php function rupiah($angka){ $hasil_rupiah = "Rp " .
-                        number_format($angka,0,',','.'); return $hasil_rupiah; }
+                        number_format($angka,2,',','.'); return $hasil_rupiah; }
                         @endphp
 
                         <div class="col-lg-6">
@@ -76,7 +76,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" id="datepicker" name="year" class="form-control"
                                     value="{{Request::get('year')}}" />
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" class="btn btn-primary btn-sm" id="data-year">
                                     Submit
                                 </button>
                             </div>
@@ -84,7 +84,7 @@
                     </div>
                     <hr />
 
-                    <h4 class="mt-0 text-center mt-4">
+                    <h4 class="mt-0 text-center mt-4" id="dt_tahun">
                         Statistic Pembelian Sparepart {{ $year_today }}
                     </h4>
 
@@ -93,7 +93,7 @@
                             <h5 class="mb-0"></h5>
                         </li>
                         <li class="list-inline-item">
-                            <h5 class="mb-0">
+                            <h5 class="mb-0" id="total_pengeluaran">
                                 {{ rupiah($total_pengeluaran) }}
                             </h5>
                             <p class="text-muted">Pengeluaran</p>
@@ -219,6 +219,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let actChart = '';
+
         function convertMonth(month) {
             switch (month) {
                 case 1:
@@ -262,11 +270,6 @@
             }
         }
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         loadChart("2020")
 
@@ -288,8 +291,10 @@
 
                     console.log(data)
 
-                    var ctx = document.getElementById('myChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
+                    var ctx = document
+                        .getElementById('myChart')
+                        .getContext('2d');
+                    actChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: month,
@@ -338,6 +343,42 @@
         todayBtn: 'linked',
         format: 'yyyy-mm-dd',
         autoclose: true
+    });
+
+    $("#data-year").on("click", function () {
+        const data2 = $("#datepicker").val();
+
+        var formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            });
+
+        let ajax_get = $.ajax({
+            url: "{{route('admin.laporan.salepermonthbeli')}}",
+                data: {
+                    year: data2
+                },
+                method: "GET",
+                success: function (data) {
+                    let sale = [];
+                    let month = [];
+
+                    for (var i in data[0]) {
+                        sale.push(data[0][i].total_sale)
+                        month.push(convertMonth(data[0][i].month))
+                    }
+
+                    actChart.data.labels=month;
+                    actChart.data.datasets[0].data =sale;
+
+                    actChart.update();
+
+                    $('#total_pengeluaran').text(formatter.format(data.total_pengeluaran));
+                    $('#dt_tahun').text(`Statistic Pembelian Sparepart ${data2}`);
+                    console.log(data);
+                }
+        });
+
     });
 
     load_data();

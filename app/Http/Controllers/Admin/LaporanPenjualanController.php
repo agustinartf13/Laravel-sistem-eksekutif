@@ -46,8 +46,22 @@ class LaporanPenjualanController extends Controller
             }
         }
 
+        // query omset tahun ini
+        $cari_omset = DB::table('penjualans')->selectRaw('sum(total_harga)as omset')
+            ->whereYear('penjualans.tanggal_transaksi', $year_today)
+            ->first();
+        $total_omset = $cari_omset->omset;
+
+        // query mencari profit bulan ini
+        $cari_profit = DB::table('penjualans')->selectRaw('sum(profit)as profit')
+            ->whereYear('penjualans.tanggal_transaksi', $year_today)
+            ->first();
+        $total_profit = $cari_profit->profit;
+
         return response()->json([
             $res, $month_today,
+            'total_omset' => $total_omset,
+            'total_profit' => $total_profit,
             "title" => "Grafik Penjualan Tahun ". $year_today
         ]);
     }

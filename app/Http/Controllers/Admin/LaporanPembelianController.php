@@ -45,8 +45,15 @@ class LaporanPembelianController extends Controller
             }
         }
 
+        //pengeluaran tahun ini
+        $cari_pengeluaran = DB::table('pembelians')->selectRaw('sum(total_harga) as total_harga')
+            ->whereYear('tanggl_transaksi', $year_today)
+            ->first();
+        $total_pengeluaran = $cari_pengeluaran->total_harga;
+
         return response()->json([
             $res, $month_today,
+            'total_pengeluaran' => $total_pengeluaran,
             "title" => "Grafik Penjualan Tahun ". $year_today
         ]);
     }
