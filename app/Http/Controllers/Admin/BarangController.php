@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Session;
 use App\Barang;
 use App\BarangDetail;
 use App\Category;
@@ -186,8 +187,8 @@ class BarangController extends Controller
         ]);
 
         // dd($request->file('image'));
-
-        return redirect()->route('admin.barang.edit', $id)->with('status', 'Barang status successfully updated');
+        Session::flash('success', 'Barang successfully updated');
+        return redirect()->route('admin.barang.edit', $id);
     }
 
     /**

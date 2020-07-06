@@ -20,7 +20,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Data Mekanik</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-account-card-details mr-2"></i>Data Mekanik</h4>
                     <hr>
                     @if(session('status'))
                     <div class="alert alert-success alert-dismissible">

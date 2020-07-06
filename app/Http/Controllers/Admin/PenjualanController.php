@@ -7,12 +7,11 @@ use App\BarangDetail;
 use App\DetailPenjualan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PenjualanRequest;
-use App\Http\Requests\PenjualanValidRequest;
 use App\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
-
+use Session;
 
 class PenjualanController extends Controller
 {
@@ -233,8 +232,8 @@ class PenjualanController extends Controller
 
         $penjualan->save();
 
-        return redirect()->route('admin.penjualan.edit', $id)
-            ->with('status', 'Penjualan Sccessfully update');
+        Session::flash('success', 'Data penjualan successfully updated');
+        return redirect()->route('admin.penjualan.edit', $id);
     }
 
     public function invoice(Request $request, $id)

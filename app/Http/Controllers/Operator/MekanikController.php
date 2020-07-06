@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Mekanik;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Session;
 
 class MekanikController extends Controller
 {
@@ -152,7 +152,8 @@ class MekanikController extends Controller
         $mekanik->status = $request->get('status');
 
         $mekanik->save();
-        return redirect()->route('operator.mekanik.edit', $id)->with('status', 'Mekanik status successfully updated');
+        Session::flash('success', 'Mekanik successfully updated');
+        return redirect()->route('operator.mekanik.edit', $id);
     }
 
     /**

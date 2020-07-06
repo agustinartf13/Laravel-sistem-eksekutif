@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
+
 class LoginController extends Controller
 {
     /*
@@ -42,13 +43,16 @@ class LoginController extends Controller
         # jika role id 1
         if (Auth::check() && Auth::user()->role->id == 1) {
             # jalankan ini
+            Session::flash('success', 'Successfully login');
             $this->redirectTo = route('admin.dashboard');
             # jika id 2
         } elseif (Auth::check() && Auth::user()->role->id == 2) {
             # jalankan ini
+            Session::flash('success', 'Successfully login');
             $this->redirectTo = route('toplevel.dashboard');
         } else {
             # selain role id 1 dan 2 jalnkan ini
+            Session::flash('success', 'Successfully login');
             $this->redirectTo = route('operator.dashboard');
         }
         $this->middleware('guest')->except('logout');
@@ -72,7 +76,8 @@ class LoginController extends Controller
             } elseif (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 return redirect()->route('operator.dashboard');
             } else {
-                return redirect('/')->with('message_error', 'Email and Password Salah');
+                Session::flash('error', 'Please again check email dan passsword');
+                return redirect('/');
             }
         }
         return redirect('/');

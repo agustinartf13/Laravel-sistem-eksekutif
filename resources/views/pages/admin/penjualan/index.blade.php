@@ -7,9 +7,9 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Penjualan</h4>
+            <h4 class="page-title">List Penjualan</h4>
             <ol class="breadcrumb">
-                <li>{{ Breadcrumbs::render('penjualanAdmin') }}</li>
+                <li class="active">{{ Breadcrumbs::render('penjualanAdmin') }}</li>
             </ol>
         </div>
     </div>
@@ -20,8 +20,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i> Data
-                        Penjualan</h4>
+                    <h4 class="mt-0" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Penjualan</h4>
                     <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">

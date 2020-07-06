@@ -9,6 +9,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -141,10 +142,8 @@ class CategoryController extends Controller
 
         // var_dump($data);
         $data->save();
-
-        return redirect()->route('admin.categories.index', [
-            'id' => $id
-        ])->with('status', 'Categories successfully updated!!');
+        Session::flash('success', 'Categories successfully updated');
+        return redirect()->route('admin.categories.edit', $id);
     }
 
     /**

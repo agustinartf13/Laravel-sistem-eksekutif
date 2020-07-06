@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Data Users</h4>
+            <h4 class="page-title">Update User</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">User</a></li>
@@ -23,7 +23,7 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i>Edit Data User</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-account-card-details mr-2"></i>Edit User</h4>
                     <hr>
                     <form action="{{route('admin.user.update', $user->id)}}" method="POST"
                         enctype="multipart/form-data">
@@ -143,6 +143,11 @@
         @endsection
         @section('js')
         <script>
+
+            @if(Session::has('success'))
+                toastr.success("{{ Session::get('success') }}")
+            @endif
+
             $(document).ready(function () {
                 $(":file").filestyle();
                 $(".select2").select2();

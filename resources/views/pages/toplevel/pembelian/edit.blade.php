@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Pembelian</h4>
+            <h4 class="page-title">Update Pembelian</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.pembelian.index') }}">Pembelian</a></li>
@@ -22,15 +22,8 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-cart-outline"></i> Add Pembelian</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cart-outline mr-2"></i>Edit Pembelian</h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible mt-2">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form id="add_barang" action="{{route('admin.pembelian.update', $pembelians->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -149,6 +142,10 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function () {
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
 
         // form add barang
         $('#add_form').click(function (event) {

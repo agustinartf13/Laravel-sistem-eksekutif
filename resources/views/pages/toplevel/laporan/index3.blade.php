@@ -23,9 +23,7 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-file-document-box mr-2"></i>
-                        Laporan
-                        Service</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-file-document-box mr-2"></i>Laporan Service</h4>
                     <hr>
                     <div class="row">
                         <div class="col-lg-4">
@@ -98,14 +96,11 @@
                                 <p class="text-muted">Profit</p>
                             </li>
                         </ul>
-
                         <canvas id="myChart" height="80"></canvas>
-
                     </div>
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
-
 
     <div class="row">
         <div class="col-lg-12">

@@ -8,6 +8,7 @@ use App\Motor;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Validation\Rule;
+use Session;
 
 
 class MotorController extends Controller
@@ -139,8 +140,8 @@ class MotorController extends Controller
         $motor->jenis = $request->get('jenis');
 
         $motor->save();
-        // return response()->json(['success', 'Data successfully updated']);
-        return redirect()->route('operator.motor.edit', $id)->with('status', 'Motor successfully Updated!');
+        Session::flash('success', 'Motor successfully updated');
+        return redirect()->route('operator.motor.edit', $id);
     }
 
     /**

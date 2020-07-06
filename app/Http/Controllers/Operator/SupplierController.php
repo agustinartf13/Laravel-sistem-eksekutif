@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
+use Session;
 
 class SupplierController extends Controller
 {
@@ -155,7 +156,8 @@ class SupplierController extends Controller
         $supplier->status = $request->get('status');
 
         $supplier->save();
-        return redirect()->route('operator.supplier.edit', $id)->with('status', 'Supplier status successfully updated');
+        Session::flash('success', 'Supplier successfully updated');
+        return redirect()->route('operator.supplier.edit', $id);
     }
 
     /**

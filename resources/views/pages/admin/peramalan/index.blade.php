@@ -22,15 +22,13 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-google-analytics mr-2"></i>
-                        Perhitunagn
-                        Peramalan</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-google-analytics mr-2"></i>Perhitunagn Peramalan</h4>
                     <hr>
                     <div class="row">
                         <div class="col">
                             <label for="">Pilih Barang</label>
                             <div class="input-group mb-3">
-                                <select class="form-control select2 @error('barang.*') is-invalid @enderror"
+                                <select class="select2 form-control select2-multiple" multiple="multiple" @error('barang.*') is-invalid @enderror"
                                     name="barang[]" id="barang[]">
                                     <option value="">Select Barang</option>
                                     @foreach ($barangs as $barang)
@@ -42,14 +40,10 @@
 
                     </div>
                     <div class="row">
-                        <div class="col input-daterange">
-                            <label for="">Priode Awal</label>
+                        <div class="col-6 input-daterange">
+                            <label for="">Priode Tahun</label>
                             <input type="text" name="from_date" id="from_date" class="form-control"
-                                placeholder="From Date" />
-                        </div>
-                        <div class="col input-daterange">
-                            <label for="">Priode Akhir</label>
-                            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" />
+                                placeholder="" />
                         </div>
                     </div>
                     <div class="form-group mt-3">
@@ -129,6 +123,11 @@
     $(document).ready(function () {
 
         $('.select2').select2();
+        $('.input-daterange').datepicker({
+        format: "mm-yyyy",
+        viewMode: "months",
+        minViewMode: "months"
+    })
 
         $('#btn_hitung').on('click', function () {
             const month = $('.input-daterange').val();
@@ -163,12 +162,6 @@
         });
     });
 
-
-    $('.input-daterange').datepicker({
-        todayBtn: 'likend',
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    })
     $("#datepicker").datepicker({
         format: "yyyy",
         viewMode: "years",

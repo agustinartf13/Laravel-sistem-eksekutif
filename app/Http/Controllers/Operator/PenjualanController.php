@@ -7,7 +7,6 @@ use App\BarangDetail;
 use App\DetailPenjualan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PenjualanRequest;
-use App\Http\Requests\PenjualanValidRequest;
 use App\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +15,7 @@ use Carbon\Carbon;
 use App\Exports\PenjualanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use Session;
 
 
 
@@ -42,7 +42,6 @@ class PenjualanController extends Controller
                     $penjualan->invoice_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>'.
                     '&nbsp;<a href="' . route('operator.penjualan.edit', ['penjualan' => $penjualan->id]) . '" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>' .
                     '&nbsp;<a href="' . route('operator.penjualan.invoice', ['id' => $penjualan->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
-
             })->rawColumns(['action'])->make(true);
     }
 
@@ -239,8 +238,8 @@ class PenjualanController extends Controller
 
         $penjualan->save();
 
-        return redirect()->route('operator.penjualan.edit', $id)
-            ->with('status', 'Penjualan Sccessfully update');
+        Session::flash('success', 'Data penjualan successfully updated');
+        return redirect()->route('operator.penjualan.edit', $id);
     }
 
     public function invoice(Request $request, $id)

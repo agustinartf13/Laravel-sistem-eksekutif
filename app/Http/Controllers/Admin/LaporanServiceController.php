@@ -92,11 +92,9 @@ class LaporanServiceController extends Controller
         }
 
         return response()->json([
-            $res_service_profit, $res_service_jasa, $res_service_subtotal, $month_today,
+            $res_service_profit, $res_service_jasa, $res_service_subtotal,
             "title" => "Grafik Penjualan Tahun ". $year_today
         ]);
-
-        // dd($res_service_profit, $month_today, $res_service_jasa, $res_service_subtotal);
     }
 
     public function laporanService(Request $request)

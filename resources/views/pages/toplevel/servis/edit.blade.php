@@ -26,13 +26,6 @@
                     <h4 class="mt-0"><i class=""></i>
                         <strong>#invoice{{ $service->invocie_number }}</strong></h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form action="{{route('admin.servis.update', $service->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -258,6 +251,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+
         // form add barang
         $('#add_form').click(function (event) {
             event.preventDefault();
@@ -313,28 +310,4 @@
 
     });
 </script>
-
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-            .create( document.querySelector( '.ckeditor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
-</script>
-
-<script>
-    ClassicEditor
-            .create( document.querySelector( '.ckkeluhan' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
-</script> --}}
-
 @endsection

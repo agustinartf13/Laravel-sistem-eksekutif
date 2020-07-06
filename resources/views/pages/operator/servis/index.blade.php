@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Service</h4>
+            <h4 class="page-title">List Service</h4>
             <ol class="breadcrumb">
                 <li>{{ Breadcrumbs::render('mekanikToplevel') }}</li>
             </ol>
@@ -21,8 +21,7 @@
             <div class="card m-b-20">
                 <div class="card-body">
 
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down"></i> Data
-                        Service</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Service</h4>
                     <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">

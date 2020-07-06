@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Persediaan Barang</h4>
+            <h4 class="page-title">Data Persediaan Barang</h4>
             <ol class="breadcrumb">
                 <li>{{ Breadcrumbs::render('persediaanOperator') }}</li>
             </ol>
@@ -28,9 +28,7 @@
                         style="float: right"
                         ><i class="fa fa-print"></i> Pdf</a
                     >
-                    <h4 class="mt-0">
-                        <i class="mdi mdi-cube"></i> Persediaan Barang
-                    </h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Persediaan Barang</h4>
                     <hr />
                     <table
                         id="datatable"

@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Penjualan</h4>
+            <h4 class="page-title">Create Penjualan</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('operator.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('operator.penjualan.index')}}">Penjualan</a></li>
@@ -22,7 +22,7 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-cart-outline"></i> Add Penjualan</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cart-outline mr-2"></i>Add Penjualan</h4>
                     <hr>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible mt-2">

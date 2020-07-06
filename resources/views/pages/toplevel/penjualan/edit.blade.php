@@ -24,13 +24,6 @@
                 <div class="card-body">
                     <h4 class="mt-0"><i class="mdi mdi-cart-outline"></i> Add Penjualan</h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible mt-2">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form id="add_barang" action="{{route('admin.penjualan.update', $penjualans->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -152,6 +145,11 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function () {
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+
         $('#add_form').click(function (event) {
             event.preventDefault();
             var appendBarang = $('#appendBarang')

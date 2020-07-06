@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Data Service &nbsp; <small>{{ $service->invocie_number }}</small></h4>
+            <h4 class="page-title">Update Service</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('operator.dashboard')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('operator.servis.index')}}">Service</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.servis.create')}}"></a>Add Service</li>
+                <li class="breadcrumb-item"><a href="{{route('operator.servis.create')}}"></a>Edit Service</li>
             </ol>
         </div>
     </div>
@@ -23,16 +23,9 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-settings mr-2"></i> Edit Service &nbsp;
-                        <small>#invoice{{ $service->invocie_number }}</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>Edit Service
+                        <small>#invoice{{ $service->invocie_number }}</small></h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form action="{{route('operator.servis.update', $service->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -257,6 +250,10 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function () {
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
 
         // form add barang
         $('#add_form').click(function (event) {

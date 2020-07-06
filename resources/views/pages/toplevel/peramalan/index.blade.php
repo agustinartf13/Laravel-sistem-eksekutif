@@ -25,7 +25,20 @@
                         Perhitunagn
                         Peramalan</h4>
                     <hr>
-                    <div class="row">
+
+                    @php
+                        $bulan_ini = date("m");
+					  	$tahun_ini = date("Y");
+					  	if($bulan_ini=="12") {
+					  		$bulan_depan = 1;
+					  		$tahun_depan = $tahun_ini+1;
+					  	} else {
+					  		$bulan_depan = $bulan_ini+1;
+					  		$tahun_depan = $tahun_ini;
+					  	}
+                    @endphp
+
+                    {{-- <div class="row">
                         <div class="col">
                             <label for="">Pilih Barang</label>
                             <div class="input-group mb-3">
@@ -38,6 +51,20 @@
                             </select>
                             </div>
                         </div>
+                    </div> --}}
+
+                    <form action="" method="POST" target="" id="form_peramalan">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="name_barang">Pilih Barang</label>
+                            <div class="input-group">
+                                <textarea id="name_barang" name="name_barang" class="form-control" maxlength="225" rows="3" placeholder="masukan nama barang"></textarea>
+                                <button type="button" class="btn btn-secondary ml-2" style="height: 50px; widows: 50px;" data-toggle="modal" data-target="#modal_databarang" id="lihat_data_barang">Pilih Barang<i class="fas fa-search ml-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
                         <div class="col input-daterange">
                             <label for="">Priode Awal</label>
                             <input type="text" name="from_date" id="from_date" class="form-control"
@@ -47,21 +74,56 @@
                             <label for="">Priode Akhir</label>
                             <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" />
                         </div>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Tahun Penerimaan</label>
-                            <div class="col-sm-10">
-                              <select name="tahun" class="form-control" required>
-                                <?php for ($i=2000; $i < 2100 ; $i++) { ?>
-                                    <option value="<?php echo $i ?>"><?php echo $i ?>/<?php echo $i + 1; ?></option>
-                                <?php  } ?>
-                              </select>
-                            </div>
-                          </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-3">
                         <button type="button" id="btn_peramalan" href="#"
                         class="btn btn-danger btn-xs d-inline mr-3">Hitung Peramalan</button>
                     </div>
+                    <div class="modal fade bd-example-modal-lg" id="modal_databarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Data Barang</h5>
+                              <button type="button" class="close" data-dismiss="modal" id="tb_close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <table id="" class="table table-striped display">
+                                  <thead>
+                                      <tr>
+                                          <th>Kode Barang</th>
+                                          <th>Nama Barang</th>
+                                          <th>Stock</th>
+                                          <th>Category</th>
+                                          <th>Opsi</th>
+                                      </tr>
+                                  </thead>
+                                  @php
+                                      $no = 0
+                                  @endphp
+                                  @foreach ($barangs as $barang)
+                                  <tbody>
+                                    <tr>
+                                        <td>{{ $barang->kode_barang }}</td>
+                                        <td>{{ $barang->name_barang }}</td>
+                                        <td>{{ $barang->details_barang->stock }}</td>
+                                        <td>{{ $barang->category->name }}</td>
+                                        <td class="td-opsi text-center">
+                                            <input class="form-check-input position-static pilih-barang" type="checkbox" name="barang[]" id="barang{{ $no++ }}" value="{{ $barang->kode_barang }}" data-nama="{{ $barang->name_barang }}">
+                                        </td>
+                                    </tr>
+                                  </tbody>
+                                  @endforeach
+                              </table>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btn-sm" id="selesai_pilih" data-dismiss="modal">Selesai</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                 </div>
                 </div>
             </div>
@@ -71,6 +133,36 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
+    var barang = [];
+	var name = [];
+	var jml = 0;
+
+	$("button[name='tombol_pilibarang']").click(function() {
+        var kode = $(this).data("kode");
+        var name = $(this).data("name");
+        $("#kd_barang").val(kode);
+        $("#name_barang").val(name);
+    });
+
+    $("#selesai_pilih").click(function() {
+		$(':checkbox:checked').each(function(i){
+	    	barang[i] = $(this).val();
+	    	name[i] = $(this).data('name');
+	   	});
+	   	jml = barang.length;
+	   	$("#name_barang").val(name);
+
+	   	barang = [];
+        name = [];
+    });
+
+     $("#tb_close").click(function() {
+		$("#selesai_pilih").click();
+    });
+
+</script>
 
 <script>
     var ctx = document.getElementById('bar').getContext('2d');
@@ -107,9 +199,9 @@ $(document).ready(function() {
 
     $('.select2').select2();
     $('.input-daterange').datepicker({
-        todayBtn: 'likend',
-        format: 'yyyy-mm-dd',
-        autoclose: true
+        format: "mm-yyyy",
+        viewMode: "months",
+        minViewMode: "months"
     })
 
     load_data();

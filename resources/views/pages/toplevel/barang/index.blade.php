@@ -20,17 +20,11 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
-                    <h4 class="mt-0"><i class="mdi mdi-cube mr-2"></i> Data Barang</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Add Barang</h4>
+                    <hr>
                     <button id="btn_addbarang" name="btn_addbarang" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Supplier</button>
+                            class="fa fa-plus mr-2"></i>Add Barang</button>
                     <br><br><br>
                     <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap  mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">

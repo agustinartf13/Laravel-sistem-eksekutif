@@ -13,6 +13,7 @@ use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class PembelianController extends Controller
 {
@@ -232,8 +233,8 @@ class PembelianController extends Controller
         $pembelian->total_harga = $total_harga;
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.edit', $id)
-            ->with('status', 'Data successfully Updated');
+        Session::flash('success', 'Data pembelian successfully updated');
+        return redirect()->route('admin.pembelian.edit', $id);
     }
 
     public function invoice(Request $request, $id)

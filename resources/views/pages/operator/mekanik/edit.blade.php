@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Update Data Mekanik</h4>
+            <h4 class="page-title">Update Mekanik</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('operator.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('operator.mekanik.index') }}">Mekanik</a></li>
@@ -23,15 +23,8 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="mdi mdi-account-card-details mr-2"></i> Edit Mekanik</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-account-card-details mr-2"></i>Edit Mekanik</h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form action="{{route('operator.mekanik.update', $mekanik->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -133,8 +126,12 @@
         @section('js')
         <script type="text/javascript">
             $(document).ready(function () {
+
+                @if(Session::has('success'))
+                    toastr.success("{{ Session::get('success') }}")
+                @endif
+
                 $(".select2").select2();
             });
-
         </script>
         @endsection

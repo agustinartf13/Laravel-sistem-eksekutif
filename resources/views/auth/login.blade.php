@@ -4,17 +4,6 @@
 
 <div class="card">
     <div class="card-body">
-        @if (session("message_error"))
-        <div class="alert alert-primary" role="alert">
-            <h6 class="alert-heading font-18">Login Failed</h6>
-            <p><strong>{{ session("message_error") }}, masukan email dan password yang benar!</strong>
-        </div>
-        </p>
-        @endif
-        {{-- @if ($errors->all())
-            <div id="toastrDefaultError">
-            </div>
-        @endif --}}
         <div class="p-2">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Sari Indah Motor Lukluk !</h4>
             <p class="text-muted text-center">Sign in to continue to working.</p>
@@ -45,9 +34,9 @@
                     </div>
                     <div class="col-6 text-right">
                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
-                        <button type="button" class="btn btn-danger toastrDefaultError mt-3">
+                        {{-- <button type="button" class="btn btn-danger toastrDefaultError mt-3">
                             Launch Error Toast
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
                 <div class="form-group m-t-10 mb-0 row">
@@ -63,6 +52,11 @@
 @endsection
 @section('js')
 <script>
+
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}")
+    @endif
+
     $(document).ready(function () {
         $('.toastrDefaultError').click(function () {
             toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')

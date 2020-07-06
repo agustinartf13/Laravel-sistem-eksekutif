@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Categories</h4>
+            <h4 class="page-title">Update Categories</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -24,10 +24,8 @@
         <div class="col-lg-8">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0">
-                        <i class="mdi mdi-cube"></i> Edit Categories
-                    </h4>
-                    <hr />
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Edit Categories</h4>
+                    <hr/>
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -82,13 +80,21 @@
         </div>
         <!-- end col -->
 
-        <script>
-            $(document).ready(function () {
-                $(":file").filestyle();
-            });
-
-        </script>
-
-        @endsection
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}")
+    @endif
+
+    $(document).ready(function () {
+        $(":file").filestyle();
+    });
+
+</script>
+
+@endsection
+

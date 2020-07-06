@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Barang</h4>
+            <h4 class="page-title">List Barang</h4>
             <ol class="breadcrumb">
                 <li></li>{{ Breadcrumbs::render('barangAdmin') }}
             </ol>
@@ -27,11 +27,11 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
                     @if (session("status"))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                        <h4><i class="icon fa fa-check"></i>Alert!</h4>
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0"><i class="mdi mdi-cube mr-2"></i> Data Barang</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>List Barang</h4>
                     <button id="btn_addbarang" name="btn_addbarang" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
                             class="fa fa-plus mr-2"></i>Add Barang</button>

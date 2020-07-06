@@ -18,6 +18,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Exports\ServiceExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use Session;
 
 class ServiceController extends Controller
 {
@@ -216,14 +217,6 @@ class ServiceController extends Controller
         $service->motor_id = $request->get('motor');
         $service->status = $request->get('status');
 
-        // $invoice = Service::get('invocie_number')->last();
-        // if ($invoice === null) {
-        //     $invoice_no = 1001;
-        // } else {
-        //     $invoice_no = $invoice->invocie_number + 1;
-        // }
-        // $service->invocie_number = $invoice_no;
-
         $service->total_harga = 0;
         $service->profit = 0;
         $service->sub_total = 0;
@@ -297,7 +290,8 @@ class ServiceController extends Controller
         $service->profit = $profit;
         $service->save();
 
-        return redirect()->route('operator.servis.index', $id)->with('status', 'Service successfully Updated');
+        Session::flash('success', 'Service successfully updated');
+        return redirect()->route('operator.servis.edit', $id);
     }
 
     /**

@@ -32,7 +32,7 @@
                 style="float: right"
                 ><i class="fa fa-print"></i> Pdf</a
                 >
-                <h4 class="mt-0"><i class="mdi mdi-cube"></i> Persediaan Barang</h4>
+                <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Persediaan Barang</h4>
                 <hr>
                 <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">

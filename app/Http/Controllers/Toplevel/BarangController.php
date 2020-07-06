@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Toplevel;
 
+use Session;
 use App\Barang;
 use App\BarangDetail;
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BarangValidRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+
 
 class BarangController extends Controller
 {
@@ -185,8 +185,8 @@ class BarangController extends Controller
         ]);
 
         // dd($request->file('image'));
-
-        return redirect()->route('toplevel.barang.edit', $id)->with('status', 'Barang status successfully updated');
+        Session::flash('success', 'Barang status successfully updated');
+        return redirect()->route('toplevel.barang.edit', $id);
     }
 
     /**

@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Pembelian</h4>
+            <h4 class="page-title">List Pembelian</h4>
             <ol class="breadcrumb">
                 <li>{{ Breadcrumbs::render('pembelianAdmin') }}</li>
             </ol>
@@ -27,9 +27,7 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>
-                        Data
-                        Pembelian</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Pembelian</h4>
                     <a href="{{route('admin.laporan.beli')}}" class="btn btn-secondary btn-flat d-inline"
                         style="float: right"><i class="fa fa-print"></i></a>
                     <a href="{{route('admin.pembelian.create')}}" class="btn btn-danger btn-flat d-inline mr-2"

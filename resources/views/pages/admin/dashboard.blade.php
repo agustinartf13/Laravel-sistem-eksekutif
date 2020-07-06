@@ -237,13 +237,9 @@
                             </tr>
                         </tfoot>
                     </table>
-
-
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <div class="row">
@@ -253,6 +249,11 @@
 @endsection
 @section('js')
 <script>
+
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}")
+    @endif
+
     var ctx = document.getElementById('line_b').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',

@@ -131,7 +131,7 @@
                                 </li>
                                 <li>
                                     <a href="{{route('toplevel.supplier.index')}}">
-                                        Suppliers </span>
+                                        Supplier </span>
                                     </a>
                                 </li>
                                 <li>

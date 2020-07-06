@@ -30,6 +30,9 @@ class PeramalanController extends Controller
     // }
 
     public function index() {
+
+        $data = DB::table('penjualans')
+        ->join('penjualan_barangs', 'penjualan.id', '=', 'penjualan_barangs.penjualan_id')
         // if (is_array($this->x) && is_array($this->y)) {
         //     if(count($this->x) == count($this->y)) {
         //         $this->n = count($this->x);

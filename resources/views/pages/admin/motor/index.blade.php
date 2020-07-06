@@ -27,7 +27,7 @@
                         {{session('status')}}
                     </div>
                     @endif
-                    <h4 class="mt-0 text-bold"><i class="mdi mdi-cube mr-2"></i> Data Motor</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Data Motor</h4>
                     <hr>
                     <button id="btn_addmotor" name="btn_addmotor" class="btn btn-danger waves-effect waves-light"
                         style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i

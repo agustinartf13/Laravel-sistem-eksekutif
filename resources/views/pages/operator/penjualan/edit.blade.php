@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Penjualan</h4>
+            <h4 class="page-title">Update Penjualan</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">{{Auth::user()->username}}</a></li>
                 <li class="breadcrumb-item"><a href="{{route('operator.penjualan.index')}}">Penjualan</a></li>
-                <li class="breadcrumb-item"><a href="{{route('operator.penjualan.create')}}">Add Pebjualan</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('operator.penjualan.create')}}">Edit Pebjualan</a></li>
             </ol>
         </div>
     </div>
@@ -21,36 +21,14 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class="fa fa-cart-plus"></i> Edit Penjualan</h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-plus mr-2"></i>Edit Penjualan
+                        <small>#invoice {{ $penjualan->invoice_number }}</small> </h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <form id="add_barang" action="{{route('operator.penjualan.update', $penjualan->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <input type="hidden" value="PUT" name="_method">
-                        <div class="row mt-4">
-                            <div class="col">
-                                @php
-                                $tanggal_transaksi = date('m/d/Y', strtotime($penjualan->tanggal_transaksi));
-                                @endphp
-                                <label for="">Date:</label>
-                                <input type="text" id="datepicker" name="tanggl_transaksi"
-                                    class="form-control @error('tanggl_transaksi') is-invalid @enderror"
-                                    placeholder="Tanggal Transaksi" value="{{$penjualan->tanggal_transaksi}}">
-                                @error('tanggl_transaksi')
-                                <div class="help-block" style="color: red;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="row mt-4">
                             <div class="col">
                                 <label for="">Customer</label>
@@ -61,6 +39,20 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                                 @enderror
+                            </div>
+                        </div>
+                        @php
+                        $tanggal_transaksi = date('m/d/Y', strtotime($penjualan->tanggal_transaksi));
+                        @endphp
+                        <div class="row mt-4">
+                            <div class="col">
+                                <label for="">Date:</label>
+                                <input type="text" id="datepicker" name="tanggal_transaksi"
+                                    class="form-control {{$errors->first('tanggal_transaksi') ? "is-invalid" : ""}}"
+                                    placeholder="Tanggal Transaksi" value="{{$tanggal_transaksi}}">
+                                <div class="invalid-feedback">
+                                    {{$errors->first('tanggal_transaksi')}}
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -149,6 +141,10 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function () {
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
 
         // form add barang
         $('#add_form').click(function (event) {

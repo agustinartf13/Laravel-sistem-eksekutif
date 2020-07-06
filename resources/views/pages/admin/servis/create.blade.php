@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Add Service</h4>
+            <h4 class="page-title">Create Service</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.servis.index') }}">Service</a></li>
@@ -24,7 +24,7 @@
             <div class="card m-b-20">
                 <div class="card-body">
                     <h4 class="mt-0">
-                        <i class="mdi mdi-settings mr-2"></i> Add Service
+                        <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>Add Service</h4>
                     </h4>
                     <br />
                     <form action="{{ route('admin.servis.store') }}" method="POST" enctype="multipart/form-data">

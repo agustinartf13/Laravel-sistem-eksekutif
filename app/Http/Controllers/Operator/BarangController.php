@@ -6,12 +6,12 @@ use App\Barang;
 use App\BarangDetail;
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BarangValidRequest;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+
 
 class BarangController extends Controller
 {
@@ -114,9 +114,6 @@ class BarangController extends Controller
         $dtl_barang->save();
 
         // var_dump($new_barang, $dtl_barang);
-        // return redirect()->route('operator.barang.create')
-        //     ->with('status', 'Data successfully created!!');
-
         return response()->json(['success' => 'Data Added successfully.']);
     }
 
@@ -185,8 +182,8 @@ class BarangController extends Controller
         ]);
 
         // dd($request->file('image'));
-
-        return redirect()->route('operator.barang.edit', $id)->with('status', 'Barang status successfully updated');
+        Session::flash('success', 'Barang successfully updated');
+        return redirect()->route('operator.barang.edit', $id);
     }
 
     /**

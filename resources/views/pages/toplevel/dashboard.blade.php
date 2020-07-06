@@ -10,13 +10,6 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Welcome to {{Auth::user()->username}} Dashboard</li>
             </ol>
-            @if (session("status"))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                {{session('status')}}
-            </div>
-            @endif
 
             @php
             function rupiah($angka){
@@ -396,6 +389,11 @@
 </script>
 
 <script type="text/javascript">
+    
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}")
+    @endif
+
     $(document).ready(function() {
 
         load_data();

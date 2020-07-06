@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Edit Service </h4>
+            <h4 class="page-title">Update Service</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.servis.index')}}">Service</a></li>
@@ -23,16 +23,9 @@
         <div class="col-lg">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0"><i class=""></i>
-                        <strong>#invoice{{ $service->invocie_number }}</strong></h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>Edit Service <small>#Invoice{{ $service->invocie_number }}</small></h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
+                    <hr>
                     <form action="{{route('admin.servis.update', $service->id)}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -259,6 +252,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+
         // form add barang
         $('#add_form').click(function (event) {
             event.preventDefault();
@@ -314,28 +311,5 @@
 
     });
 </script>
-
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('.ckeditor'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('.ckkeluhan'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script> --}}
 
 @endsection

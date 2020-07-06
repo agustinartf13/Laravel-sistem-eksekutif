@@ -19,12 +19,8 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title" style="font-size: 22px;">
-                        <i class="mdi mdi-file-document-box mr-2"></i> Laporan
-                        Service
-                    </h4>
+                    <h4 class="mt-0 header-title" style="font-size: 22px;"><i class="mdi mdi-file-document-box mr-2"></i>Laporan Service</h4>
                     <hr />
-
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="input-group">
@@ -96,15 +92,15 @@
 
                     <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                         <li class="list-inline-item">
-                            <h5 class="mb-0">{{ rupiah($total_omset) }}</h5>
+                            <h5 class="mb-0" id="total_omset">{{ rupiah($total_omset) }}</h5>
                             <p class="text-muted">Omset</p>
                         </li>
                         <li class="list-inline-item">
-                            <h5 class="mb-0">{{ rupiah($total_jasa) }}</h5>
+                            <h5 class="mb-0" id="total_jasa">{{ rupiah($total_jasa) }}</h5>
                             <p class="text-muted">Pendapatan Jasa</p>
                         </li>
                         <li class="list-inline-item">
-                            <h5 class="mb-0">{{ rupiah($total_profit) }}</h5>
+                            <h5 class="mb-0" id="total_profit">{{ rupiah($total_profit) }}</h5>
                             <p class="text-muted">Profit</p>
                         </li>
                     </ul>
@@ -257,6 +253,8 @@
             },
         });
 
+        let actChart = '';
+
         function convertMonth(month) {
             switch (month) {
                 case 1:
@@ -335,7 +333,7 @@
                     var ctx = document
                         .getElementById("myChart")
                         .getContext("2d");
-                    var myChart = new Chart(ctx, {
+                    actChart = new Chart(ctx, {
                         type: "line",
                         data: {
                             labels: month,
@@ -413,7 +411,36 @@
 
         $("#data-year").on("click", function () {
             const data = $("#datepicker").val();
-            window.alert(data);
+            // window.alert(data);
+            let ajax_get = $.ajax({
+                url: "{{route('admin.laporan.salepermonthservice')}}",
+                data: {
+                    year: data,
+                    type: "GET"
+                },
+                success: function(data){
+                    let sale1 = [];
+                    let sale2 = [];
+                    let sale3 = [];
+                    let month = [];
+
+                    for (var i in data[0]) {
+                        sale1.push(data[0][i].total_sale_profit);
+                        sale2.push(data[1][i].total_sale_jasa);
+                        sale3.push(data[2][i].total_sale_subtotal);
+                        month.push(convertMonth(data[(0, 1, 2)][i].month));
+                    }
+
+                    actChart.data.labels=month;
+                    actChart.data.datasets[0].data =sale1;
+                    actChart.data.datasets[1].data =sale2;
+                    actChart.data.datasets[2].data = sale3;
+
+                    actChart.update();
+                }
+            });
+
+
         });
 
         load_data();
