@@ -31,9 +31,7 @@ class MekanikController extends Controller
         $mekanik = Mekanik::orderBy('id', 'DESC')->get();
         return DataTables::of($mekanik)->addColumn('action', function ($mekanik) {
             return '' .
-                '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.mekanik.show', ['mekanik' => $mekanik->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $mekanik->name . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
-                '&nbsp;<a href="' . route('toplevel.mekanik.edit', ['mekanik' => $mekanik->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $mekanik->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.mekanik.show', ['mekanik' => $mekanik->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $mekanik->name . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>';
         })->rawColumns(['action'])->make(true);
     }
 

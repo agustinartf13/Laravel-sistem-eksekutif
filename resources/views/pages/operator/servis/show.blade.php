@@ -3,6 +3,14 @@ function rupiah($angka){
     $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
     return $hasil_rupiah;
 }
+
+function formatPhoneNum($phone){
+    $phone = str_replace("-", "", $phone);// remove all the dashes
+    $phone = substr($phone, 0,3) . "-" .  // add the two dashes in the right places
+    substr($phone, 3,3) . "-" . substr($phone, 6);
+    return $phone;
+}
+
 @endphp
 
 <table class="table table-bordered">
@@ -24,7 +32,7 @@ function rupiah($angka){
     </tr>
     <tr>
         <th>No Telphone</th>
-        <td>{{$service->no_telphone}}</td>
+        <td>{{formatPhoneNum($service->no_telphone)}}</td>
     </tr>
     <tr>
         <th>No Polis</th>

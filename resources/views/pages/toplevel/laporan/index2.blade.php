@@ -72,7 +72,7 @@
                                     <label for="">Pilih Tahun</label>
                                     <div class="input-group mb-3">
                                         <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
-                                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                        <button id="data-year" type="submit" class="btn btn-primary btn-sm">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                     <h5 class="mb-0"> </h5>
                                 </li>
                                 <li class="list-inline-item">
-                                    <h5 class="mb-0">{{rupiah($total_pengeluaran)}}</h5>
+                                    <h5 class="mb-0" id="total_pengeluaran">{{rupiah($total_pengeluaran)}}</h5>
                                     <p class="text-muted">Pengeluaran</p>
                                 </li>
                                 <li class="list-inline-item">
@@ -203,6 +203,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    let actChart = '';
+
     function convertMonth(month) {
     switch (month) {
         case 1:
@@ -246,11 +254,7 @@ $(document).ready(function() {
     }
 }
 
-$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+
 
     loadChart("2020")
 
@@ -274,7 +278,7 @@ $.ajax({
         console.log(data)
 
         var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
+        actChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: month,
@@ -324,6 +328,42 @@ $.ajax({
         format: 'yyyy-mm-dd',
         autoclose: true
     });
+
+    $("#data-year").on("click", function() {
+        const data2 = $("#datepicker").val();
+
+        var formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            });
+
+        let ajax_get = $.ajax({
+            url: "{{route('toplevel.laporan.salepermonthbeli')}}",
+                data: {
+                    year: data2
+                },
+                method: "GET",
+                success: function (data) {
+                    let sale = [];
+                    let month = [];
+
+                    for (var i in data[0]) {
+                        sale.push(data[0][i].total_sale)
+                        month.push(convertMonth(data[0][i].month))
+                    }
+
+                    actChart.data.labels=month;
+                    actChart.data.datasets[0].data =sale;
+
+                    actChart.update();
+
+                    $('#total_pengeluaran').text(formatter.format(data.total_pengeluaran));
+                    $('#dt_tahun').text(`Statistic Pembelian Sparepart ${data2}`);
+                    console.log(data);
+                }
+        });
+
+    })
 
     load_data();
     function load_data(from_date = '', to_date = '') {

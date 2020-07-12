@@ -20,7 +20,7 @@
 
             @php
             function rupiah($angka){
-            $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+            $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
             return $hasil_rupiah;
             }
             @endphp
@@ -180,20 +180,20 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Customer</th>
                                 <th>Invoice Number</th>
                                 <th>Tanggal Transaksi</th>
+                                <th>Customer</th>
                                 <th>Total</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <th>No</th>
-                            <th>Customer</th>
                             <th>Invoice Number</th>
-                            <th>Tanggal Transaksi</th>
+                            <th>Tanggal Transaksi</>
+                            <th>Customer</th>
                             <th>Total</th>
-                            <th>Total</th>
+                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- server Side --}}
@@ -217,9 +217,8 @@
                                 <th>No</th>
                                 <th>Invoice Number</th>
                                 <th>Tanggal pesan</th>
-                                <th>Suppliers</th>
+                                <th>Supplier</th>
                                 <th>Total</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -230,9 +229,8 @@
                                 <th>No</th>
                                 <th>Invoice Number</th>
                                 <th>Tanggal pesan</th>
-                                <th>Suppliers</th>
+                                <th>Supplier</th>
                                 <th>Total</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -250,8 +248,8 @@
 @section('js')
 <script>
 
-    @if(Session::has('success'))
-        toastr.success("{{ Session::get('success') }}")
+    @if(Session::has('login'))
+        toastr.success("{{ Session::get('login') }}")
     @endif
 
     var ctx = document.getElementById('line_b').getContext('2d');
@@ -287,7 +285,16 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        userCallback: function (value, index, values) {
+                            // Convert the number to a string and splite the string every 3 charaters from the end
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+
+                            // Convert the array to a string and format the output
+                            value = value.join('.');
+                            return 'Rp. ' + value;
+                        }
                     }
                 }]
             }
@@ -341,7 +348,16 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        userCallback: function (value, index, values) {
+                            // Convert the number to a string and splite the string every 3 charaters from the end
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+
+                            // Convert the array to a string and format the output
+                            value = value.join('.');
+                            return 'Rp. ' + value;
+                        }
                     }
                 }]
             }
@@ -367,35 +383,29 @@
                     render: function (data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     },
-                    width: '20'
                 },
                 {
                     data: 'invoice_number',
                     name: 'invoice_number',
-                    width: '80px'
                 },
                 {
                     data: 'tanggal_transaksi',
-                    name: 'tanggal_transaksi',
-                    width: '80px'
+                    name: 'tanggal_transaksi'
                 },
                 {
                     data: 'name_pembeli',
-                    name: 'name_pembeli',
-                    width: '80px'
+                    name: 'name_pembeli'
                 },
                 {
                     render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                     data: 'total_harga',
-                    name: 'total_harga',
-                    width: '80px'
+                    name: 'total_harga'
                 },
                 {
                     data: 'action',
                     name: 'action',
                     orderable: false,
-                    searchable: false,
-                    width: '80px'
+                    searchable: false
                 }
             ]
         });
@@ -430,61 +440,28 @@
                         {
                             data: 'invoice_number',
                             name: 'invoice_number',
-                            width: '80px'
                         },
                         {
                             data: 'tanggl_transaksi',
                             name: 'tanggl_transaksi',
-                            width: '80px'
 
                         },
                         {
                             data: 'supplier.name_supplier',
                             name: 'supplier',
-                            width: '80px'
                         },
                         {
                             render: $.fn.dataTable.render.number('.', ',', 0, 'Rp '),
                             data: 'total_harga',
                             name: 'total_harga',
-                            width: '80px'
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            width: '80'
                         },
                         {
                             data: 'action',
                             name: 'action',
                             orderable: false,
                             searchable: false,
-                            width: '80px'
                         }
                     ],
-                    columnDefs: [{
-                        targets: 5,
-                        render: function (data, type, row) {
-                            var css1 = 'badge badge-danger ';
-                            var css2 = 'badge badge-success';
-                            var css3 = 'badge badge-dark';
-                            if (data == 'FINISH') {
-                                css1 = 'badge badge-success';
-                                return '<h6><span class="' + css1 + '">' + data +
-                                '</span></h6>';
-                            }
-                            if (data == 'PROCESS') {
-                                css2 = 'badge badge-danger';
-                                return '<h6><span class="' + css2 + '">' + data +
-                                '</span></h6>';
-                            }
-                            if (data == 'CANCEL') {
-                                css3 = 'badge badge-dark';
-                                return '<h6><span class="' + css3 + '">' + data +
-                                '</span></h6>';
-                            }
-                        }
-                    }]
                 });
             }
         });

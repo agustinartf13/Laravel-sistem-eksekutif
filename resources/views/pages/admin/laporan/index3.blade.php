@@ -445,8 +445,6 @@
                     console.log(data);
                 }
             });
-
-
         });
 
         load_data();

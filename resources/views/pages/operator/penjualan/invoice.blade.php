@@ -25,7 +25,6 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="invoice-title">
@@ -34,9 +33,9 @@
                                         INV
                                         #{{$penjualan->invocie_number}}</strong></h4>
                                 <h3 class="mt-0">
-                                    {{-- <img src="assets/images/Honda_Logo.svg" alt="logo" height="24"/> --}}
-                                    <i class="fa fa-globe"></i> Sari Indah Motor <span
-                                        class="text-primary">Lukluk</span>
+                                    <img src="{{ url('assets/images/Honda_Logo.svg') }}" alt="logo" height="54"
+                                        class="pb-2" />
+                                    Sari Indah Motor <span class="text-primary">Lukluk</span>
                                 </h3>
                             </div>
                             <hr>

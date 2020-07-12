@@ -37,9 +37,7 @@ class BarangController extends Controller
         return DataTables::of($barangs)
             ->addColumn('action', function ($barangs) {
                 return ''.
-                '<a href="#mymodal" data-remote="' . route('toplevel.barang.show', ['barang' => $barangs->id]) . '" data-toggle="modal" data-target="#mymodal" data-title="' . $barangs->name_barang . '" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
-                '&nbsp;<a href="' . route('toplevel.barang.edit', ['barang' => $barangs->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>'.
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $barangs->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                '<a href="#mymodal" data-remote="' . route('toplevel.barang.show', ['barang' => $barangs->id]) . '" data-toggle="modal" data-target="#mymodal" data-title="' . $barangs->name_barang . '" class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>';
             })->rawColumns(['action'])->make(true);
     }
 

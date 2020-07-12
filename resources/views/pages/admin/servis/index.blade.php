@@ -22,13 +22,7 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Service</h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
+                   
                     <a href="{{route('admin.laporan.service')}}" class="btn btn-secondary btn-flat d-inline"
                         style="float: right"><i class="fa fa-print"></i></a>
                     <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
@@ -205,6 +199,11 @@
     </script>
 
     <script>
+
+        @if(Session::has('success'))
+                toastr.success("{{ Session::get('success') }}")
+        @endif
+
         jQuery(document).ready(function ($) {
             $('#mymodal').on('show.bs.modal', function (e) {
                 var button = $(e.relatedTarget);

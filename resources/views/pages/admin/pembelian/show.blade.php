@@ -1,8 +1,16 @@
 @php
-function rupiah($angka){
-$hasil_rupiah = "Rp " . number_format($angka,0,',','.');
-return $hasil_rupiah;
-}
+    function rupiah($angka){
+        $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+        return $hasil_rupiah;
+    }
+
+    function formatPhoneNum($phone){
+        $phone = str_replace("-", "", $phone);// remove all the dashes
+        $phone = substr($phone, 0,3) . "-" .  // add the two dashes in the right places
+        substr($phone, 3,3) . "-" . substr($phone, 6);
+        return $phone;
+    }
+
 @endphp
 
 <table class="table table-bordered">
@@ -28,7 +36,7 @@ return $hasil_rupiah;
     </tr>
     <tr>
         <th>Phone</th>
-        <td>{{$pembelian->supplier->no_telphone}}</td>
+        <td>{{formatPhoneNum($pembelian->supplier->no_telphone)}}</td>
     </tr>
     <tr>
         <th>Total Transaksi</th>

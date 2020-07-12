@@ -145,11 +145,11 @@ class DashboardController extends Controller
     {
         if (request()->ajax()) {
             if (!empty($request->from_date)) {
-                $penjualan = Penjualan::with('barangs')
+                $penjualan = Penjualan::with('dtlpenjualans.barangs')
                 ->whereBetween('tanggal_transaksi', array($request->from_date, $request->to_date))
                 ->get();
             } else {
-                $penjualan = Penjualan::with('barangs')->get();
+                $penjualan = Penjualan::with('dtlpenjualans.barangs')->get();
             }
 
             return DataTables::of($penjualan)

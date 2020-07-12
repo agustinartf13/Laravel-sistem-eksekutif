@@ -22,10 +22,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Add Barang</h4>
                     <hr>
-                    <button id="btn_addbarang" name="btn_addbarang" class="btn btn-danger waves-effect waves-light"
-                        style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Barang</button>
-                    <br><br><br>
                     <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap  mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -37,7 +33,7 @@
                                 <th>Harga Pokok</th>
                                 <th>Harga Jual</th>
                                 <th>Stock</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -48,7 +44,7 @@
                             <th>Harga Pokok</th>
                             <th>Harga Jual</th>
                             <th>Stock</th>
-                            <th class="text-center">Action</th>
+                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- Server Side --}}

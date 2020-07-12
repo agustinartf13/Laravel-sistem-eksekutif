@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">Data Supplier</h4>
+            <h4 class="page-title">Data Motor</h4>
             <ol class="breadcrumb">
                 <li>{{ Breadcrumbs::render('motorToplevel') }}</li>
             </ol>
@@ -23,10 +23,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Data Motor</h4>
                     <hr>
-                    <button id="btn_addmotor" name="btn_addmotor" class="btn btn-danger waves-effect waves-light"
-                        style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Motor</button>
-                    <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -35,7 +31,6 @@
                                 <th>Name Motor</th>
                                 <th>Tipe Motor</th>
                                 <th>Jenis Motor</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -43,7 +38,6 @@
                             <th>Name Motor</th>
                             <th>Tipe Motor</th>
                             <th>Jenis Motor</th>
-                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- Server Side --}}
@@ -137,13 +131,6 @@
                     {
                         data: 'jenis',
                         name: 'jenis'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '115px'
                     }
                 ],
                 columnDefs: [{

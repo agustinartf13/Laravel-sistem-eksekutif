@@ -91,8 +91,39 @@ class LaporanServiceController extends Controller
             }
         }
 
+        // query pendapatan jasa
+        $cari_jasa = DB::table('services')
+            ->join('details_service', 'services.id', '=', 'details_service.service_id')
+            ->selectRaw('sum(details_service.harga_jasa)as harga_jasa')
+            ->whereYear('services.tanggal_servis', $year_today)  //mencari omset
+            ->first();
+        $total_jasa = $cari_jasa->harga_jasa;
+
+        // query omset service tahun ini
+        $cari_omset = DB::table('services')
+            ->join('details_service', 'services.id', '=', 'details_service.service_id')
+            ->selectRaw('sum(sub_total)as omset')
+            ->whereYear('services.tanggal_servis', $year_today)  //mencari omset
+            ->first();
+        $total_omset = $cari_omset->omset;
+        // dd($total_omset);
+
+        // query mencari profit bulan ini
+        $cari_profit = DB::table('services')
+            ->selectRaw('sum(profit) as profit')
+            ->whereYear('services.tanggal_servis', $year_today)  //mencari profit
+            ->first();
+        $total_profit = $cari_profit->profit;
+        // dd($total_profit);
+
         return response()->json([
-            $res_service_profit, $res_service_jasa, $res_service_subtotal, $month_today,
+            $res_service_profit,
+            $res_service_jasa,
+            $res_service_subtotal,
+            $month_today,
+            'total_profit' => $total_profit,
+            'total_omset' => $total_omset,
+            'total_jasa' => $total_jasa,
             "title" => "Grafik Penjualan Tahun ". $year_today
         ]);
 

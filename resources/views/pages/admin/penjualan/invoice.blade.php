@@ -20,6 +20,15 @@
     </div>
 </div>
 
+@php
+    function formatPhoneNum($phone){
+        $phone = str_replace("-", "", $phone);// remove all the dashes
+        $phone = substr($phone, 0,3) . "-" .  // add the two dashes in the right places
+        substr($phone, 3,3) . "-" . substr($phone, 6);
+        return $phone;
+    }
+@endphp
+
 <div class="page-content-wrapper">
     <div class="row">
         <div class="col-12">
@@ -61,7 +70,7 @@
                                     <address class="text-justify" style="float: right">
                                         Name Customer: {{$penjualan->name_pembeli}}<br>
                                         Address: {{$penjualan->alamat}}<br>
-                                        Phone: {{$penjualan->no_telphone}}<br>
+                                        Phone: {{formatPhoneNum($penjualan->no_telphone)}}<br>
                                     </address>
                                 </div>
                             </div>

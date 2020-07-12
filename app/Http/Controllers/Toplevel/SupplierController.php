@@ -32,9 +32,7 @@ class SupplierController extends Controller
         return DataTables::of($supplier)
             ->addColumn('action', function ($supplier) {
                 return ''.
-                '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.supplier.show', ['supplier' => $supplier->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $supplier->name_supplier . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>' .
-                '&nbsp;<a href="' . route('toplevel.supplier.edit', ['supplier' => $supplier->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="'.$supplier->id.'" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.supplier.show', ['supplier' => $supplier->id]) . '" data-toggle="modal" data-target="#mymodal" data-title=" ' . $supplier->name_supplier . ' " class="btn btn-info btn-flat btn-sm"><i class="fa fa-eye"></i></a>';
             })->rawColumns(['action'])->make(true);
     }
 

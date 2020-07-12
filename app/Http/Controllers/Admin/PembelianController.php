@@ -276,7 +276,7 @@ class PembelianController extends Controller
 
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.index')
-            ->with('status', 'Status successfully updated');
+        Session::flash('success', 'Data pembelian successfully updated');
+        return redirect()->route('admin.pembelian.index');
     }
 }

@@ -315,6 +315,7 @@ class ServiceController extends Controller
 
         $service->save();
 
+        Session::flash('success', 'Service successfully updated');
         return redirect()->route('operator.servis.index')
             ->with('status', 'Status successfully updated');
     }

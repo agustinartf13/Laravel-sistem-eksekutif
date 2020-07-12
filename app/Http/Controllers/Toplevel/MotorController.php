@@ -31,8 +31,7 @@ class MotorController extends Controller
         $motors = Motor::orderBy('id', 'DESC')->get();
         return DataTables::of($motors)
             ->addColumn('action', function ($motors) {
-                return '<a href="' . route('toplevel.motor.edit', ['motor' => $motors->id]) . '" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></a>' .
-                '&nbsp;<a href="javascript:void(0)" id="delete"  data-id="' . $motors->id . '" class="delete btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>';
+                return '';
             })->rawColumns(['action'])->make(true);
     }
 

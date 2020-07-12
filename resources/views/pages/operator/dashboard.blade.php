@@ -38,8 +38,8 @@
 @endsection
 @section('js')
 <script>
-     @if(Session::has('success'))
-        toastr.success("{{ Session::get('success') }}")
+    @if(Session::has('login'))
+        toastr.success("{{ Session::get('login') }}")
     @endif
 </script>
 @endsection

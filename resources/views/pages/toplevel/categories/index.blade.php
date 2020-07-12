@@ -23,10 +23,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Data Categories</h4>
                     <hr>
-                    <button id="btn_addcategory" name="btn_addcategory" class="btn btn-danger waves-effect waves-light"
-                        style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Category</button>
-                    <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -34,14 +30,12 @@
                                 <th>No.</th>
                                 <th>Name Categories</th>
                                 <th>Categories Image</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <th>No.</th>
                             <th>Name Categories</th>
                             <th>Categories Image</th>
-                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- data Server Side --}}
@@ -122,13 +116,6 @@
                     {
                         data: 'show_photo',
                         name: 'show_photo'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        width: '115px'
                     }
                 ]
             });

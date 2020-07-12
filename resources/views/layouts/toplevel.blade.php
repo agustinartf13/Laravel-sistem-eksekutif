@@ -161,9 +161,9 @@
                             <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> Repot <span
                                         class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="{{route('toplevel.laporan.service')}}">Laporan Service</a></li>
-                                <li><a href="{{route('toplevel.laporan.beli')}}">Laporan Pembelian</a></li>
-                                <li><a href="{{route('toplevel.laporan.jual')}}">Laporan Penjualan</a></li>
+                                <li><a href="{{route('toplevel.laporan.service')}}">Service</a></li>
+                                <li><a href="{{route('toplevel.laporan.beli')}}">Pembelian</a></li>
+                                <li><a href="{{route('toplevel.laporan.jual')}}">Penjualan</a></li>
                             </ul>
                         </li>
                         <li>

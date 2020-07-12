@@ -43,16 +43,16 @@ class LoginController extends Controller
         # jika role id 1
         if (Auth::check() && Auth::user()->role->id == 1) {
             # jalankan ini
-            Session::flash('success', 'Successfully login');
+            Session::flash('login', 'Successfully login');
             $this->redirectTo = route('admin.dashboard');
             # jika id 2
         } elseif (Auth::check() && Auth::user()->role->id == 2) {
             # jalankan ini
-            Session::flash('success', 'Successfully login');
+            Session::flash('login', 'Successfully login');
             $this->redirectTo = route('toplevel.dashboard');
         } else {
             # selain role id 1 dan 2 jalnkan ini
-            Session::flash('success', 'Successfully login');
+            Session::flash('login', 'Successfully login');
             $this->redirectTo = route('operator.dashboard');
         }
         $this->middleware('guest')->except('logout');

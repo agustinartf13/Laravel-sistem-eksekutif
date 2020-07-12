@@ -76,7 +76,7 @@
                                     <label for="">Pilih Tahun</label>
                                     <div class="input-group mb-3">
                                         <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
-                                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                        <button id="data-year" type="submit" class="btn btn-primary btn-sm">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -86,11 +86,11 @@
 
                             <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                                 <li class="list-inline-item">
-                                    <h5 class="mb-0"> {{rupiah($total_omset)}}</h5>
+                                    <h5 class="mb-0" id="total_omset"> {{rupiah($total_omset)}}</h5>
                                     <p class="text-muted">Omset</p>
                                 </li>
                                 <li class="list-inline-item">
-                                    <h5 class="mb-0">{{rupiah($total_profit)}}</h5>
+                                    <h5 class="mb-0" id="total_profit">{{rupiah($total_profit)}}</h5>
                                     <p class="text-muted">Profit</p>
                                 </li>
                             </ul>
@@ -203,9 +203,16 @@
     });
 </script> --}}
 
-
 <script type="text/javascript">
 $(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    let actChart = '';
 
     function convertMonth(month) {
     switch (month) {
@@ -250,13 +257,6 @@ $(document).ready(function() {
     }
 }
 
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     loadChart("2020")
 
     function loadChart(year) {
@@ -279,7 +279,7 @@ $(document).ready(function() {
             console.log(data)
 
             var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
+            actChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: month,
@@ -328,7 +328,49 @@ $(document).ready(function() {
         todayBtn: 'likend',
         format: 'yyyy-mm-dd',
         autoclose: true
-    })
+    });
+
+    $("#data-year").on("click", function () {
+        const data2 = $("#datepicker").val()
+        // window.alert(data);
+
+        var formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            });
+
+            let ajax_get = $.ajax({
+                url: "{{route('toplevel.laporan.salepermonthjual')}}",
+                data: {
+                    year: data2,
+                    type: "GET"
+                },
+                success: function(data){
+                    let sale = [];
+                    let month = [];
+
+
+                    for (var i in data[0]) {
+                        sale.push(data[0][i].total_sale)
+                        month.push(convertMonth(data[0][i].month));
+                    }
+
+
+                    actChart.data.labels=month;
+                    actChart.data.datasets[0].data =sale;
+
+                    actChart.update();
+
+
+                    $('#total_omset').text(formatter.format(data.total_omset));
+                    $('#total_profit').text(formatter.format(data.total_profit));
+                    $('#dt_tahun').text(` Statistic Penjualan ${data2}`);
+                    console.log(data);
+                }
+            });
+
+
+    });
 
     load_data();
     function load_data(from_date = '', to_date = '') {

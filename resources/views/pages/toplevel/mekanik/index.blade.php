@@ -22,10 +22,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-account-card-details mr-2"></i>Data Mekanik</h4>
                     <hr>
-                    <button id="btn_addmekanik" name="btn_addmekanik" class="btn btn-danger waves-effect waves-light"
-                        style="float: right" data-toggle="modal" data-target=".bs-example-modal-lg"><i
-                            class="fa fa-plus mr-2"></i>Add Mekanik</button>
-                    <br><br><br>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -36,7 +32,7 @@
                                 <th>Address</th>
                                 <th>No. Telphone</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -46,7 +42,7 @@
                             <th>Address</th>
                             <th>No. Telphone</th>
                             <th>Status</th>
-                            <th class="text-center">Action</th>
+                            <th>Action</th>
                         </tfoot>
                         <tbody>
                             {{-- server Side --}}

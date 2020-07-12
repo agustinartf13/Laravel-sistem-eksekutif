@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Session;
+use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class ServiceController extends Controller
 {
@@ -311,7 +312,7 @@ class ServiceController extends Controller
 
         $service->save();
 
-        return redirect()->route('admin.servis.index')
-            ->with('status', 'Status successfully updated');
+        Session::flash('success', 'Data service successfully updated');
+        return redirect()->route('admin.servis.index');
     }
 }

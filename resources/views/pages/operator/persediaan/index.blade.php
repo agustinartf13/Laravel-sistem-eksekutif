@@ -57,6 +57,7 @@
             </div>
         </div>
     </div>
+</div>
 
     @endsection @section('js')
 
@@ -90,5 +91,4 @@
             });
         });
     </script>
-    @endsection
-</div>
+@endsection

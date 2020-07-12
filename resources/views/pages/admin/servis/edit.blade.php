@@ -18,6 +18,15 @@
 </div>
 <!-- end row -->
 
+@php
+    function formatPhoneNum($phone){
+        $phone = str_replace("-", "", $phone);// remove all the dashes
+        $phone = substr($phone, 0,3) . "-" .  // add the two dashes in the right places
+        substr($phone, 3,3) . "-" . substr($phone, 6);
+        return $phone;
+    }
+@endphp
+
 <div class="page-content-wrapper">
     <div class="row">
         <div class="col-lg">
@@ -95,7 +104,7 @@
                                 <label>No Telphone</label>
                                 <input type="text" name="no_telphone"
                                     class="form-control @error('no_telphone') is-invalid @enderror"
-                                    placeholder="No Telphone" value="{{$service->no_telphone}}" />
+                                    placeholder="No Telphone" value="{{formatPhoneNum($service->no_telphone)}}" />
                                 @error('no_telphone')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>

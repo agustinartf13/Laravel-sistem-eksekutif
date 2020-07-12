@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BarangDetail extends Model
 {
-    use SoftDeletes;
 
     protected $table = 'details_barang';
     protected $primaryKey = 'barang_id';
