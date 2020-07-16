@@ -19,7 +19,7 @@
 
 <div class="page-content-wrapper">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="card m-b-20">
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Edit Barang</h4>

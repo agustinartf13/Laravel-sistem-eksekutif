@@ -145,6 +145,6 @@ class LaporanPembelianController extends Controller
         $year_today = Carbon::now()->format('Y');
         $pembelians = Pembelian::with('supplier')->with('dtlpembelian.barang')->get();
         $pdf = PDF::loadView('pages.admin.export_data.pembelian_pdf', ['pembelians' => $pembelians, 'year_today' => $year_today] );
-        return $pdf->stream('pembelian.pdf');
+        return $pdf->stram('pembelian.pdf');
     }
 }

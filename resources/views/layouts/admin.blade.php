@@ -193,11 +193,11 @@
                                 <li><a href="{{route('admin.laporan.jual')}}"> Penjualan</a></li>
                             </ul>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{route('admin.peramalan')}}" class="waves-effect">
                                 <i class="mdi mdi-google-analytics"></i><span> Peramalan </span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="clearfix"></div>
