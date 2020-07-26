@@ -8,6 +8,8 @@ use App\Motor;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
+use PDF;
 
 
 class MotorController extends Controller
@@ -154,5 +156,15 @@ class MotorController extends Controller
         $motor->delete();
 
         return response()->json(['status' => 'Supplier deleted successfully']);
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $motors = Motor::all();
+        $pdf = PDF::loadView('pages.toplevel.export_data.motor_pdf', [
+            'motors' => $motors, 'year_today' => $year_today
+        ]);
+        return $pdf->stream('motor.pdf');
     }
 }

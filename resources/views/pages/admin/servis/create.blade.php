@@ -137,7 +137,7 @@
                                 <input type="text" name="km_datang"
                                     class="form-control @error('km_datang') is-invalid @enderror"
                                     placeholder="Km Datang" value="{{old('km_datang')}}" />
-                                @error('motor')
+                                @error('km_datang')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
                                 </div>
@@ -278,7 +278,6 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function () {
-
         // form add barang
         $('#add_form').click(function (event) {
             event.preventDefault();
@@ -341,27 +340,5 @@
     });
 </script>
 
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('.ckeditor'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('.ckkeluhan'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script> --}}
 
 @endsection

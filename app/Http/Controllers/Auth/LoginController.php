@@ -76,7 +76,7 @@ class LoginController extends Controller
             } elseif (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 return redirect()->route('operator.dashboard');
             } else {
-                Session::flash('error', 'Please again check email dan passsword');
+                Session::flash('error', 'Please check again email dan passsword');
                 return redirect('/');
             }
         }

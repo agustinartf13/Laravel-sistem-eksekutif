@@ -165,10 +165,32 @@ class LaporanPenjualanController extends Controller
             ->limit(1)
             ->get();
 
+        $saleperweeks = DB::table('penjualans')
+            ->join('penjualan_barangs', 'penjualans.id', '=', 'penjualan_barangs.penjualan_id')
+            ->join('barangs', 'barangs.id', '=', 'penjualan_barangs.barang_id')
+            ->select('barangs.name_barang as name_barang', 'penjualans.tanggal_transaksi as tanggal_transaksi')
+            ->selectRaw('cast(sum(penjualan_barangs.qty)as UNSIGNED) as jumlah')
+            ->where('tanggal_transaksi', '>', now()->subWeek()->startOfWeek())
+            ->where('tanggal_transaksi', '<', now()->subWeek()->endOfWeek())
+            ->groupBy('barangs.name_barang', 'penjualans.tanggal_transaksi')
+            ->get();
+
         return view('pages.toplevel.laporan.index', [
-            'year_today' => $year_today, 'month_today' => $month_today,
+            'year_today' => $year_today, 'month_today' => $month_today, 'saleperweeks' => $saleperweeks,
             'months' => $months, 'profit' => $profit, 'total_profit' => $total_profit, 'total_omset' => $total_omset, 'rank_barang' => $rank_barang, 'rank_customer' => $rank_customer, 'terjual_qty' => $terjual_qty, 'name_barangs' => $name_barangs,
         ]);
+    }
+
+    public function salePerWeek() {
+        $saleperweeks = DB::table('penjualans')
+        ->join('penjualan_barangs', 'penjualans.id', '=', 'penjualan_barangs.penjualan_id')
+        ->join('barangs', 'barangs.id', '=', 'penjualan_barangs.barang_id')
+        ->select('barangs.name_barang as name_barang')
+        ->selectRaw('cast(sum(penjualan_barangs.qty)as UNSIGNED) as jumlah')
+        ->where('tanggal_transaksi', '>', now()->subWeek()->startOfWeek())
+        ->where('tanggal_transaksi', '<', now()->subWeek()->endOfWeek())
+        ->groupBy('barangs.name_barang')
+        ->get();
     }
 
     // api supplier get data

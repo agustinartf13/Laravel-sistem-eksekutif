@@ -22,7 +22,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Service</h4>
                     <hr>
-                   
                     <a href="{{route('admin.laporan.service')}}" class="btn btn-secondary btn-flat d-inline"
                         style="float: right"><i class="fa fa-print"></i></a>
                     <a href="{{route('admin.servis.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
@@ -69,6 +68,20 @@
     @endsection
 
     @section('js')
+
+        @if (Session::get('success'))
+            <script>
+                swal({
+                    title: 'Good job!',
+                    text: 'You clicked the button!',
+                    type: 'success',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger m-l-10'
+                    });
+            </script>
+        @endif
+
     <script text="text/javascript">
         $(document).ready(function () {
             $('#datatable').DataTable({
@@ -200,9 +213,7 @@
 
     <script>
 
-        @if(Session::has('success'))
-                toastr.success("{{ Session::get('success') }}")
-        @endif
+
 
         jQuery(document).ready(function ($) {
             $('#mymodal').on('show.bs.modal', function (e) {

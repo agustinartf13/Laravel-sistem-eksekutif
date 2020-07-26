@@ -118,7 +118,7 @@ class PembelianController extends Controller
         // dd($pembelian_detail, $new_stock);
         $pembelian->save();
 
-        return redirect()->route('admin.pembelian.create')->with('status', 'Pembelian successfully created!');
+        return redirect()->route('admin.pembelian.index')->with('success', 'Pembelian successfully created!');
     }
 
     /**

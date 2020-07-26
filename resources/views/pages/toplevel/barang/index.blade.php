@@ -20,6 +20,18 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
+                    <a
+                    href="{{ route('toplevel.persediaan.exportexcelbarang') }}"
+                    class="btn btn-success btn-flat d-inline"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Excel</a
+                    >
+                    <a
+                    href="{{ route('toplevel.persediaan.exportpdfbarang') }}"
+                    class="btn btn-primary btn-flat d-inline mr-1"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Pdf</a
+                    >
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Add Barang</h4>
                     <hr>
                     <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap  mt-5"

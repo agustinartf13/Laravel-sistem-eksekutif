@@ -32,10 +32,93 @@
                         </div>
 
                         @php
-                        function rupiah($angka){
+                        function rupiah($angka) {
                             $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
                             return $hasil_rupiah;
                         }
+
+                        function TanggalIndonesia($date) {
+                        $date = date('Y-m-d',strtotime($date));
+                        if($date == '0000-00-00')
+                            return 'Tanggal Kosong';
+
+                        $tgl = substr($date, 8, 2);
+                        $bln = substr($date, 5, 2);
+                        $thn = substr($date, 0, 4);
+
+                        switch ($bln) {
+                            case 1 : {
+                                    $bln = 'Januari';
+                                }break;
+                            case 2 : {
+                                    $bln = 'Februari';
+                                }break;
+                            case 3 : {
+                                    $bln = 'Maret';
+                                }break;
+                            case 4 : {
+                                    $bln = 'April';
+                                }break;
+                            case 5 : {
+                                    $bln = 'Mei';
+                                }break;
+                            case 6 : {
+                                    $bln = "Juni";
+                                }break;
+                            case 7 : {
+                                    $bln = 'Juli';
+                                }break;
+                            case 8 : {
+                                    $bln = 'Agustus';
+                                }break;
+                            case 9 : {
+                                    $bln = 'September';
+                                }break;
+                            case 10 : {
+                                    $bln = 'Oktober';
+                                }break;
+                            case 11 : {
+                                    $bln = 'November';
+                                }break;
+                            case 12 : {
+                                    $bln = 'Desember';
+                                }break;
+                            default: {
+                                    $bln = 'UnKnown';
+                                }break;
+                        }
+
+                        $hari = date('N', strtotime($date));
+                        switch ($hari) {
+                            case 0 : {
+                                    $hari = 'Minggu';
+                                }break;
+                            case 1 : {
+                                    $hari = 'Senin';
+                                }break;
+                            case 2 : {
+                                    $hari = 'Selasa';
+                                }break;
+                            case 3 : {
+                                    $hari = 'Rabu';
+                                }break;
+                            case 4 : {
+                                    $hari = 'Kamis';
+                                }break;
+                            case 5 : {
+                                    $hari = "Jum'at";
+                                }break;
+                            case 6 : {
+                                    $hari = 'Sabtu';
+                                }break;
+                            default: {
+                                    $hari = 'UnKnown';
+                                }break;
+                        }
+
+                        $tanggalIndonesia = "Hari ".$hari.", Tanggal ".$tgl . " " . $bln . " " . $thn;
+                        return $tanggalIndonesia;
+                    }
                         @endphp
 
                             <div class="col-lg-4">
@@ -70,20 +153,64 @@
                 <div class="col">
                     <div class="card m-b-20">
                         <div class="card-body">
-
                             <div class="row">
                                 <div class="col-lg-3">
                                     <label for="">Pilih Tahun</label>
                                     <div class="input-group mb-3">
                                         <input type="text" id="datepicker" name="year" class="form-control" value="{{Request::get('year')}}"/>
-                                        <button id="data-year" type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                        <button id="data-year" type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for=""></label>
+                                    <div class="input-group mt-2">
+                                        <button type="button" class="btn btn-outline-primary" style="height: 38px;" data-toggle="modal" data-target="#exampleModal">
+                                            Sale Last Week
+                                        </button>
                                     </div>
                                 </div>
                             </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Sale Minggu lalu</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="data-sale-perweek" class="table table-borderless dt-responsive nowrap datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Tanggal Transaksi</th>
+                                                <th>Name Barang</th>
+                                                <th>Quantitiy</th>
+                                            </tr>
+                                        </thead>
+                                        @php
+                                            $no = 1
+                                        @endphp
+                                        @foreach ($saleperweeks as $item)
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{$no++}}</td>
+                                                    <td>{{TanggalIndonesia($item->tanggal_transaksi)}}</td>
+                                                    <td>{{$item->name_barang}}</td>
+                                                    <td>{{$item->jumlah}}</td>
+                                                </tr>
+                                            </tbody>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                             <hr>
 
-                            <h4 class="mt-4 text-center">Statistic Penjualan {{$year_today}}</h4>
-
+                            <h4 class="mt-4 text-center " id="dt_tahun">Statistic Penjualan {{$year_today}}</h4>
                             <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                                 <li class="list-inline-item">
                                     <h5 class="mb-0" id="total_omset"> {{rupiah($total_omset)}}</h5>
@@ -101,107 +228,73 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <a
+                            href="{{ route('toplevel.laporan.exportexcelpenjualan') }}"
+                            class="btn btn-success btn-flat d-inline"
+                            style="float: right"
+                            ><i class="fa fa-print"></i> Excel</a
+                            >
+                            <a
+                            href="{{ route('toplevel.laporan.exportpdfpenjualan') }}"
+                            class="btn btn-primary btn-flat d-inline mr-1"
+                            style="float: right"
+                            ><i class="fa fa-print"></i> Pdf</a
+                            >
+                            <h4>List Penjualan</h4>
+                            <hr>
+                            <div class="row input-daterange mb-3">
+                                <div class="col-md-4">
+                                    <input type="text" name="from_date" id="from_date" class="form-control"
+                                        placeholder="From Date" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date"
+                                        readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
+                                    <button type="button" name="refresh" id="refresh" class="btn btn-default">Refresh</button>
+                                </div>
+                            </div>
+                            <br />
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <a
-                    href="{{ route('toplevel.laporan.exportexcelpenjualan') }}"
-                    class="btn btn-success btn-flat d-inline"
-                    style="float: right"
-                    ><i class="fa fa-print"></i> Excel</a
-                    >
-                    <a
-                    href="{{ route('toplevel.laporan.exportpdfpenjualan') }}"
-                    class="btn btn-primary btn-flat d-inline mr-1"
-                    style="float: right"
-                    ><i class="fa fa-print"></i> Pdf</a
-                    >
-                    <h4>List Penjualan</h4>
-                    <hr>
-                    <div class="row input-daterange mb-3">
-                        <div class="col-md-4">
-                            <input type="text" name="from_date" id="from_date" class="form-control"
-                                placeholder="From Date" readonly />
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date"
-                                readonly />
-                        </div>
-                        <div class="col-md-4">
-                            <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
-                            <button type="button" name="refresh" id="refresh" class="btn btn-default">Refresh</button>
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Invoice Number</th>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Customer</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Invoice Number</th>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Customer</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
-                    <br />
-
-                    <!-- /.box-header -->
-
-                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Invoice Number</th>
-                                <th>Tanggal Transaksi</th>
-                                <th>Customer</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Invoice Number</th>
-                                <th>Tanggal Transaksi</th>
-                                <th>Customer</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-{{-- <script>
-    var ctx = document.getElementById('bar').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
-                {
-                    label: "Sales Analytics",
-                    backgroundColor: "#28bbe3",
-                    borderColor: "#28bbe3",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#28bbe3",
-                    hoverBorderColor: "#28bbe3",
-                    data: {!!json_encode($profit)!!}
-                }
-
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script> --}}
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -349,18 +442,15 @@ $(document).ready(function() {
                     let sale = [];
                     let month = [];
 
-
                     for (var i in data[0]) {
                         sale.push(data[0][i].total_sale)
                         month.push(convertMonth(data[0][i].month));
                     }
 
-
                     actChart.data.labels=month;
                     actChart.data.datasets[0].data =sale;
 
                     actChart.update();
-
 
                     $('#total_omset').text(formatter.format(data.total_omset));
                     $('#total_profit').text(formatter.format(data.total_profit));
@@ -368,8 +458,6 @@ $(document).ready(function() {
                     console.log(data);
                 }
             });
-
-
     });
 
     load_data();

@@ -146,6 +146,11 @@
 
 @section('js')
 <script type="text/javascript">
+
+    @if(session()->has('status'))
+        {{ session('status') }}
+    @endif
+
     $(document).ready(function () {
 
         // form add barang

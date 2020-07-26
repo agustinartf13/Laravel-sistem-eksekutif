@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
+use PDF;
 
 class SupplierController extends Controller
 {
@@ -179,5 +181,15 @@ class SupplierController extends Controller
 
         return redirect()->route('toplevel.supplier.index')
             ->with('status', 'Status successfully updated');
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $year_today = Carbon::now()->format('Y');
+        $suppliers = Supplier::all();
+        $pdf = PDF::loadView('pages.toplevel.export_data.supplier_pdf', [
+            'suppliers' => $suppliers, 'year_today' => $year_today
+        ]);
+        return $pdf->stream('supplier.pdf');
     }
 }

@@ -146,7 +146,7 @@ class ServiceController extends Controller
         $new_service->profit = $profit;
         $new_service->save();
 
-        return redirect()->route('operator.servis.index', ['id' => $service_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('operator.servis.index', ['id' => $service_id])->with('success', 'Service successfully created');
     }
 
     public function invoice(Request $request, $id)
@@ -315,9 +315,8 @@ class ServiceController extends Controller
 
         $service->save();
 
-        Session::flash('success', 'Service successfully updated');
         return redirect()->route('operator.servis.index')
-            ->with('status', 'Status successfully updated');
+            ->with('success', 'Status successfully updated');
     }
 
     public function exportExcel()

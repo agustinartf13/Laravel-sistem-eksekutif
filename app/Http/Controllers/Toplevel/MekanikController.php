@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
+use PDF;
 
 class MekanikController extends Controller
 {
@@ -176,5 +178,16 @@ class MekanikController extends Controller
 
         return redirect()->route('toplevel.mekanik.index')
             ->with('status', 'Status successfully updated');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $mekaniks = Mekanik::all();
+        $pdf = PDF::loadView('pages.toplevel.export_data.mekanik_pdf', [
+            'mekaniks' => $mekaniks, 'year_today' => $year_today
+        ]);
+        return $pdf->stream('mekanik.pdf');
+
     }
 }

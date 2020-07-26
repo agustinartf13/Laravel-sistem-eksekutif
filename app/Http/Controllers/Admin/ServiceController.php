@@ -143,7 +143,7 @@ class ServiceController extends Controller
         $new_service->profit = $profit;
         $new_service->save();
 
-        return redirect()->route('admin.servis.index', ['id' => $service_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('admin.servis.index', ['id' => $service_id])->with('success', 'Service successfully created');
     }
 
     public function invoice(Request $request, $id)

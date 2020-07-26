@@ -125,7 +125,7 @@ class PenjualanController extends Controller
         $new_penjualan->profit = $profit;
         $new_penjualan->save();
 
-        return redirect()->route('operator.penjualan.create', ['id' => $penjualan_id])->with('status', 'penjualan successfully created');
+        return redirect()->route('operator.penjualan.index', ['id' => $penjualan_id])->with('success', 'penjualan successfully created');
     }
 
     /**

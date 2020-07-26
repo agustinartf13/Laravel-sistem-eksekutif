@@ -96,12 +96,16 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/show/data", 'DashboardController@showData')->name('show.data');
 
     Route::get("/api/motor", "MotorController@apimotor")->name("api.motor");
+    Route::get("/motor/exportpdfmotor", "MotorController@exportPdf")->name("motor.exportpdfmotor");
+    Route::get("/motor/exportexcelmotor", "MotorController@exportExcel")->name("motor.exportexcelmotor");
     Route::get("/motor/{id}/edit", "MotorController@edit")->name("motor.edit");
     Route::post("/motor/update", "MotorController@update")->name("motor.update");
     Route::resource('motor', 'MotorController');
 
     Route::get("/mekanik/{id}/set-status", "MekanikController@setStatus")->name("mekanik.status");
     Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
+    Route::get("/mekanik/exportpdfmekanik", "MekanikController@exportPdf")->name("mekanik.exportpdfmekanik");
+    Route::get("/mekanik/exportexcelmekanik", "MekanikController@exportExcel")->name("mekanik.exportexcelmekanik");
     Route::resource('mekanik', 'MekanikController');
 
     Route::get("/api/categories", "CategoryController@apicategories")->name("api.categories");
@@ -117,6 +121,8 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/api/persediaan", "PersediaanController@apipersediaan")->name("api.persediaan");
 
     Route::get("/supplier/{id}/set-status", "SupplierController@setStatus")->name("supplier.status");
+    Route::get("/supplier/exportpdfsupplier", "SupplierController@exportPdf")->name("supplier.exportpdfsupplier");
+    Route::get("/supplier/exportexcelsupplier", "SupplierController@exportExcel")->name("supplier.exportexcelsupplier");
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
     Route::resource('supplier', 'SupplierController');
 
@@ -144,6 +150,7 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/api/beli", "LaporanPembelianController@apibeli")->name("api.beli");
 
     Route::get("/laporan/penjualan", "LaporanPenjualanController@laporanJual")->name("laporan.jual");
+    Route::get("/laporan/saleperweek", "LaporanPenjualanController@salePerWeek")->name("laporan.saleperweek");
     Route::get('/laporan/salepermonthjual', 'LaporanPenjualanController@totalSalePerMonth')->name("laporan.salepermonthjual");
     Route::get("/laporan/penjualan/exportexcelpenjualan", "LaporanPenjualanController@exportExcel")->name("laporan.exportexcelpenjualan");
     Route::get("/laporan/penjualan/exportpdfpenjualan", "LaporanPenjualanController@exportPdf")->name("laporan.exportpdfpenjualan");

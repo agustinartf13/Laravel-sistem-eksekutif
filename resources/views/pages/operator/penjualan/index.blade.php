@@ -22,13 +22,6 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="fa fa-cart-arrow-down mr-2"></i>List Penjualan</h4>
                     <hr>
-                    @if (session("status"))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-check"></i> Good Job!</h4>
-                        {{session('status')}}
-                    </div>
-                    @endif
                     <a href="{{route('operator.penjualan.create')}}" class="btn btn-danger btn-flat d-inline mr-2"
                         style="float: right"><i class="fa fa-plus mr-2"></i>Add Penjualan</a>
                         <a
@@ -79,6 +72,20 @@
     @endsection
 
     @section('js')
+
+    @if (Session::get('success'))
+    <script>
+        swal({
+            title: 'Good job!',
+            text: 'You clicked the button!',
+            type: 'success',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10'
+            });
+    </script>
+    @endif
+
     <script text="text/javascript">
         $(document).ready(function () {
             $('#datatable').DataTable({

@@ -111,17 +111,17 @@ function formatPhoneNum($phone){
 
   <div class="row mt-4">
     <div class="col">
-        <a href="{{route('admin.servis.status', $service->id)}}?status=FINISH" class="btn btn-success btn-block">
+        <a href="{{route('operator.servis.status', $service->id)}}?status=FINISH" class="btn btn-success btn-block">
             <i class="fa fa-check mr-2"></i> Set Finish
         </a>
     </div>
     <div class="col">
-        <a href="{{route('admin.servis.status', $service->id)}}?status=CHECKING" class="btn btn-warning btn-block">
+        <a href="{{route('operator.servis.status', $service->id)}}?status=CHECKING" class="btn btn-warning btn-block">
             <i class="fa fa-spinner mr-2"></i> Set Checking
         </a>
     </div>
     <div class="col">
-        <a href="{{route('admin.servis.status', $service->id)}}?status=SERVICE" class="btn btn-danger btn-block">
+        <a href="{{route('operator.servis.status', $service->id)}}?status=SERVICE" class="btn btn-danger btn-block">
             <i class="fa fa-times mr-2"></i> Set Service
         </a>
     </div>

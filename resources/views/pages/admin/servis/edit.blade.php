@@ -104,7 +104,7 @@
                                 <label>No Telphone</label>
                                 <input type="text" name="no_telphone"
                                     class="form-control @error('no_telphone') is-invalid @enderror"
-                                    placeholder="No Telphone" value="{{formatPhoneNum($service->no_telphone)}}" />
+                                    placeholder="No Telphone" value="{{$service->no_telphone}}" />
                                 @error('no_telphone')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>

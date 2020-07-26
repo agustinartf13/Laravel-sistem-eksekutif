@@ -16,7 +16,6 @@
     </div>
 </div>
 
-
 <div class="page-content-wrapper">
     <div class="row">
         <div class="col-12">
@@ -78,7 +77,7 @@
                             </div>
                             <hr>
 
-                            <h4 class="mt-4 text-center">Statistic Pembelian {{ $year_today }} </h4>
+                            <h4 class="mt-4 text-center" id="dt_tahun">Statistic Pembelian {{ $year_today }} </h4>
 
                             <ul class="list-inline widget-chart m-t-20 m-b-15 text-center mt-4">
                                 <li class="list-inline-item">
@@ -133,8 +132,6 @@
                     </div>
                     <br />
 
-                    <!-- /.box-header -->
-
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
@@ -169,36 +166,6 @@
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-{{-- <script>
-    var ctx = document.getElementById('bar').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
-                {
-                    label: "Sales Analytics",
-                    backgroundColor: "#f16c69",
-                    borderColor: "#f16c69",
-                    borderWidth: 1,
-                    hoverBackgroundColor: "#f16c69",
-                    hoverBorderColor: "#f16c69",
-                    data: {!!json_encode($pengeluaran)!!}
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script> --}}
 
 <script type="text/javascript">
 $(document).ready(function() {

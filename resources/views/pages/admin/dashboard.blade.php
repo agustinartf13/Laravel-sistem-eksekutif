@@ -40,9 +40,7 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Jasa Service</h6>
                             <h3 class="mb-3 mt-0">{{ rupiah($total_jasa) }}</h3>
                             <div class="">
-                                <span class="badge badge-light text-danger"> +11% </span> <span class="ml-2">From
-                                    previous
-                                    period</span>
+
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -60,8 +58,7 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Sale Sparepart</h6>
                             <h3 class="mb-3 mt-0">{{ rupiah($total_omset) }}</h3>
                             <div class="">
-                                <span class="badge badge-light text-success"> -29% </span> <span class="ml-2">From
-                                    previous period</span>
+
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -79,8 +76,7 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Pengeluaran</h6>
                             <h3 class="mb-3 mt-0">{{ rupiah($total_pengeluaran) }}</h3>
                             <div class="">
-                                <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From
-                                    previous period</span>
+
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -98,8 +94,7 @@
                             <h6 class="text-uppercase mt-0 text-white-50">Sparepart Sold</h6>
                             <h3 class="mb-3 mt-0">{{ $terjual_qty }}</h3>
                             <div class="">
-                                <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous
-                                    period</span>
+
                             </div>
                         </div>
                         <div class="mini-stat-icon">
@@ -172,7 +167,7 @@
             <div class="card m-b-20">
                 <div class="card-body">
 
-                    <h5>List Penjualan</h5>
+                    <h4>List Penjualan</h4>
                     <br>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap table-striped mt-5"

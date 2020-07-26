@@ -139,7 +139,7 @@
                                 <input type="text" name="km_datang"
                                     class="form-control @error('km_datang') is-invalid @enderror"
                                     placeholder="Km Datang" value="{{old('km_datang')}}" />
-                                @error('motor')
+                                @error('km_datang')
                                 <div class="help-block" style="color: red;">
                                     <strong>{{ $message }}</strong>
                                 </div>

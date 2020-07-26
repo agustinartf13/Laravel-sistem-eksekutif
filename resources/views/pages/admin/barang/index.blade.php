@@ -178,7 +178,6 @@ number_format($angka,0,',','.'); return $hasil_rupiah; }
 
             // load data view supplier server side
             $('#datatable').DataTable({
-
                 processing: true,
                 serverSide: true,
                 ajax: {

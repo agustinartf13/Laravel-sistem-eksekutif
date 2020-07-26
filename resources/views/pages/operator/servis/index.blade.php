@@ -81,10 +81,21 @@
     @endsection
 
     @section('js')
+
+    @if (Session::get('success'))
+    <script>
+        swal({
+            title: 'Good job!',
+            text: 'You clicked the button!',
+            type: 'success',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10'
+            });
+    </script>
+    @endif
+    
     <script text="text/javascript">
-        @if(Session::has('success'))
-            toastr.success("{{ Session::get('success') }}")
-        @endif
 
         $(document).ready(function () {
             $('#datatable').DataTable({

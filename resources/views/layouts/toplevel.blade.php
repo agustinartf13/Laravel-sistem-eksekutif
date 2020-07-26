@@ -44,7 +44,7 @@
                             <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user waves-light"
                                 data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                 aria-expanded="false">
-                                <img src="{{url('assets/images/users/user-4.jpg')}}" alt="user" class="rounded-circle">
+                                <img src="{{ url('assets/images/admin.png') }}" alt="user" class="rounded-circle">
                             </a>
                             <form action="{{route('logout')}}" method="POST">
                                 @csrf
@@ -79,7 +79,7 @@
             <div class="slimscroll-menu" id="remove-scroll">
                 <div class="user-details">
                     <div class="float-left mr-2">
-                        <img src="{{url('assets/images/users/user-4.jpg')}}" alt="" class="thumb-md rounded-circle">
+                        <img src="{{ url('assets/images/admin.png') }}" alt="" class="thumb-md rounded-circle">
                     </div>
                     <div class="user-info">
                         <div class="dropdown">
@@ -158,7 +158,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> Repot <span
+                            <a href="#" class="waves-effect"><i class="mdi mdi-email"></i><span> report <span
                                         class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                             <ul class="submenu">
                                 <li><a href="{{route('toplevel.laporan.service')}}">Service</a></li>
