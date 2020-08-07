@@ -20,10 +20,19 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
-                    <a href="{{ route('admin.barang.exportexcelbarang') }}" class="btn btn-success btn-flat d-inline"
-                        style="float: right"><i class="fa fa-print"></i> Excel</a>
-                    <a href="{{ route('admin.barang.exportpdfbarang') }}" class="btn btn-primary btn-flat d-inline mr-1"
-                        style="float: right"><i class="fa fa-print"></i> Pdf</a>
+                    <a
+                    href="{{ route('admin.barang.exportexcellistbarang') }}"
+                    class="btn btn-success btn-flat d-inline mr-1"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Excel</a
+                    >
+
+                    <a
+                    href="{{ route('admin.barang.exportpdflistbarang') }}"
+                    class="btn btn-primary btn-flat d-inline mr-1"
+                    style="float: right"
+                    ><i class="fa fa-print"></i> Pdf</a
+                    >
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Persediaan Barang</h4>
 
                     <hr>

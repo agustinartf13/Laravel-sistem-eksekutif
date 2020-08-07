@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Exports\ServiceExport;
-use Maatwebsite\Excel\Facades\Excel;
+
 use PDF;
 
 class LaporanServiceController extends Controller
@@ -264,28 +264,30 @@ class LaporanServiceController extends Controller
         ]);
     }
 
-    // api data service datatabls
-    public function apiservice(Request $request)
-    {
-        if (request()->ajax()) {
-            if (!empty($request->from_date)) {
-                $service = Service::with('dtlservice')->with('motor')
-                ->whereBetween('tanggal_servis', array($request->from_date, $request->to_date))
-                ->orderBy('id', 'DESC')
-                ->get();
-            } else {
-                $service = Service::with('dtlservice')->with('motor')->orderBy('id', 'DESC')->get();
-            }
+   // api data service datatabls
+   public function apiservice(Request $request)
+   {
+       if (request()->ajax()) {
+           if (!empty($request->from_date)) {
+               $service = Service::with('dtlservice')->with('motor')
+               ->whereBetween('tanggal_servis', array($request->from_date, $request->to_date))
+               ->orderBy('id', 'DESC')
+               ->get();
+           } else {
+               $service = Service::with('dtlservice')->with('motor')->orderBy('id', 'DESC')
+               ->get();
+           }
 
-            return DataTables::of($service)
-            ->addColumn('action', function ($service) {
-                return '' .
-                    '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
-                    '&nbsp;<a href="' . route('toplevel.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
-            })->rawColumns(['action'])->make(true);
-            return response()->toJson(['service' => $service]);
-        }
-    }
+           return DataTables::of($service)
+           ->addColumn('action', function ($service) {
+               return '' .
+                   '&nbsp;<a href="#mymodal" data-remote="' . route('toplevel.servis.show', $service->id) . '" data-toggle="modal" data-target="#mymodal" data-title="Invoice Number #' . $service->invocie_number . '" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>' .
+                   '&nbsp;<a href="' . route('toplevel.servis.invoice', ['id' => $service->id]) . '" class="btn btn-danger btn-sm"><i class="fa fa-print"></i></a>';
+           })->rawColumns(['action'])->make(true);
+           return response()->toJson(['service' => $service]);
+
+       }
+   }
 
     public function exportExcel()
     {

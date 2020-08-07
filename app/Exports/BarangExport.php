@@ -22,7 +22,10 @@ class BarangExport implements FromCollection, WithMapping, WithHeadings, ShouldA
     {
         return [
             $barang->category->name,
+            $barang->kode_barang,
             $barang->name_barang,
+            $barang->details_barang->harga_dasar,
+            $barang->details_barang->harga_jual,
             $barang->details_barang->stock,
         ];
     }
@@ -31,7 +34,10 @@ class BarangExport implements FromCollection, WithMapping, WithHeadings, ShouldA
     {
         return [
             'Category Barang',
+            'Kode Barang',
             'Name Barang',
+            'Harga Dasar',
+            'Harga Jual',
             'Stock Barang',
         ];
     }

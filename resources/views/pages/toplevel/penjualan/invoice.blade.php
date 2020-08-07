@@ -125,7 +125,7 @@
                         <div class="float-right">
                             <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i
                                     class="fa fa-print"></i></a>
-                            <a href="{{route('admin.servis.index')}}"
+                            <a href="{{route('toplevel.laporan.index3')}}"
                                 class="btn btn-secondary waves-effect waves-light">back</a>
                         </div>
                     </div>

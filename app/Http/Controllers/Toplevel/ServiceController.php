@@ -147,7 +147,7 @@ class ServiceController extends Controller
     public function invoice(Request $request, $id)
     {
         $service = Service::with('mekanik')->with('motor')->with('dtlservice.barang')->findOrFail($id);
-        return view('pages.toplevel.servis.invoice', [
+        return view('pages.admin.servis.invoice', [
             'service' => $service
         ]);
     }

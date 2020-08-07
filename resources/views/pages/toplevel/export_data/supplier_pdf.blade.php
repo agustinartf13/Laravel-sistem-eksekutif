@@ -70,21 +70,21 @@
     <table>
         <thead>
             <tr>
-                <th>Nama Supplier</th>
-                <th>Email</th>
-                <th>Perusahaan</th>
-                <th>No Telphone</th>
-                <th>address</th>
+                <th style="font-size: 12px">Nama Supplier</th>
+                <th style="font-size: 12px">Email</th>
+                <th style="font-size: 12px">Perusahaan</th>
+                <th style="font-size: 12px">No Telphone</th>
+                <th style="font-size: 12px">address</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($suppliers as $supplier)
             <tr>
-                <td>{{ $supplier->name_supplier }}</td>
-                <td>{{ $supplier->email }}</td>
-                <td>{{ $supplier->perusahaan }}</td>
-                <td>{{ $supplier->no_telphone }}</td>
-                <td>{{ $supplier->address }}</td>
+                <td style="font-size: 12px">{{ $supplier->name_supplier }}</td>
+                <td style="font-size: 12px">{{ $supplier->email }}</td>
+                <td style="font-size: 12px">{{ $supplier->perusahaan }}</td>
+                <td style="font-size: 12px">{{ $supplier->no_telphone }}</td>
+                <td style="font-size: 12px">{{ $supplier->address }}</td>
             </tr>
             @endforeach
         </tbody>

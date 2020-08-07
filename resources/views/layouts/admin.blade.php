@@ -26,7 +26,7 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <a href="index.html" class="logo">
-                    <h3 class="mt-3" style="color: white">AHSS</h3>
+                    <h3 class="mt-3" style="color: white">SIML</h3>
                 </a>
             </div>
             <nav class="navbar-custom">

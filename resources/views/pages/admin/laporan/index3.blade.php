@@ -189,62 +189,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-{{--
-<script>
-    var ctx = document.getElementById('bar').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-            datasets: [
-                {
-                    label: "Omset",
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 2,
-                    data: {!!json_encode($omset)!!}
-    },
-        {
-            label: "Jasa",
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.2)',
-            ],
-            borderColor: [
-                'rgba(75, 192, 192, 1)',
-            ],
-            borderWidth: 2,
-            data: {!!json_encode($jasa)!!}
-                },
-    {
-        label: "Profit",
-            backgroundColor: [
-                'rgba(153, 102, 255, 0.2)',
-            ],
-                borderColor: [
-                    'rgba(153, 102, 255, 1)',
-                ],
-                    borderWidth: 2,
-                        data: { !!json_encode($profit)!! }
-    }
-            ]
-        },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-    });
-</script>
---}}
-
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({

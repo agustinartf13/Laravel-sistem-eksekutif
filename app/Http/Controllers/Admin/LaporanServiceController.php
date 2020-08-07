@@ -283,7 +283,7 @@ class LaporanServiceController extends Controller
             return response()->toJson(['service' => $service]);
 
         }
-   }
+    }
 
    public function exportExcel()
     {

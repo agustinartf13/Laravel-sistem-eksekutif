@@ -21,6 +21,67 @@
         <div class="col-12">
             <div class="card m-b-20">
                 <div class="card-body">
+
+                     {{-- notifikasi form validasi --}}
+                     @if ($errors->has('file'))
+                     <span class="invalid-feedback" role="alert">
+                         <strong>{{ $errors->first('file') }}</strong>
+                     </span>
+                     @endif
+
+                     {{-- notifikasi sukses --}}
+                     @if ($sukses = Session::get('sukses'))
+                         <div class="alert alert-success alert-block">
+                             <button type="button" class="close" data-dismiss="alert">×</button>
+                             <strong>{{ $sukses }}</strong>
+                         </div>
+                     @endif
+
+                     <button type="button" class="btn btn-secondary" style="float: right" data-toggle="modal" data-target="#importExcel">
+                         <i class="fa fa-print mr-2"></i>Import Data
+                     </button>
+
+                     <!-- Import Excel -->
+                     <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                         <div class="modal-dialog" role="document">
+                             <form method="post" action="{{ route('operator.motor.importexcelmotor') }}" enctype="multipart/form-data">
+                                 <div class="modal-content">
+                                     <div class="modal-header">
+                                         <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                                     </div>
+                                     <div class="modal-body">
+
+                                         {{ csrf_field() }}
+
+                                         <label>Pilih file excel</label>
+                                         <div class="form-group">
+                                             <input type="file" class="filestyle" name="file" required="required"  data-buttonname="btn-secondary">
+                                         </div>
+
+                                     </div>
+                                     <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                         <button type="submit" class="btn btn-primary">Import</button>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                     </div>
+
+                     <a
+                     href="{{ route('operator.motor.exportexcelmotor') }}"
+                     class="btn btn-success btn-flat d-inline mr-1"
+                     style="float: right"
+                     ><i class="fa fa-print"></i> Excel</a
+                     >
+
+                     <a
+                     href="{{ route('operator.motor.exportpdfmotor') }}"
+                     class="btn btn-primary btn-flat d-inline mr-1"
+                     style="float: right"
+                     ><i class="fa fa-print"></i> Pdf</a
+                     >
+
                     <h4 class="mt-0 header-title" style="font-size: 22px"><i class="mdi mdi-cube mr-2"></i>Data Motor</h4>
                     <hr>
                     <button id="btn_addmotor" name="btn_addmotor" class="btn btn-danger waves-effect waves-light"

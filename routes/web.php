@@ -29,10 +29,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get("/api/motor", "MotorController@apimotor")->name("api.motor");
     Route::get("/motor/{id}/edit", "MotorController@edit")->name("motor.edit");
     Route::post("/motor/update", "MotorController@update")->name("motor.update");
+    Route::get("/motor/exportpdfmotor", "MotorController@exportPdf")->name("motor.exportpdfmotor");
+    Route::get("/motor/exportexcelmotor", "MotorController@exportExcel")->name("motor.exportexcelmotor");
+    Route::post("/motor/importexcelmotor", "MotorController@importExcel")->name("motor.importexcelmotor");
     Route::resource('motor', 'MotorController');
 
     Route::get("/mekanik/{id}/set-status", "MekanikController@setStatus")->name("mekanik.status");
     Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
+    Route::get("/mekanik/exportpdfmekanik", "MekanikController@exportPdf")->name("mekanik.exportpdfmekanik");
+    Route::get("/mekanik/exportexcelmekanik", "MekanikController@exportExcel")->name("mekanik.exportexcelmekanik");
+    Route::post("/mekanik/importexcelmekanik", "MekanikController@importExcel")->name("mekanik.importexcelmekanik");
     Route::resource('mekanik', 'MekanikController');
 
     Route::get("/api/categories", "CategoryController@apicategories")->name("api.categories");
@@ -40,12 +46,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('categories', 'CategoryController');
 
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
-    Route::get("/barang/exportpdfbarang", "BarangController@exportPdf")->name("barang.exportpdfbarang");
-    Route::get("/barang/exportexcelbarang", "BarangController@exportExcel")->name("barang.exportexcelbarang");
+    Route::get("/barang/exportpdflistbarang", "BarangController@exportPdf")->name("barang.exportpdflistbarang");
+    Route::get("/barang/exportexcellistbarang", "BarangController@exportExcel")->name("barang.exportexcellistbarang");
+    Route::post("/barang/importexcelbarang", "BarangController@importExcel")->name("barang.importexcelbarang");
     Route::resource('barang', 'BarangController');
 
     Route::get("/supplier/{id}/set-status", "SupplierController@setStatus")->name("supplier.status");
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
+    Route::post("/supplier/importexcelsupplier", "SupplierController@importExcel")->name("supplier.importecxelsupplier");
     Route::resource('supplier', 'SupplierController');
 
     Route::get('persediaan', "PersediaanController@index")->name('persediaan');
@@ -96,16 +104,18 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/show/data", 'DashboardController@showData')->name('show.data');
 
     Route::get("/api/motor", "MotorController@apimotor")->name("api.motor");
-    Route::get("/motor/exportpdfmotor", "MotorController@exportPdf")->name("motor.exportpdfmotor");
-    Route::get("/motor/exportexcelmotor", "MotorController@exportExcel")->name("motor.exportexcelmotor");
     Route::get("/motor/{id}/edit", "MotorController@edit")->name("motor.edit");
     Route::post("/motor/update", "MotorController@update")->name("motor.update");
+    Route::get("/motor/exportpdfmotor", "MotorController@exportPdf")->name("motor.exportpdfmotor");
+    Route::get("/motor/exportexcelmotor", "MotorController@exportExcel")->name("motor.exportexcelmotor");
+    Route::post("/motor/importexcelmotor", "MotorController@importExcel")->name("motor.importexcelmotor");
     Route::resource('motor', 'MotorController');
 
     Route::get("/mekanik/{id}/set-status", "MekanikController@setStatus")->name("mekanik.status");
     Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
     Route::get("/mekanik/exportpdfmekanik", "MekanikController@exportPdf")->name("mekanik.exportpdfmekanik");
     Route::get("/mekanik/exportexcelmekanik", "MekanikController@exportExcel")->name("mekanik.exportexcelmekanik");
+    Route::post("/mekanik/importexcelmekanik", "MekanikController@importExcel")->name("mekanik.importexcelmekanik");
     Route::resource('mekanik', 'MekanikController');
 
     Route::get("/api/categories", "CategoryController@apicategories")->name("api.categories");
@@ -113,6 +123,9 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::resource('categories', 'CategoryController');
 
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
+    Route::get("/barang/exportpdflistbarang", "BarangController@exportPdf")->name("barang.exportpdflistbarang");
+    Route::get("/barang/exportexcellistbarang", "BarangController@exportExcel")->name("barang.exportexcellistbarang");
+    Route::post("/barang/importexcelbarang", "BarangController@importExcel")->name("barang.importexcelbarang");
     Route::resource('barang', 'BarangController');
 
     Route::get('persediaan', "PersediaanController@index")->name('persediaan');
@@ -124,6 +137,7 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/supplier/exportpdfsupplier", "SupplierController@exportPdf")->name("supplier.exportpdfsupplier");
     Route::get("/supplier/exportexcelsupplier", "SupplierController@exportExcel")->name("supplier.exportexcelsupplier");
     Route::get("/api/supplier", "SupplierController@apisupplier")->name("api.supplier");
+    Route::post("/supplier/importexcelsupplier", "SupplierController@importExcel")->name("supplier.importecxelsupplier");
     Route::resource('supplier', 'SupplierController');
 
     Route::get("/pembelian/{id}/set-status", "PembelianController@setStatus")->name("pembelian.status");
@@ -162,6 +176,7 @@ Route::group(['as' => 'toplevel.', 'prefix' => 'toplevel', 'namespace' => 'Tople
     Route::get("/laporan/service/exportpdfservice", "LaporanServiceController@exportPdf")->name("laporan.exportpdfservice");
     Route::get("/api/service", "LaporanServiceController@apiservice")->name("api.service");
 
+
 });
 
 # route operator group
@@ -171,10 +186,16 @@ Route::group(['as' => 'operator.', 'prefix' => 'operator', 'namespace' => 'Opera
     Route::get("/api/motor", "MotorController@apimotor")->name("api.motor");
     Route::get("/motor/{id}/edit", "MotorController@edit")->name("motor.edit");
     Route::post("/motor/update", "MotorController@update")->name("motor.update");
+    Route::get("/motor/exportpdfmotor", "MotorController@exportPdf")->name("motor.exportpdfmotor");
+    Route::get("/motor/exportexcelmotor", "MotorController@exportExcel")->name("motor.exportexcelmotor");
+    Route::post("/motor/importexcelmotor", "MotorController@importExcel")->name("motor.importexcelmotor");
     Route::resource('motor', 'MotorController');
 
     Route::get("/mekanik/{id}/set-status", "MekanikController@setStatus")->name("mekanik.status");
     Route::get("/api/mekanik", "MekanikController@apimekanik")->name("api.mekanik");
+    Route::get("/mekanik/exportpdfmekanik", "MekanikController@exportPdf")->name("mekanik.exportpdfmekanik");
+    Route::get("/mekanik/exportexcelmekanik", "MekanikController@exportExcel")->name("mekanik.exportexcelmekanik");
+    Route::post("/mekanik/importexcelmekanik", "MekanikController@importExcel")->name("mekanik.importexcelmekanik");
     Route::resource('mekanik', 'MekanikController');
 
     Route::get("/api/categories", "CategoryController@apicategories")->name("api.categories");
@@ -182,7 +203,9 @@ Route::group(['as' => 'operator.', 'prefix' => 'operator', 'namespace' => 'Opera
     Route::resource('categories', 'CategoryController');
 
     Route::get("/api/barang", "BarangController@apibarang")->name("api.barang");
-
+    Route::get("/barang/exportpdflistbarang", "BarangController@exportPdf")->name("barang.exportpdflistbarang");
+    Route::get("/barang/exportexcellistbarang", "BarangController@exportExcel")->name("barang.exportexcellistbarang");
+    Route::post("/barang/importexcelbarang", "BarangController@importExcel")->name("barang.importexcelbarang");
     Route::resource('barang', 'BarangController');
 
     Route::get('persediaan', "PersediaanController@index")->name('persediaan');

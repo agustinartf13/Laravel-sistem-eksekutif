@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\MekanikExport;
 use App\Http\Controllers\Controller;
+use App\Imports\MekanikImport;
 use App\Mekanik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +12,8 @@ use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class MekanikController extends Controller
 {
@@ -180,5 +184,46 @@ class MekanikController extends Controller
 
         return redirect()->route('admin.mekanik.index')
             ->with('status', 'Status successfully updated');
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $mekaniks = Mekanik::all();
+        $pdf = PDF::loadView('pages.toplevel.export_data.mekanik_pdf', [
+            'mekaniks' => $mekaniks, 'year_today' => $year_today
+        ]);
+        return $pdf->stream('mekanik.pdf');
+
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new MekanikExport, 'listmekanik.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+            // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand().$file->getClientOriginalName();
+
+        // upload ke folder file_siswa di dalam folder public
+        $file->move('file_mekanik',$nama_file);
+
+        // import data
+        Excel::import(new MekanikImport, public_path('/file_mekanik/'.$nama_file));
+
+        // notifikasi dengan session
+        Session::flash('sukses','Data mekanik Berhasil Diimport!');
+
+        // alihkan halaman kembali
+        return redirect()->route('admin.mekanik.index');
     }
 }

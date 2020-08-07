@@ -59,17 +59,17 @@
     <table>
         <thead>
             <tr>
-                <th>Category Barang</th>
-                <th>Name Barang</th>
-                <th>Stock</th>
+                <th style="font-size: 12px">Category Barang</th>
+                <th style="font-size: 12px">Name Barang</th>
+                <th style="font-size: 12px">Stock</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($barangs as $barang)
             <tr>
-                <td>{{ $barang->category->name }}</td>
-                <td>{{ $barang->name_barang }}</td>
-                <td>{{ $barang->details_barang->stock }}</td>
+                <td style="font-size: 12px">{{ $barang->category->name }}</td>
+                <td style="font-size: 12px">{{ $barang->name_barang }}</td>
+                <td style="font-size: 12px">{{ $barang->details_barang->stock }}</td>
             </tr>
             @endforeach
         </tbody>

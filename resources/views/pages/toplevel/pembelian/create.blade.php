@@ -33,9 +33,7 @@
                     <form id="add_barang" action="{{route('admin.pembelian.store')}}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-
                         <div class="row mt-4">
-
                             <div class="col">
                                 <label for="">Name Supplier</label>
                                 <select class="form-control select2 @error('supplier') is-invalid @enderror"

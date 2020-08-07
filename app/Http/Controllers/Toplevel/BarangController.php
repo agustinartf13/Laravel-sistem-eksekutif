@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Toplevel;
 
-use Session;
 use App\Barang;
 use App\BarangDetail;
 use App\Category;
+use App\Exports\BarangExport;
 use App\Http\Controllers\Controller;
+use App\Imports\BarangImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use Session;
 
 
 class BarangController extends Controller
@@ -199,5 +204,46 @@ class BarangController extends Controller
         $barang->delete();
 
         return response()->json(['status' => 'Barang deleted successfully']);
+    }
+
+    public function exportPdf()
+    {
+        $year_today = Carbon::now()->format('Y');
+        $barangs = Barang::with('category', 'details_barang')->get();
+        $pdf = PDF::loadView('pages.toplevel.export_data.list_barang_pdf', [
+            'barangs' => $barangs, 'year_today' => $year_today
+        ]);
+        return $pdf->stream('barang.pdf');
+
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BarangExport, 'listbarang.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand().$file->getClientOriginalName();
+
+        // upload ke folder di dalam folder public
+        $file->move('file_barang',$nama_file);
+
+        // import data
+        Excel::import(new BarangImport, public_path('/file_barang/'.$nama_file));
+
+        // notifikasi dengan session
+        Session::flash('sukses','Data barang Berhasil Diimport!');
+
+        // alihkan halaman kembali
+        return redirect()->route('toplevel.barang.index');
     }
 }
